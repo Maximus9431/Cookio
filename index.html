@@ -1,42 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Питомец</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hatch a Pet</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <!-- Верхняя панель с характеристиками -->
-    <div class="top-bar">
-        <div class="stat">
-            <span class="icon">💰</span> <span id="coins">0</span>
-        </div>
-        <div class="stat">
-            <span class="icon">⚡️</span> <span id="energy">100</span>
-        </div>
-        <div class="stat">
-            <span class="icon">🍔</span> <span id="hunger">50</span>
-        </div>
-        <div class="stat">
-            <span class="icon">😊</span> <span id="mood">80</span>
-        </div>
-    </div>
+  <div id="game-container">
+    <img id="egg" src="egg_0.png" alt="Egg" />
+    <img id="pet" src="pet_placeholder.png" alt="Pet" />
+  </div>
 
-    <!-- Основное содержимое -->
-    <div class="content">
-        <h1>🐾 Питомец: Мурзик 🐱</h1>
-        <div class="pet">😺</div>
-        <div class="buttons">
-            <button onclick="earnCoins()">Заработать монеты 💰</button>
-            <button onclick="feedPet()">Покормить питомца 🍗</button>
-            <button onclick="playWithPet()">Играть с питомцем 🎾</button>
-            <button onclick="restPet()">Отдыхать 😴</button>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
