@@ -4,101 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Питомец</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        .stat {
-            margin: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <h1>🐾 Питомец: Мурзик 🐱</h1>
-    <div id="stats">
-        <div class="stat">💰 Монеты: <span id="coins">0</span></div>
-        <div class="stat">⚡️ Энергия: <span id="energy">100</span></div>
-        <div class="stat">🍔 Сытость: <span id="hunger">50</span></div>
-        <div class="stat">😊 Настроение: <span id="mood">80</span></div>
+    <!-- Верхняя панель с характеристиками -->
+    <div class="top-bar">
+        <div class="stat">
+            <span class="icon">💰</span> <span id="coins">0</span>
+        </div>
+        <div class="stat">
+            <span class="icon">⚡️</span> <span id="energy">100</span>
+        </div>
+        <div class="stat">
+            <span class="icon">🍔</span> <span id="hunger">50</span>
+        </div>
+        <div class="stat">
+            <span class="icon">😊</span> <span id="mood">80</span>
+        </div>
     </div>
-    <button onclick="earnCoins()">Заработать монеты 💰</button>
-    <button onclick="feedPet()">Покормить питомца 🍗</button>
-    <button onclick="playWithPet()">Играть с питомцем 🎾</button>
-    <button onclick="restPet()">Отдыхать 😴</button>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        const tg = window.Telegram.WebApp;
+    <!-- Основное содержимое -->
+    <div class="content">
+        <h1>🐾 Питомец: Мурзик 🐱</h1>
+        <div class="pet">😺</div>
+        <div class="buttons">
+            <button onclick="earnCoins()">Заработать монеты 💰</button>
+            <button onclick="feedPet()">Покормить питомца 🍗</button>
+            <button onclick="playWithPet()">Играть с питомцем 🎾</button>
+            <button onclick="restPet()">Отдыхать 😴</button>
+        </div>
+    </div>
 
-        // Получение ID пользователя
-        const userId = tg.initDataUnsafe.user.id;
-
-        // Функция для загрузки данных пользователя
-        async function loadUserData() {
-            const response = await fetch(`/api/user/${userId}`);
-            const data = await response.json();
-            document.getElementById('coins').textContent = data.coins;
-            document.getElementById('energy').textContent = data.energy;
-            document.getElementById('hunger').textContent = data.hunger;
-            document.getElementById('mood').textContent = data.mood;
-        }
-
-        // Функция для сохранения данных пользователя
-        async function saveUserData(data) {
-            await fetch(`/api/user/${userId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-        }
-
-        // Действия
-        async function earnCoins() {
-            let data = await fetch(`/api/user/${userId}`).then(res => res.json());
-            data.coins += 10;
-            data.energy -= 10;
-            saveUserData(data);
-            loadUserData();
-        }
-
-        async function feedPet() {
-            let data = await fetch(`/api/user/${userId}`).then(res => res.json());
-            if (data.coins >= 5) {
-                data.coins -= 5;
-                data.hunger += 20;
-                data.mood += 10;
-                saveUserData(data);
-                loadUserData();
-            } else {
-                alert("❌ Недостаточно монет!");
-            }
-        }
-
-        async function playWithPet() {
-            let data = await fetch(`/api/user/${userId}`).then(res => res.json());
-            data.mood += 15;
-            data.energy -= 10;
-            saveUserData(data);
-            loadUserData();
-        }
-
-        async function restPet() {
-            let data = await fetch(`/api/user/${userId}`).then(res => res.json());
-            data.energy += 30;
-            data.mood -= 5;
-            saveUserData(data);
-            loadUserData();
-        }
-
-        // Загрузка данных при старте
-        loadUserData();
-    </script>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
