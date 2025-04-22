@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let crackStage = 0;
 
   egg.addEventListener('click', () => {
-    // Добавляем класс для тряски яйца
-    egg.classList.add('shake');
+    // Добавляем класс для "шевеления" яйца
+    egg.classList.add('wiggle');
 
-    // Удаляем класс тряски после завершения анимации
+    // Удаляем класс после завершения анимации
     setTimeout(() => {
-      egg.classList.remove('shake');
-    }, 500);
+      egg.classList.remove('wiggle');
+    }, 800);
 
     crackStage++;
 
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       // Скрываем яйцо и показываем питомца
       egg.style.display = 'none';
-      pet.src = "pet_final.png"; // Замените на реальное изображение питомца
+      pet.src = "pet_placeholder.png"; // Замените на реальное изображение питомца
       pet.classList.add('show');
 
       const user = window.Telegram.WebApp.initDataUnsafe?.user;
