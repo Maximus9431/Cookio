@@ -40,7 +40,23 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(res => res.json())
       .then(data => {
         console.log("Pet hatched:", data);
+        levelUpPet(petId); // Уровень питомца после вылупления
       });
     }
   });
+
+  function levelUpPet(petId) {
+    fetch(`/api/pet/${petId}/level-up`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ experience: 100 }) // Пример опыта
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Pet leveled up:", data);
+      // Добавить анимацию роста
+      pet.classList.add('level-up-animation');
+      setTimeout(() => pet.classList.remove('level-up-animation'), 1000);
+    });
+  }
 });
