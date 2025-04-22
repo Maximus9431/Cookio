@@ -1,38 +1,38 @@
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
-import logging
+from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from telegram.ext import Application, CommandHandler, ContextTypes
 import os
+import logging
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
-app = Flask(__name__, static_url_path='', static_folder='.')
-CORS(app)
+# Замените на ваш токен
+TOKEN = "7747898663:AAGbBP1SgufF4zsB6KPYqfeM0G0L0IsKEvM"
 
-# Простое хранилище игроков
-players = {}
+# Ссылка на вашу Web App (где index.html загружается)
+WEB_APP_URL = "https://maximus9431.github.io/Cookio/"  # или https://127.0.0.1:8000 если локально
 
-@app.route('/api/hatch', methods=['POST'])
-def hatch_pet():
-    data = request.json
-    telegram_id = str(data.get("telegram_id"))
-    pet_id = data.get("pet_id")
+# Команда /start
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("🎮 Открыть игру", web_app=WebAppInfo(url=WEB_APP_URL))]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    await update.message.reply_text(
+        "Привет! Нажми кнопку ниже, чтобы начать вылуплять своего питомца 🐣",
+        reply_markup=reply_markup
+    )
 
-    if telegram_id and pet_id:
-        players[telegram_id] = {
-            "pet_id": pet_id,
-            "level": 1,
-            "coins": 0
-        }
-        return jsonify({"status": "ok", "pet_id": pet_id})
-    return jsonify({"status": "error"}), 400
+def main():
+    app = Application.builder().token(TOKEN).build()
 
-# Раздача HTML и статики
-@app.route('/')
-def index():
-    return send_from_directory('.', 'index.html')
+    app.add_handler(CommandHandler("start", start))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    print("Бот запущен...")
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
