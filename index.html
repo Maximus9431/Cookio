@@ -8,65 +8,9 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <!-- Верхняя панель -->
-  <div id="header">
-    <div class="user-info">
-      <div class="avatar">
-        <img src="user_avatar.png" alt="User Avatar" />
-      </div>
-      <div class="username">
-        <h1>Blum 🟢</h1>
-        <p>Общий баланс<br /><span id="player-currency"><$0.01</span></p>
-      </div>
-    </div>
-    <div class="actions">
-      <button id="settings">...</button>
-      <button id="close">X</button>
-    </div>
-  </div>
-
-  <!-- Основной контент -->
-  <div id="content">
-    <!-- Питомец в центре -->
-    <div id="pet-container">
-      <img id="egg" src="egg_0.png" alt="Egg" />
-      <img id="pet" src="pet_placeholder.png" alt="Pet" class="hidden" />
-    </div>
-
-    <!-- Средняя часть: статистика и действия -->
-    <div id="middle-section">
-      <div class="daily-task">
-        <img src="lightning-icon.png" alt="Lightning" />
-        <div>
-          <p>0-дни чек-ина</p>
-          <p>Следующий клейм через 07h 31m</p>
-        </div>
-        <button id="claim-button">Собрать</button>
-      </div>
-
-      <div class="campaign">
-        <h2>Blum x DOGS Trading Campaign</h2>
-        <p>Total Reward 150M $DOGS</p>
-        <button id="join-button">Join Now</button>
-        <img src="dog-icon.png" alt="Dog Icon" />
-      </div>
-
-      <div class="points">
-        <h2>Пойнты</h2>
-        <button id="view-points">→</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Нижняя навигационная панель -->
-  <div id="footer">
-    <nav>
-      <a href="#home"><img src="home-icon.png" alt="Home" />Главная</a>
-      <a href="#income"><img src="income-icon.png" alt="Income" />Доход</a>
-      <a href="#meterpad"><img src="meterpad-icon.png" alt="Meterpad" />Метерпад</a>
-      <a href="#friends"><img src="friends-icon.png" alt="Friends" />Друзья</a>
-      <a href="#wallet"><img src="wallet-icon.png" alt="Wallet" />Кошелек</a>
-    </nav>
+  <div id="game-container">
+    <img id="egg" src="egg_0.png" alt="Egg" />
+    <img id="pet" src="pet_placeholder.png" alt="Pet" />
   </div>
 
   <script src="script.js"></script>
