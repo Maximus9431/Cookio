@@ -11,8 +11,62 @@
   <div id="game-container">
     <img id="egg" src="egg_0.png" alt="Egg" />
     <img id="pet" src="pet_placeholder.png" alt="Pet" />
+    <button id="open-shop">Открыть магазин</button>
   </div>
 
-  <script src="script.js"></script>
+  <div id="shop-container" style="display: none;">
+    <h1>Магазин</h1>
+    <button class="shop-item" data-item="hat">Купить шляпу (10 монет)</button>
+    <button class="shop-item" data-item="glasses">Купить очки (15 монет)</button>
+    <button class="shop-item" data-item="costume">Купить костюм (30 монет)</button>
+    <button id="back-to-game">Вернуться в игру</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const gameContainer = document.getElementById("game-container");
+      const shopContainer = document.getElementById("shop-container");
+      const openShopButton = document.getElementById("open-shop");
+      const backToGameButton = document.getElementById("back-to-game");
+
+      // Получение Telegram ID пользователя
+      const user = window.Telegram.WebApp.initDataUnsafe?.user;
+      const telegramId = user ? user.id : null;
+
+      if (!telegramId) {
+        alert("Не удалось получить Telegram ID. Проверьте авторизацию.");
+        return;
+      }
+
+      // Открыть магазин
+      openShopButton.addEventListener("click", () => {
+        gameContainer.style.display = "none";
+        shopContainer.style.display = "block";
+      });
+
+      // Вернуться в игру
+      backToGameButton.addEventListener("click", () => {
+        shopContainer.style.display = "none";
+        gameContainer.style.display = "block";
+      });
+
+      // Покупка предмета
+      document.querySelectorAll(".shop-item").forEach(button => {
+        button.addEventListener("click", () => {
+          const item = button.getAttribute("data-item");
+          fetch('/api/shop/buy', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ telegram_id: telegramId, item: item })
+          })
+          .then(res => res.json())
+          .then(data => {
+            alert(`Вы купили: ${item}`);
+            console.log("Purchase result:", data);
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>
