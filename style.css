@@ -11,13 +11,16 @@ body {
 #game-container {
   position: relative;
   width: 300px;
-  height: 300px;
+  height: 400px;
+  text-align: center;
 }
 
 #egg, #pet {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: 60%;
   object-fit: contain;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -46,4 +49,64 @@ body {
 
 .wiggle {
   animation: wiggle 0.8s ease-in-out;
+}
+
+/* Статистика и кнопки */
+#stats-panel {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+#action-buttons {
+  margin-top: 10px;
+}
+
+#action-buttons button {
+  margin: 5px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#action-buttons button:hover {
+  background-color: #0056b3;
+}
+
+/* Магазин и задания */
+.hidden {
+  display: none;
+}
+
+#shop, #quests {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#shop-items, #quest-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+#shop-items li, #quest-list li {
+  margin: 5px 0;
+}
+
+#shop-items li button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#shop-items li button:hover {
+  background-color: #218838;
 }

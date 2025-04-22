@@ -2,27 +2,22 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Временное хранилище данных пользователей
-users = {}
+# Пример базы данных (замените на реальную БД)
+players = {}
 
-# Получение данных пользователя
-@app.route('/api/user/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    user = users.get(user_id, {
-        "coins": 0,
-        "energy": 100,
-        "hunger": 50,
-        "mood": 80,
-        "inventory": []
-    })
-    return jsonify(user)
-
-# Обновление данных пользователя
-@app.route('/api/user/<int:user_id>', methods=['POST'])
-def update_user(user_id):
+@app.route('/api/hatch', methods=['POST'])
+def hatch_pet():
     data = request.json
-    users[user_id] = data
-    return jsonify({"status": "success"})
+    user_id = data.get('telegram_id')
+    pet_id = data.get('pet_id')
 
-if __name__ == '__main__':
+    # Сохраняем питомца
+    players[user_id] = {
+        'pet': {'id': pet_id, 'level': 1, 'strength': 10, 'hunger': 50, 'emotions': 50},
+        'currency': 0
+    }
+
+    return jsonify({"success": True, "message": "Pet hatched!", "pet_id": pet_id})
+
+if __name__ == "__main__":
     app.run(debug=True)

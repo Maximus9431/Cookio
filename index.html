@@ -9,8 +9,42 @@
 </head>
 <body>
   <div id="game-container">
+    <!-- Яйцо -->
     <img id="egg" src="egg_0.png" alt="Egg" />
+
+    <!-- Питомец -->
     <img id="pet" src="pet_placeholder.png" alt="Pet" />
+
+    <!-- Панель статистики -->
+    <div id="stats-panel">
+      <p>Level: <span id="pet-level">1</span></p>
+      <p>Strength: <span id="pet-strength">10</span></p>
+      <p>Hunger: <span id="pet-hunger">50%</span></p>
+      <p>Emotions: <span id="pet-emotions">50%</span></p>
+      <p>Currency: <span id="player-currency">0</span></p>
+    </div>
+
+    <!-- Кнопки действий -->
+    <div id="action-buttons">
+      <button id="feed-pet">Feed Pet (20 coins)</button>
+      <button id="level-up-pet">Level Up (100 coins)</button>
+      <button id="open-shop">Open Shop</button>
+      <button id="start-pvp">Start PvP Match</button>
+    </div>
+
+    <!-- Магазин -->
+    <div id="shop" class="hidden">
+      <h3>Shop</h3>
+      <ul id="shop-items"></ul>
+      <button id="close-shop">Close Shop</button>
+    </div>
+
+    <!-- Ежедневные задания -->
+    <div id="quests" class="hidden">
+      <h3>Daily Quests</h3>
+      <ul id="quest-list"></ul>
+      <button id="close-quests">Close Quests</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
