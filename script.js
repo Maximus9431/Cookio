@@ -11,16 +11,23 @@ egg.addEventListener('click', () => {
     egg.style.display = 'none';
     pet.classList.add('show');
 
-    // Отправим данные на сервер о том, что игрок получил питомца
+    const user = window.Telegram.WebApp.initDataUnsafe?.user;
+    const userId = user ? user.id : "demo_" + Math.floor(Math.random() * 10000);
+    const petId = Math.floor(Math.random() * 500) + 1;
+
     fetch('/api/hatch', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        telegram_id: window.Telegram.WebApp.initDataUnsafe.user.id,
-        pet_id: Math.floor(Math.random() * 500) + 1
+        telegram_id: userId,
+        pet_id: petId
       })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Pet hatched:", data);
     });
   }
 });
