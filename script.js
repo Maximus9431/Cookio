@@ -20,7 +20,20 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       // Скрываем яйцо и показываем питомца
       egg.style.display = 'none';
-      pet.src = "pet_placeholder.png"; // Замените на реальное изображение питомца
+
+      // Массив с изображениями питомцев
+      const petImages = [
+        "pet_1.png",
+        "pet_2.png",
+        "pet_3.png",
+        "pet_4.png",
+        "pet_5.png",
+        "pet_6.png"
+      ];
+
+      // Выбираем случайное изображение
+      const randomPetImage = petImages[Math.floor(Math.random() * petImages.length)];
+      pet.src = randomPetImage;
       pet.classList.add('show');
 
       const user = window.Telegram.WebApp.initDataUnsafe?.user;
