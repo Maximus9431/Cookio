@@ -8,6 +8,14 @@ body {
   height: 100vh;
 }
 
+#game-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .tabs {
   display: flex;
   flex-wrap: wrap;
@@ -15,6 +23,9 @@ body {
   gap: 5px;
   background-color: #ddd;
   padding: 10px;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
 }
 
 .tabs button {
