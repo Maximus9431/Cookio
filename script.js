@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const hatchText = document.querySelector('#pet h2'); // Находим текст
   let crackStage = 0; // Текущая стадия трещин (0 - целое яйцо, 3 - вылупление)
   const maxCrackStage = 3; // Максимальная стадия трещин
+  let isHatched = false; // Флаг, чтобы предотвратить повторное вылупление
 
   // Добавляем обработчик движения мыши или пальца
   egg.addEventListener('mousemove', (event) => {
@@ -28,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function handleScratch(x, y) {
+    if (isHatched) return; // Если яйцо уже вылупилось, ничего не делаем
+
     // Создаём эффект царапины
     const scratch = document.createElement('div');
     scratch.classList.add('scratch');
@@ -45,6 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function hatchEgg() {
+    if (isHatched) return; // Если яйцо уже вылупилось, ничего не делаем
+    isHatched = true; // Устанавливаем флаг
+
     egg.style.display = 'none'; // Скрываем яйцо
 
     // Массив с изображениями питомцев

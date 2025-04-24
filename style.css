@@ -46,15 +46,15 @@ body {
 }
 
 #egg {
-  width: 300px; /* Увеличиваем ширину */
-  height: 300px; /* Увеличиваем высоту */
+  width: 400px; /* Увеличиваем ширину */
+  height: 400px; /* Увеличиваем высоту */
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-#pet {
-  width: 300px; /* Размер питомца соответствует яйцу */
-  height: 300px;
+#petImage {
+  width: 400px; /* Размер питомца соответствует яйцу */
+  height: 400px;
   object-fit: contain;
   display: none; /* Скрыт по умолчанию */
 }
