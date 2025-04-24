@@ -14,7 +14,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 60px; /* Добавляем отступ для кнопок */
+  padding-bottom: 60px; /* Отступ для кнопок */
 }
 
 .tabs {
@@ -24,11 +24,11 @@ body {
   gap: 5px;
   background-color: #ddd;
   padding: 10px;
-  position: fixed; /* Фиксируем кнопки внизу */
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 10; /* Устанавливаем приоритет */
+  z-index: 10;
 }
 
 .tabs button {
@@ -46,8 +46,8 @@ body {
 }
 
 #egg {
-  width: 600px; /* Увеличиваем ширину */
-  height: 600px; /* Увеличиваем высоту */
+  width: 300px; /* Увеличенный размер яйца */
+  height: 300px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -60,8 +60,8 @@ body {
 }
 
 #pet {
-  width: 600px;
-  height: 600px;
+  width: 300px; /* Размер питомца */
+  height: 300px;
   object-fit: contain;
   display: none; /* Скрыт по умолчанию */
 }
