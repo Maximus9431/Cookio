@@ -8,9 +8,59 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <div id="game-container">
+  <div class="tabs">
+    <button data-tab="pet">🐾 Питомец</button>
+    <button data-tab="pvp">⚔️ PvP</button>
+    <button data-tab="quests">📜 Квесты</button>
+    <button data-tab="shop">🛍️ Магазин</button>
+    <button data-tab="inventory">💼 Инвентарь</button>
+    <button data-tab="leaderboard">📊 Топ</button>
+  </div>
+
+  <!-- Первый экран — клики по яйцу -->
+  <div class="tab-content" id="pet" style="display: block;">
+    <h2>🐣 Нажимай на яйцо, чтобы вылупить питомца</h2>
     <img id="egg" src="egg_0.png" alt="Egg" />
-    <img id="pet" alt="Pet" /> <!-- Добавлено для отображения питомца -->
+    <img id="pet" alt="Pet" />
+  </div>
+
+  <div class="tab-content" id="pvp" style="display: none;">
+    <h2>⚔️ PvP-Арена</h2>
+    <p>Скоро тут будут бои!</p>
+  </div>
+
+  <div class="tab-content" id="quests" style="display: none;">
+    <h2>📜 Квесты</h2>
+    <ul id="quests-list">
+      <li>Выполни 1 бой — 10 монет</li>
+      <li>Покорми питомца — 5 XP</li>
+    </ul>
+    <button>Собрать всё</button>
+  </div>
+
+  <div class="tab-content" id="shop" style="display: none;">
+    <h2>🛍️ Магазин</h2>
+    <ul>
+      <li>🍗 Еда — 10 монет</li>
+      <li>💧 Вода — 5 монет</li>
+      <li>🎩 Шляпа — 100 монет</li>
+    </ul>
+  </div>
+
+  <div class="tab-content" id="inventory" style="display: none;">
+    <h2>🎒 Инвентарь</h2>
+    <ul>
+      <li>Очки 😎</li>
+      <li>Шапка 🧢</li>
+    </ul>
+  </div>
+
+  <div class="tab-content" id="leaderboard" style="display: none;">
+    <h2>🏆 Лидеры</h2>
+    <ol>
+      <li>Игрок1 — 1500 очков</li>
+      <li>Игрок2 — 1350 очков</li>
+    </ol>
   </div>
 
   <script src="script.js"></script>
