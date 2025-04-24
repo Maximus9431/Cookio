@@ -48,12 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function hatchEgg() {
-    if (isHatched) return; // Если яйцо уже вылупилось, ничего не делаем
-    isHatched = true; // Устанавливаем флаг
+    if (isHatched) return;
+    isHatched = true;
 
-    egg.style.display = 'none'; // Скрываем яйцо
+    egg.style.display = 'none';
 
-    // Массив с изображениями питомцев
     const petImages = [
       "pet_1.png",
       "pet_2.png",
@@ -63,13 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
       "pet_6.png"
     ];
 
-    // Выбираем случайное изображение
     const randomPetImage = petImages[Math.floor(Math.random() * petImages.length)];
-    pet.src = randomPetImage; // Устанавливаем изображение питомца
-    pet.style.display = 'block'; // Делаем питомца видимым
-    pet.classList.add('show'); // Добавляем анимацию
+    console.log("Random pet image:", randomPetImage); // Отладочный вывод
+    pet.src = randomPetImage;
+    pet.style.display = 'block';
+    pet.classList.add('show');
 
-    // Убираем текст
     if (hatchText) {
       hatchText.style.display = 'none';
     }
