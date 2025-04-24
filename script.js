@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (crackStage < 3) {
       egg.src = `egg_${crackStage}.png`;
     } else {
-      egg.style.display = 'none';
+      egg.style.display = 'none'; // Скрываем яйцо
+
+      // Массив с изображениями питомцев
       const petImages = [
         "pet_1.png",
         "pet_2.png",
@@ -33,9 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
         "pet_5.png",
         "pet_6.png"
       ];
+
+      // Выбираем случайное изображение
       const randomPetImage = petImages[Math.floor(Math.random() * petImages.length)];
-      pet.src = randomPetImage;
-      pet.classList.add('show');
+      pet.src = randomPetImage; // Устанавливаем изображение питомца
+      pet.style.display = 'block'; // Делаем питомца видимым
+      pet.classList.add('show'); // Добавляем анимацию
 
       // Убираем текст
       if (hatchText) {
