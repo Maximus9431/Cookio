@@ -14,40 +14,56 @@ document.addEventListener("DOMContentLoaded", () => {
   const egg = document.getElementById('egg');
   const pet = document.getElementById('pet');
   const hatchText = document.querySelector('#pet h2'); // Находим текст
-  let crackStage = 0;
+  let crackProgress = 0; // Прогресс разлома яйца
+  const maxCrackProgress = 100; // Максимальный прогресс для вылупления
 
-  egg.addEventListener('click', () => {
-    egg.classList.add('wiggle');
-    setTimeout(() => egg.classList.remove('wiggle'), 800);
-
-    crackStage++;
-    if (crackStage < 3) {
-      egg.src = `egg_${crackStage}.png`;
-    } else {
-      egg.style.display = 'none'; // Скрываем яйцо
-
-      // Массив с изображениями питомцев
-      const petImages = [
-        "pet_1.png",
-        "pet_2.png",
-        "pet_3.png",
-        "pet_4.png",
-        "pet_5.png",
-        "pet_6.png"
-      ];
-
-      // Выбираем случайное изображение
-      const randomPetImage = petImages[Math.floor(Math.random() * petImages.length)];
-      pet.src = randomPetImage; // Устанавливаем изображение питомца
-      pet.style.display = 'block'; // Делаем питомца видимым
-      pet.classList.add('show'); // Добавляем анимацию
-
-      console.log("Random pet image:", randomPetImage);
-
-      // Убираем текст
-      if (hatchText) {
-        hatchText.style.display = 'none';
-      }
-    }
+  // Добавляем обработчик движения мыши или пальца
+  egg.addEventListener('mousemove', (event) => {
+    handleScratch(event.clientX, event.clientY);
   });
+
+  egg.addEventListener('touchmove', (event) => {
+    const touch = event.touches[0];
+    handleScratch(touch.clientX, touch.clientY);
+  });
+
+  function handleScratch(x, y) {
+    // Создаём эффект царапины
+    const scratch = document.createElement('div');
+    scratch.classList.add('scratch');
+    scratch.style.left = `${x - egg.offsetLeft}px`;
+    scratch.style.top = `${y - egg.offsetTop}px`;
+    egg.appendChild(scratch);
+
+    // Увеличиваем прогресс разлома
+    crackProgress += 5; // Увеличиваем прогресс на 5 за каждую царапину
+    if (crackProgress >= maxCrackProgress) {
+      hatchEgg();
+    }
+  }
+
+  function hatchEgg() {
+    egg.style.display = 'none'; // Скрываем яйцо
+
+    // Массив с изображениями питомцев
+    const petImages = [
+      "pet_1.png",
+      "pet_2.png",
+      "pet_3.png",
+      "pet_4.png",
+      "pet_5.png",
+      "pet_6.png"
+    ];
+
+    // Выбираем случайное изображение
+    const randomPetImage = petImages[Math.floor(Math.random() * petImages.length)];
+    pet.src = randomPetImage; // Устанавливаем изображение питомца
+    pet.style.display = 'block'; // Делаем питомца видимым
+    pet.classList.add('show'); // Добавляем анимацию
+
+    // Убираем текст
+    if (hatchText) {
+      hatchText.style.display = 'none';
+    }
+  }
 });
