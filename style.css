@@ -45,16 +45,16 @@ body {
   text-align: center;
 }
 
-#egg, #pet {
-  width: 200px;
-  height: 200px;
+#egg {
+  width: 300px; /* Увеличиваем ширину */
+  height: 300px; /* Увеличиваем высоту */
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
 #pet {
-  width: 200px;
-  height: 200px;
+  width: 300px; /* Размер питомца соответствует яйцу */
+  height: 300px;
   object-fit: contain;
   display: none; /* Скрыт по умолчанию */
 }
