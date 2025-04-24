@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const egg = document.getElementById('egg');
   const pet = document.getElementById('pet');
   const hatchText = document.querySelector('#pet h2'); // Находим текст
-  let crackProgress = 0; // Прогресс разлома яйца
-  const maxCrackProgress = 100; // Максимальный прогресс для вылупления
+  let crackStage = 0; // Текущая стадия трещин (0 - целое яйцо, 3 - вылупление)
+  const maxCrackStage = 3; // Максимальная стадия трещин
 
   // Добавляем обработчик движения мыши или пальца
   egg.addEventListener('mousemove', (event) => {
@@ -35,10 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
     scratch.style.top = `${y - egg.offsetTop}px`;
     egg.appendChild(scratch);
 
-    // Увеличиваем прогресс разлома
-    crackProgress += 5; // Увеличиваем прогресс на 5 за каждую царапину
-    if (crackProgress >= maxCrackProgress) {
-      hatchEgg();
+    // Увеличиваем стадию трещин
+    crackStage++;
+    if (crackStage < maxCrackStage) {
+      egg.src = `egg_${crackStage}.png`; // Меняем изображение яйца
+    } else {
+      hatchEgg(); // Вылупляем яйцо
     }
   }
 
