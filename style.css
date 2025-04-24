@@ -53,11 +53,14 @@ body {
 }
 
 #pet {
-  display: none;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  display: none; /* Скрыт по умолчанию */
 }
 
 #pet.show {
-  display: inline-block;
+  display: block; /* Показываем, когда добавлен класс show */
   animation: bounce 1s;
 }
 

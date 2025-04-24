@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
       pet.style.display = 'block'; // Делаем питомца видимым
       pet.classList.add('show'); // Добавляем анимацию
 
+      console.log("Random pet image:", randomPetImage);
+
       // Убираем текст
       if (hatchText) {
         hatchText.style.display = 'none';
