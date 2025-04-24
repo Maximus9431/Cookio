@@ -60,9 +60,9 @@ body {
 }
 
 #pet {
-  width: 300px; /* Размер питомца */
-  height: 300px;
-  object-fit: contain;
+  width: 200px; /* Уменьшаем ширину питомца */
+  height: 200px; /* Уменьшаем высоту питомца */
+  object-fit: contain; /* Сохраняем пропорции изображения */
   display: none; /* Скрыт по умолчанию */
 }
 
