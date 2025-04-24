@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Логика вылупления
   const egg = document.getElementById('egg');
   const pet = document.getElementById('pet');
+  const hatchText = document.querySelector('#pet h2'); // Находим текст
   let crackStage = 0;
 
   egg.addEventListener('click', () => {
@@ -24,9 +25,22 @@ document.addEventListener("DOMContentLoaded", () => {
       egg.src = `egg_${crackStage}.png`;
     } else {
       egg.style.display = 'none';
-      const randomPet = `pet_${Math.floor(Math.random() * 6) + 1}.png`;
-      pet.src = randomPet;
+      const petImages = [
+        "pet_1.png",
+        "pet_2.png",
+        "pet_3.png",
+        "pet_4.png",
+        "pet_5.png",
+        "pet_6.png"
+      ];
+      const randomPetImage = petImages[Math.floor(Math.random() * petImages.length)];
+      pet.src = randomPetImage;
       pet.classList.add('show');
+
+      // Убираем текст
+      if (hatchText) {
+        hatchText.style.display = 'none';
+      }
     }
   });
 });
