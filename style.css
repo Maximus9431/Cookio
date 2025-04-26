@@ -15,6 +15,7 @@ body {
   justify-content: center; /* Центрируем по вертикали */
   align-items: center; /* Центрируем по горизонтали */
   padding-bottom: 60px; /* Отступ для кнопок */
+  text-align: center; /* Центрируем текст */
 }
 
 .tabs {
