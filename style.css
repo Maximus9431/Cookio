@@ -40,12 +40,6 @@ body {
   cursor: pointer;
 }
 
-.tab-content {
-  flex-grow: 1;
-  padding: 20px;
-  text-align: center;
-}
-
 #egg {
   width: 300px; /* Размер яйца */
   height: 300px;
@@ -54,17 +48,10 @@ body {
   margin: 0 auto; /* Центрируем яйцо */
 }
 
-#petImage {
-  width: 600px; /* Размер питомца соответствует яйцу */
-  height: 600px;
-  object-fit: contain;
-  display: none; /* Скрыт по умолчанию */
-}
-
 #pet {
-  width: 200px; /* Уменьшаем ширину питомца */
-  height: 200px; /* Уменьшаем высоту питомца */
-  object-fit: contain; /* Сохраняем пропорции изображения */
+  width: 200px; /* Размер питомца */
+  height: 200px;
+  object-fit: contain;
   display: none; /* Скрыт по умолчанию */
 }
 

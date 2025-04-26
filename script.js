@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Логика вылупления
   const egg = document.getElementById('egg');
   const pet = document.getElementById('pet');
   const hatchText = document.querySelector('#pet h2'); // Находим текст
