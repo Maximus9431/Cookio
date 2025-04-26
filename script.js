@@ -17,25 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const maxCrackStage = 3; // Максимальная стадия трещин
   let isHatched = false; // Флаг, чтобы предотвратить повторное вылупление
 
-  // Добавляем обработчик движения мыши или пальца
-  egg.addEventListener('mousemove', (event) => {
-    handleScratch(event.clientX, event.clientY);
-  });
-
-  egg.addEventListener('touchmove', (event) => {
-    const touch = event.touches[0];
-    handleScratch(touch.clientX, touch.clientY);
-  });
-
-  function handleScratch(x, y) {
+  // Добавляем обработчик клика по яйцу
+  egg.addEventListener('click', () => {
     if (isHatched) return; // Если яйцо уже вылупилось, ничего не делаем
-
-    // Создаём эффект царапины
-    const scratch = document.createElement('div');
-    scratch.classList.add('scratch');
-    scratch.style.left = `${x - egg.offsetLeft}px`;
-    scratch.style.top = `${y - egg.offsetTop}px`;
-    egg.appendChild(scratch);
 
     // Увеличиваем стадию трещин
     crackStage++;
@@ -44,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       hatchEgg(); // Вылупляем яйцо
     }
-  }
+  });
 
   function hatchEgg() {
     if (isHatched) return; // Если яйцо уже вылупилось, ничего не делаем
