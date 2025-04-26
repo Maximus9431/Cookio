@@ -12,8 +12,8 @@ body {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Центрируем по вертикали */
+  align-items: center; /* Центрируем по горизонтали */
   padding-bottom: 60px; /* Отступ для кнопок */
 }
 
@@ -46,10 +46,11 @@ body {
 }
 
 #egg {
-  width: 300px; /* Увеличенный размер яйца */
+  width: 300px; /* Размер яйца */
   height: 300px;
   object-fit: contain;
   transition: transform 0.3s ease;
+  margin: 0 auto; /* Центрируем яйцо */
 }
 
 #petImage {
