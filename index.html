@@ -9,15 +9,17 @@
 </head>
 <body>
   <div id="game-container">
-    <div class="tab-content" id="pet" style="display: block;">
-      <h2>🐣 Нажимай на яйцо, чтобы вылупить питомца</h2>
-      <img id="egg" src="egg_0.png" alt="Egg" />
-      <img id="pet" src="" alt="Pet" style="display: none;" />
+    <div class="tab-content" id="pet-tab" style="display: block;">
+      <h2 id="hatch-text">🐣 Нажми пальцем по яйцу, чтобы вылупить питомца</h2>
+      <div id="egg-container">
+        <img id="egg" src="egg_0.png" alt="Egg" />
+        <img id="pet-image" src="" alt="Pet" style="display: none;" />
+      </div>
     </div>
   </div>
 
   <div class="tabs">
-    <button data-tab="pet">🐾 Питомец</button>
+    <button data-tab="pet-tab">🐾 Питомец</button>
     <button data-tab="pvp">⚔️ PvP</button>
     <button data-tab="quests">📜 Квесты</button>
     <button data-tab="shop">🛍️ Магазин</button>

@@ -11,32 +11,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const egg = document.getElementById('egg');
-  const pet = document.getElementById('pet');
-  const hatchText = document.querySelector('#pet h2'); // Находим текст
-  let crackStage = 0; // Текущая стадия трещин (0 - целое яйцо, 3 - вылупление)
-  const maxCrackStage = 3; // Максимальная стадия трещин
-  let isHatched = false; // Флаг, чтобы предотвратить повторное вылупление
+  const pet = document.getElementById('pet-image');
+  const hatchText = document.getElementById('hatch-text');
+  const eggContainer = document.getElementById('egg-container');
 
-  // Добавляем обработчик клика по яйцу
-  egg.addEventListener('click', () => {
-    if (isHatched) return; // Если яйцо уже вылупилось, ничего не делаем
-
-    // Увеличиваем стадию трещин
-    crackStage++;
-    if (crackStage < maxCrackStage) {
-      egg.src = `egg_${crackStage}.png`; // Меняем изображение яйца
-    } else {
-      hatchEgg(); // Вылупляем яйцо
-    }
-  });
+  let crackStage = 0;
+  const maxCrackStage = 3;
+  let isHatched = false;
+  let scratches = 0; // Сколько царапин сделано
 
   function hatchEgg() {
-    if (isHatched) return; // Если яйцо уже вылупилось, ничего не делаем
-    isHatched = true; // Устанавливаем флаг
+    if (isHatched) return;
+    isHatched = true;
 
-    egg.style.display = 'none'; // Скрываем яйцо
+    egg.style.display = 'none';
 
-    // Массив с изображениями питомцев
     const petImages = [
       "pet_1.png",
       "pet_2.png",
@@ -46,16 +35,55 @@ document.addEventListener("DOMContentLoaded", () => {
       "pet_6.png"
     ];
 
-    // Выбираем случайное изображение
     const randomPetImage = petImages[Math.floor(Math.random() * petImages.length)];
-    console.log("Random pet image:", randomPetImage); // Отладочный вывод
-    pet.src = randomPetImage; // Устанавливаем изображение питомца
-    pet.style.display = 'block'; // Делаем питомца видимым
-    pet.classList.add('show'); // Добавляем анимацию
+    pet.onload = () => {
+      pet.classList.add('show');
+    };
+    pet.src = randomPetImage;
+    pet.style.display = 'block';
 
-    // Убираем текст
-    if (hatchText) {
-      hatchText.style.display = 'none';
+    if (hatchText) hatchText.style.display = 'none';
+  }
+
+  // Функция добавления царапины
+  function createScratch(x, y) {
+    const scratch = document.createElement('div');
+    scratch.className = 'scratch';
+    scratch.style.left = `${x - eggContainer.offsetLeft - 15}px`;
+    scratch.style.top = `${y - eggContainer.offsetTop - 15}px`;
+    eggContainer.appendChild(scratch);
+
+    setTimeout(() => {
+      scratch.remove();
+    }, 1000);
+  }
+
+  // Обработка движения мыши или пальца
+  function handleMove(e) {
+    if (isHatched) return;
+
+    let x, y;
+    if (e.touches) {
+      x = e.touches[0].clientX;
+      y = e.touches[0].clientY;
+    } else {
+      x = e.clientX;
+      y = e.clientY;
+    }
+
+    createScratch(x, y);
+
+    scratches++;
+    if (scratches % 5 === 0) { // Каждые 5 царапин продвигаем трещину
+      crackStage++;
+      if (crackStage < maxCrackStage) {
+        egg.src = `egg_${crackStage}.png`;
+      } else {
+        hatchEgg();
+      }
     }
   }
+
+  egg.addEventListener('mousemove', handleMove);
+  egg.addEventListener('touchmove', handleMove);
 });

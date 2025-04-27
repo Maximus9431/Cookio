@@ -1,5 +1,5 @@
 body {
-  background-color: #f0f0f0;
+  background: linear-gradient(to bottom, #a8edea, #fed6e3); /* Мягкий градиент от голубого к розовому */
   font-family: sans-serif;
   margin: 0;
   padding: 0;
@@ -12,10 +12,10 @@ body {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Центрируем по вертикали */
-  align-items: center; /* Центрируем по горизонтали */
-  padding-bottom: 60px; /* Отступ для кнопок */
-  text-align: center; /* Центрируем текст */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
 }
 
 .tabs {
@@ -40,23 +40,31 @@ body {
   cursor: pointer;
 }
 
-#egg {
-  width: 300px; /* Размер яйца */
+#egg-container {
+  position: relative;
+}
+
+#egg, #pet-image {
+  width: 300px;
   height: 300px;
   object-fit: contain;
   transition: transform 0.3s ease;
-  margin: 0 auto; /* Центрируем яйцо */
 }
 
-#pet {
-  width: 200px; /* Размер питомца */
-  height: 200px;
+#pet-image {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
   object-fit: contain;
-  display: none; /* Скрыт по умолчанию */
+  transform: translate(-50%, -50%);
 }
 
-#pet.show {
-  display: block; /* Показываем, когда добавлен класс show */
+
+#pet-image.show {
+  display: block;
   animation: bounce 1s;
 }
 
@@ -74,20 +82,20 @@ body {
 
 .scratch {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: rgba(0, 0, 0, 0.2); /* Полупрозрачный эффект царапины */
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
-  pointer-events: none; /* Царапины не мешают взаимодействию */
-  animation: fadeOut 1s forwards; /* Анимация исчезновения */
+  pointer-events: none;
+  animation: fadeOut 1s forwards;
 }
 
 @keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
+  0% { opacity: 1; }
+  100% { opacity: 0; transform: scale(0.5); }
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 1.7rem;
 }
