@@ -62,31 +62,37 @@ document.addEventListener("DOMContentLoaded", () => {
   pet.style.display = 'block';
   pet.style.display = 'none';
 
-  if (savedPetName && savedPetImage) {
+  if (savedPetName && savedPetImage && isHatched) {
     // Питомец уже был сохранён — показываем его
     petNameElement.textContent = savedPetName;
     pet.src = savedPetImage;
     pet.style.display = 'block';
     egg.style.display = 'none';
-    isHatched = true;
     if (hatchText) hatchText.style.display = 'none';
 } else {
     // Питомца нет — ждем вылупления
     egg.src = "egg_0.png";
-    egg.style.display = 'block';
+    egg.style.display = 'block'; // Убедитесь, что яйцо отображается
     pet.style.display = 'none';
 }
 
   function hatchEgg() {
-    if (isHatched) return;
+    if (isHatched) return; // Если питомец уже вылупился, ничего не делаем
     isHatched = true;
 
+    // Скрываем яйцо
     egg.style.display = 'none';
 
     // Устанавливаем изображение питомца
     pet.src = savedPetImage;
-    pet.classList.add('show');
+    pet.style.display = 'block'; // Делаем питомца видимым
+    pet.classList.add('show'); // Добавляем класс для анимации (если есть)
 
+    // Устанавливаем имя питомца
+    petNameElement.textContent = savedPetName;
+    petNameElement.style.display = 'block'; // Делаем имя видимым
+
+    // Убираем текст "Нажми на яйцо"
     if (hatchText) {
       hatchText.style.display = 'none';
     }
@@ -142,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (crackStage < maxCrackStage) {
       egg.src = `egg_${crackStage}.png`;
     } else {
-      hatchEgg();
+      hatchEgg(); // Вылупляем питомца
     }
   });
 
@@ -208,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Функция для обновления отображения валюты
   function updateCurrencyDisplay() {
     moneyElement.textContent = `💰 Money: ${money}`;
-    crystalsElement.textContent = `💎 Кристаллы: ${crystals}`;
+    crystalsElement.textContent = `💎 Crystals: ${crystals}`;
   }
 
   // Функция для добавления денег
@@ -255,8 +261,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const itemElement = document.createElement('div');
       itemElement.className = 'shop-item';
       itemElement.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" />
-        <h3>${item.name}</h3>
+        <div class="shop-item-header">
+          <img src="${item.image}" alt="${item.name}" class="shop-item-icon" />
+          <h3>${item.name}</h3>
+        </div>
         <p>Цена: ${item.price} ${item.currency === "money" ? "💰" : "💎"}</p>
         <button data-id="${item.id}">Купить</button>
       `;

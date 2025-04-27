@@ -102,17 +102,8 @@ body {
 }
 
 #egg {
-  width: 300px;
-  height: 300px;
-  object-fit: contain;
-  display: block; /* Убедитесь, что яйцо отображается */
-  margin: 0 auto;
-  transition: transform 0.3s ease;
-}
-
-#pet-image {
-  width: 300px;
-  height: 300px;
+  width: 400px; /* Увеличиваем ширину */
+  height: 400px; /* Увеличиваем высоту */
   object-fit: contain;
   display: block;
   margin: 0 auto;
@@ -120,13 +111,15 @@ body {
 }
 
 #pet-image {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
   display: none; /* Скрыто по умолчанию */
-  position: absolute; /* Фиксируем позицию */
+  position: absolute;
   top: 50%; /* Центрируем по вертикали */
   left: 50%; /* Центрируем по горизонтали */
   transform: translate(-50%, -50%); /* Сдвигаем на половину ширины и высоты */
-  transform-style: preserve-3d; /* Для 3D-вращения */
-  transition: transform 0.1s ease-out; /* Плавность вращения */
+  transition: transform 0.3s ease;
 }
 
 #pet-image.show {
@@ -348,4 +341,17 @@ h2 {
 
 .quest-item button:hover {
   background-color: #1976D2;
+}
+
+.shop-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.shop-item-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
