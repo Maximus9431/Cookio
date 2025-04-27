@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pet = document.getElementById('pet-image');
   const hatchText = document.getElementById('hatch-text');
   const eggContainer = document.getElementById('egg-container');
+  const petNameElement = document.getElementById('pet-name');
 
   let crackStage = 0;
   const maxCrackStage = 3;
@@ -21,29 +22,66 @@ document.addEventListener("DOMContentLoaded", () => {
   let scratches = 0; // Сколько царапин сделано
   let rotation = 0; // Угол поворота питомца
 
+  // Список возможных имен для питомцев
+  const petNames = [
+    "Лаки", "Снежок", "Рекс", "Мила", "Барсик", "Джек", "Луна", "Симба", "Белка", "Тоби"
+  ];
+
+  // Список изображений питомцев
+  const petImages = [
+    "pet_1.png",
+    "pet_2.png",
+    "pet_3.png",
+    "pet_4.png",
+    "pet_5.png",
+    "pet_6.png"
+  ];
+
+  // Проверяем, есть ли сохранённое имя и изображение питомца
+  let savedPetName = localStorage.getItem('petName');
+  let savedPetImage = localStorage.getItem('petImage');
+
+  if (!savedPetName || !savedPetImage) {
+    // Если данных нет, генерируем случайное имя и изображение
+    savedPetName = petNames[Math.floor(Math.random() * petNames.length)];
+    savedPetImage = petImages[Math.floor(Math.random() * petImages.length)];
+
+    // Сохраняем данные в localStorage
+    localStorage.setItem('petName', savedPetName);
+    localStorage.setItem('petImage', savedPetImage);
+  }
+
+  // Устанавливаем имя питомца
+  petNameElement.textContent = savedPetName;
+  petNameElement.style.display = 'block';
+
+  // Устанавливаем изображение яйца до вылупления
+  pet.src = "egg_0.png";
+  pet.style.display = 'block';
+
+  if (savedPetName && savedPetImage) {
+    // Если имя и изображение питомца сохранены, отображаем их
+    petNameElement.textContent = savedPetName;
+    petNameElement.style.display = 'block';
+    pet.src = savedPetImage;
+    pet.style.display = 'block';
+    egg.style.display = 'none';
+    isHatched = true;
+  }
+
   function hatchEgg() {
     if (isHatched) return;
     isHatched = true;
 
     egg.style.display = 'none';
 
-    const petImages = [
-      "pet_1.png",
-      "pet_2.png",
-      "pet_3.png",
-      "pet_4.png",
-      "pet_5.png",
-      "pet_6.png"
-    ];
+    // Устанавливаем изображение питомца
+    pet.src = savedPetImage;
+    pet.classList.add('show');
 
-    const randomPetImage = petImages[Math.floor(Math.random() * petImages.length)];
-    pet.onload = () => {
-      pet.classList.add('show');
-    };
-    pet.src = randomPetImage;
-    pet.style.display = 'block';
-
-    if (hatchText) hatchText.style.display = 'none';
+    if (hatchText) {
+      hatchText.style.display = 'none';
+    }
   }
 
   // Функция добавления царапины
