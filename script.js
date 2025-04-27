@@ -62,13 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
   pet.style.display = 'block';
   pet.style.display = 'none';
 
-  if (savedPetName && savedPetImage) {
+  if (savedPetName && savedPetImage && isHatched) {
     // Питомец уже был сохранён — показываем его
     petNameElement.textContent = savedPetName;
     pet.src = savedPetImage;
     pet.style.display = 'block';
     egg.style.display = 'none';
-    isHatched = true;
     if (hatchText) hatchText.style.display = 'none';
 } else {
     // Питомца нет — ждем вылупления
@@ -78,15 +77,22 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
   function hatchEgg() {
-    if (isHatched) return;
+    if (isHatched) return; // Если питомец уже вылупился, ничего не делаем
     isHatched = true;
 
+    // Скрываем яйцо
     egg.style.display = 'none';
 
     // Устанавливаем изображение питомца
-    pet.src = savedPetImage;
-    pet.classList.add('show');
+    pet.src = savedPetImage; // Используем сохранённое изображение питомца
+    pet.style.display = 'block'; // Делаем питомца видимым
+    pet.classList.add('show'); // Добавляем класс для анимации (если есть)
 
+    // Устанавливаем имя питомца
+    petNameElement.textContent = savedPetName;
+    petNameElement.style.display = 'block'; // Делаем имя видимым
+
+    // Убираем текст "Нажми на яйцо"
     if (hatchText) {
       hatchText.style.display = 'none';
     }
@@ -171,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Обработчик нажатия на кнопку "Создать сражение"
   createBattleButton.addEventListener('click', () => {
+    if (isHatched) return;
     const opponent = opponents[Math.floor(Math.random() * opponents.length)]; // Случайный противник
     const result = Math.random() > 0.5 ? "победа" : "поражение"; // Случайный результат
 
@@ -236,4 +243,6 @@ document.addEventListener("DOMContentLoaded", () => {
       addCrystals(10); // Добавляем 10 кристаллов
     }
   });
+
+  localStorage.clear();
 });
