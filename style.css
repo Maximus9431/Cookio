@@ -6,23 +6,28 @@ html, body {
 }
 
 body {
-  background: linear-gradient(to bottom, #a8edea, #fed6e3); /* Мягкий градиент от голубого к розовому */
-  font-family: sans-serif;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
+  background: url('background.png') no-repeat center center fixed; /* Фон с изображением */
+  background-size: cover; /* Масштабируем изображение, чтобы покрыть весь экран */
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 #game-container {
-  flex-grow: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: relative;
   max-width: 100%; /* Ограничиваем ширину контейнера */
   overflow: hidden; /* Убираем возможные переполнения */
 }
@@ -42,11 +47,47 @@ body {
 }
 
 .tabs button {
-  padding: 8px 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold; /* Жирный шрифт */
   border: none;
-  border-radius: 6px;
-  background: #fff;
+  border-radius: 5px;
+  color: white;
   cursor: pointer;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+  display: flex; /* Используем flexbox для выравнивания */
+  align-items: center; /* Центрируем содержимое по вертикали */
+  justify-content: flex-start; /* Смайлик слева */
+  gap: 10px; /* Отступ между смайликом и текстом */
+}
+
+.tabs button[data-tab="pet-tab"] {
+  background-color: #4CAF50; /* Зеленый */
+}
+
+.tabs button[data-tab="pvp"] {
+  background-color: #FF5722; /* Оранжевый */
+}
+
+.tabs button[data-tab="quests"] {
+  background-color: #2196F3; /* Синий */
+}
+
+.tabs button[data-tab="shop"] {
+  background-color: #9C27B0; /* Фиолетовый */
+}
+
+.tabs button[data-tab="inventory"] {
+  background-color: #FFC107; /* Желтый */
+}
+
+.tabs button[data-tab="leaderboard"] {
+  background-color: #E91E63; /* Розовый */
+}
+
+.tabs button:hover {
+  opacity: 0.8; /* Эффект при наведении */
 }
 
 #egg-container {
@@ -60,7 +101,16 @@ body {
   overflow: hidden; /* Убираем лишнее */
 }
 
-#egg, #pet-image {
+#egg {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  display: block; /* Убедитесь, что яйцо отображается */
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+#pet-image {
   width: 300px;
   height: 300px;
   object-fit: contain;
@@ -175,4 +225,51 @@ h2 {
   top: calc(50% - 180px); /* Располагаем над питомцем */
   left: 50%;
   transform: translateX(-50%);
+}
+
+#currency-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+#currency-container p {
+  margin: 5px 0;
+}
+
+/* [Оставляем весь твой код без изменений!] */
+
+/* --- Дополнительные стили --- */
+#shop-items, #inventory-items, #leaderboard-list {
+  margin-top: 20px;
+}
+
+.shop-item, .inventory-item, .leaderboard-entry {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 5px auto;
+  max-width: 300px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.shop-item button, .inventory-item button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.shop-item button:hover, .inventory-item button:hover {
+  background-color: #45a049;
 }

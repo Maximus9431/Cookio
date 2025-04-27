@@ -10,32 +10,54 @@
 <body>
   <div id="game-container">
     <div class="tab-content" id="pet-tab" style="display: block;">
-      <h2 id="hatch-text">🐣 Нажми пальцем по яйцу, чтобы вылупить питомца</h2>
       <div id="egg-container">
         <p id="pet-name" style="display: none;">Имя питомца</p>
+        <h2 id="hatch-text">🐣 Нажми пальцем по яйцу, чтобы вылупить питомца</h2>
         <img id="egg" src="egg_0.png" alt="Egg" />
         <img id="pet-image" src="" alt="Pet" style="display: none;" />
       </div>
     </div>
+
     <div class="tab-content" id="pvp" style="display: none;">
       <h2>⚔️ PvP Сражения</h2>
       <button id="create-battle">Создать сражение</button>
       <div id="battle-result" style="margin-top: 20px;"></div>
     </div>
+
     <div class="tab-content" id="quests" style="display: none;">
       <h2>📜 Квесты</h2>
       <button id="generate-quest">Получить квест</button>
       <div id="quest-result" style="margin-top: 20px;"></div>
     </div>
+
+    <div class="tab-content" id="shop" style="display: none;">
+      <h2>🛍️ Магазин</h2>
+      <div id="shop-items"></div>
+    </div>
+
+    <div class="tab-content" id="inventory" style="display: none;">
+      <h2>💼 Инвентарь</h2>
+      <div id="inventory-items"></div>
+    </div>
+
+    <div class="tab-content" id="leaderboard" style="display: none;">
+      <h2>📊 Топ игроков</h2>
+      <div id="leaderboard-list"></div>
+    </div>
+  </div>
+
+  <div id="currency-container">
+    <p id="money">💰 Money: 0</p>
+    <p id="crystals">💎 Crystals: 0</p>
   </div>
 
   <div class="tabs">
-    <button data-tab="pet-tab">🐾 Питомец</button>
+    <button data-tab="pet-tab">🐾 Pets</button>
     <button data-tab="pvp">⚔️ PvP</button>
-    <button data-tab="quests">📜 Квесты</button>
-    <button data-tab="shop">🛍️ Магазин</button>
-    <button data-tab="inventory">💼 Инвентарь</button>
-    <button data-tab="leaderboard">📊 Топ</button>
+    <button data-tab="quests">📜 Quests</button>
+    <button data-tab="shop">🛍️ Shop</button>
+    <button data-tab="inventory">💼 Inventory</button>
+    <button data-tab="leaderboard">📊 Leaders</button>
   </div>
 
   <script src="script.js"></script>

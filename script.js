@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const hatchText = document.getElementById('hatch-text');
   const eggContainer = document.getElementById('egg-container');
   const petNameElement = document.getElementById('pet-name');
+  const moneyElement = document.getElementById('money');
+  const crystalsElement = document.getElementById('crystals');
 
   let crackStage = 0;
   const maxCrackStage = 3;
@@ -58,16 +60,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // Устанавливаем изображение яйца до вылупления
   pet.src = "egg_0.png";
   pet.style.display = 'block';
+  pet.style.display = 'none';
 
   if (savedPetName && savedPetImage) {
-    // Если имя и изображение питомца сохранены, отображаем их
+    // Питомец уже был сохранён — показываем его
     petNameElement.textContent = savedPetName;
-    petNameElement.style.display = 'block';
     pet.src = savedPetImage;
     pet.style.display = 'block';
     egg.style.display = 'none';
     isHatched = true;
-  }
+    if (hatchText) hatchText.style.display = 'none';
+} else {
+    // Питомца нет — ждем вылупления
+    egg.src = "egg_0.png";
+    egg.style.display = 'block';
+    pet.style.display = 'none';
+}
 
   function hatchEgg() {
     if (isHatched) return;
@@ -141,10 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Добавляем обработчик для вращения питомца
   pet.addEventListener('mousemove', (event) => {
     const rect = pet.getBoundingClientRect();
-    const x = event.clientX - rect.left; // Позиция мыши относительно питомца
-    rotation = (x / rect.width) * 360; // Рассчитываем угол поворота
-    pet.style.transform = `rotateY(${rotation}deg)`; // Применяем поворот
-  });
+    const x = event.clientX - rect.left;
+    rotation = (x / rect.width) * 30 - 15; // Поворот от -15° до +15°
+    pet.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg)`;
+});
 
   // Добавляем обработчик для вращения питомца (сенсорные устройства)
   pet.addEventListener('touchmove', (event) => {
@@ -191,5 +199,41 @@ document.addEventListener("DOMContentLoaded", () => {
   generateQuestButton.addEventListener('click', () => {
     const randomQuest = quests[Math.floor(Math.random() * quests.length)]; // Случайный выбор квеста
     questResult.innerHTML = `<p>Ваш квест: ${randomQuest}</p>`;
+  });
+
+  // Инициализация валюты
+  let money = parseInt(localStorage.getItem('money')) || 0;
+  let crystals = parseInt(localStorage.getItem('crystals')) || 0;
+
+  // Функция для обновления отображения валюты
+  function updateCurrencyDisplay() {
+    moneyElement.textContent = `💰 Money: ${money}`;
+    crystalsElement.textContent = `💎 Crystals: ${crystals}`;
+  }
+
+  // Функция для добавления денег
+  function addMoney(amount) {
+    money += amount;
+    localStorage.setItem('money', money);
+    updateCurrencyDisplay();
+  }
+
+  // Функция для добавления кристаллов
+  function addCrystals(amount) {
+    crystals += amount;
+    localStorage.setItem('crystals', crystals);
+    updateCurrencyDisplay();
+  }
+
+  // Инициализация отображения валюты
+  updateCurrencyDisplay();
+
+  // Пример: добавляем деньги и кристаллы при вылуплении питомца
+  egg.addEventListener('click', () => {
+    crackStage++;
+    if (crackStage >= maxCrackStage) {
+      addMoney(100); // Добавляем 100 денег
+      addCrystals(10); // Добавляем 10 кристаллов
+    }
   });
 });
