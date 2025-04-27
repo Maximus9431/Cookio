@@ -62,12 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
   pet.style.display = 'block';
   pet.style.display = 'none';
 
-  if (savedPetName && savedPetImage && isHatched) {
+  if (savedPetName && savedPetImage) {
     // Питомец уже был сохранён — показываем его
     petNameElement.textContent = savedPetName;
     pet.src = savedPetImage;
     pet.style.display = 'block';
     egg.style.display = 'none';
+    isHatched = true;
     if (hatchText) hatchText.style.display = 'none';
 } else {
     // Питомца нет — ждем вылупления
@@ -77,22 +78,15 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
   function hatchEgg() {
-    if (isHatched) return; // Если питомец уже вылупился, ничего не делаем
+    if (isHatched) return;
     isHatched = true;
 
-    // Скрываем яйцо
     egg.style.display = 'none';
 
     // Устанавливаем изображение питомца
-    pet.src = savedPetImage; // Используем сохранённое изображение питомца
-    pet.style.display = 'block'; // Делаем питомца видимым
-    pet.classList.add('show'); // Добавляем класс для анимации (если есть)
+    pet.src = savedPetImage;
+    pet.classList.add('show');
 
-    // Устанавливаем имя питомца
-    petNameElement.textContent = savedPetName;
-    petNameElement.style.display = 'block'; // Делаем имя видимым
-
-    // Убираем текст "Нажми на яйцо"
     if (hatchText) {
       hatchText.style.display = 'none';
     }
@@ -177,7 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Обработчик нажатия на кнопку "Создать сражение"
   createBattleButton.addEventListener('click', () => {
-    if (isHatched) return;
     const opponent = opponents[Math.floor(Math.random() * opponents.length)]; // Случайный противник
     const result = Math.random() > 0.5 ? "победа" : "поражение"; // Случайный результат
 
@@ -215,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Функция для обновления отображения валюты
   function updateCurrencyDisplay() {
     moneyElement.textContent = `💰 Money: ${money}`;
-    crystalsElement.textContent = `💎 Crystals: ${crystals}`;
+    crystalsElement.textContent = `💎 Кристаллы: ${crystals}`;
   }
 
   // Функция для добавления денег
@@ -244,5 +237,62 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  localStorage.clear();
+  const shopItemsContainer = document.getElementById('shop-items');
+
+  // Список товаров
+  const shopItems = [
+    { id: 1, name: "🎩 Шляпа", price: 50, currency: "money", image: "hat.png" },
+    { id: 2, name: "👓 Очки", price: 30, currency: "money", image: "glasses.png" },
+    { id: 3, name: "🎀 Бантик", price: 20, currency: "money", image: "bow.png" },
+    { id: 4, name: "💎 Кристальный шар", price: 15, currency: "crystals", image: "crystal_ball.png" },
+    { id: 5, name: "🧣 Шарф", price: 40, currency: "money", image: "scarf.png" }
+  ];
+
+  // Функция для отображения товаров
+  function displayShopItems() {
+    shopItemsContainer.innerHTML = ""; // Очищаем контейнер
+    shopItems.forEach(item => {
+      const itemElement = document.createElement('div');
+      itemElement.className = 'shop-item';
+      itemElement.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" />
+        <h3>${item.name}</h3>
+        <p>Цена: ${item.price} ${item.currency === "money" ? "💰" : "💎"}</p>
+        <button data-id="${item.id}">Купить</button>
+      `;
+      shopItemsContainer.appendChild(itemElement);
+    });
+
+    // Добавляем обработчики для кнопок "Купить"
+    const buyButtons = shopItemsContainer.querySelectorAll('button');
+    buyButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const itemId = parseInt(button.dataset.id);
+        buyItem(itemId);
+      });
+    });
+  }
+
+  // Функция для покупки товара
+  function buyItem(itemId) {
+    const item = shopItems.find(i => i.id === itemId);
+    if (!item) return;
+
+    if (item.currency === "money" && money >= item.price) {
+      money -= item.price;
+      localStorage.setItem('money', money);
+      alert(`Вы купили ${item.name}!`);
+    } else if (item.currency === "crystals" && crystals >= item.price) {
+      crystals -= item.price;
+      localStorage.setItem('crystals', crystals);
+      alert(`Вы купили ${item.name}!`);
+    } else {
+      alert("Недостаточно средств!");
+    }
+
+    updateCurrencyDisplay();
+  }
+
+  // Отображаем товары в магазине
+  displayShopItems();
 });

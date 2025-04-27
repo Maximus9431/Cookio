@@ -247,8 +247,45 @@ h2 {
 /* [Оставляем весь твой код без изменений!] */
 
 /* --- Дополнительные стили --- */
-#shop-items, #inventory-items, #leaderboard-list {
+#shop-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
   margin-top: 20px;
+}
+
+.shop-item {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 150px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shop-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.shop-item button {
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.shop-item button:hover {
+  background-color: #45a049;
 }
 
 .shop-item, .inventory-item, .leaderboard-entry {
@@ -272,4 +309,43 @@ h2 {
 
 .shop-item button:hover, .inventory-item button:hover {
   background-color: #45a049;
+}
+
+#quest-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.quest-item {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 200px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.quest-item h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.quest-item button {
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #2196F3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.quest-item button:hover {
+  background-color: #1976D2;
 }
