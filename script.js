@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const maxCrackStage = 3;
   let isHatched = false;
   let scratches = 0; // Сколько царапин сделано
+  let rotation = 0; // Угол поворота питомца
 
   function hatchEgg() {
     if (isHatched) return;
@@ -86,4 +87,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   egg.addEventListener('mousemove', handleMove);
   egg.addEventListener('touchmove', handleMove);
+
+  // Добавляем обработчик клика по яйцу
+  egg.addEventListener('click', () => {
+    if (isHatched) return;
+
+    crackStage++;
+    if (crackStage < maxCrackStage) {
+      egg.src = `egg_${crackStage}.png`;
+    } else {
+      hatchEgg();
+    }
+  });
+
+  // Добавляем обработчик для вращения питомца
+  pet.addEventListener('mousemove', (event) => {
+    const rect = pet.getBoundingClientRect();
+    const x = event.clientX - rect.left; // Позиция мыши относительно питомца
+    rotation = (x / rect.width) * 360; // Рассчитываем угол поворота
+    pet.style.transform = `rotateY(${rotation}deg)`; // Применяем поворот
+  });
+
+  // Добавляем обработчик для вращения питомца (сенсорные устройства)
+  pet.addEventListener('touchmove', (event) => {
+    const touch = event.touches[0];
+    const rect = pet.getBoundingClientRect();
+    const x = touch.clientX - rect.left; // Позиция касания относительно питомца
+    rotation = (x / rect.width) * 360; // Рассчитываем угол поворота
+    pet.style.transform = `rotateY(${rotation}deg)`; // Применяем поворот
+  });
 });
