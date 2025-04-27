@@ -52,6 +52,12 @@ body {
 #egg-container {
   position: relative;
   text-align: center;
+  height: 100vh; /* Высота контейнера равна высоте экрана */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Центрируем по вертикали */
+  align-items: center; /* Центрируем по горизонтали */
+  overflow: hidden; /* Убираем лишнее */
 }
 
 #egg, #pet-image {
@@ -65,10 +71,10 @@ body {
 
 #pet-image {
   display: none; /* Скрыто по умолчанию */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute; /* Фиксируем позицию */
+  top: 50%; /* Центрируем по вертикали */
+  left: 50%; /* Центрируем по горизонтали */
+  transform: translate(-50%, -50%); /* Сдвигаем на половину ширины и высоты */
   transform-style: preserve-3d; /* Для 3D-вращения */
   transition: transform 0.1s ease-out; /* Плавность вращения */
 }
@@ -165,4 +171,8 @@ h2 {
   margin-bottom: 10px;
   color: #333;
   display: none; /* Скрыто по умолчанию */
+  position: absolute; /* Фиксируем над питомцем */
+  top: calc(50% - 180px); /* Располагаем над питомцем */
+  left: 50%;
+  transform: translateX(-50%);
 }
