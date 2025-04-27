@@ -116,4 +116,42 @@ document.addEventListener("DOMContentLoaded", () => {
     rotation = (x / rect.width) * 360; // Рассчитываем угол поворота
     pet.style.transform = `rotateY(${rotation}deg)`; // Применяем поворот
   });
+
+  const createBattleButton = document.getElementById('create-battle');
+  const battleResult = document.getElementById('battle-result');
+
+  // Список возможных противников
+  const opponents = ["Дракон", "Гоблин", "Орк", "Волк", "Тролль"];
+
+  // Обработчик нажатия на кнопку "Создать сражение"
+  createBattleButton.addEventListener('click', () => {
+    const opponent = opponents[Math.floor(Math.random() * opponents.length)]; // Случайный противник
+    const result = Math.random() > 0.5 ? "победа" : "поражение"; // Случайный результат
+
+    if (result === "победа") {
+      battleResult.innerHTML = `<p>Вы победили ${opponent}! 🎉</p>`;
+    } else {
+      battleResult.innerHTML = `<p>Вы проиграли ${opponent}. 😢 Попробуйте снова!</p>`;
+    }
+  });
+
+  const generateQuestButton = document.getElementById('generate-quest');
+  const questResult = document.getElementById('quest-result');
+
+  // Список возможных квестов
+  const quests = [
+    "Соберите 10 золотых монет",
+    "Победите 3 врагов",
+    "Найдите редкое яйцо питомца",
+    "Исследуйте заброшенный замок",
+    "Соберите 5 магических кристаллов",
+    "Помогите деревенскому жителю найти его кота",
+    "Победите босса в PvP-сражении"
+  ];
+
+  // Обработчик нажатия на кнопку "Получить квест"
+  generateQuestButton.addEventListener('click', () => {
+    const randomQuest = quests[Math.floor(Math.random() * quests.length)]; // Случайный выбор квеста
+    questResult.innerHTML = `<p>Ваш квест: ${randomQuest}</p>`;
+  });
 });

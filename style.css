@@ -109,3 +109,51 @@ h2 {
   margin-bottom: 10px;
   font-size: 1.7rem;
 }
+
+#pvp {
+  text-align: center;
+}
+
+#pvp button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#pvp button:hover {
+  background-color: #45a049;
+}
+
+#battle-result p {
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+#quests {
+  text-align: center;
+}
+
+#quests button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#quests button:hover {
+  background-color: #45a049;
+}
+
+#quest-result p {
+  font-size: 18px;
+  margin-top: 20px;
+}
