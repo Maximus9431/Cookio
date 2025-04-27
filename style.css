@@ -1,3 +1,10 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Убираем горизонтальный скроллинг */
+  width: 100%;
+}
+
 body {
   background: linear-gradient(to bottom, #a8edea, #fed6e3); /* Мягкий градиент от голубого к розовому */
   font-family: sans-serif;
@@ -16,6 +23,8 @@ body {
   align-items: center;
   text-align: center;
   position: relative;
+  max-width: 100%; /* Ограничиваем ширину контейнера */
+  overflow: hidden; /* Убираем возможные переполнения */
 }
 
 .tabs {
