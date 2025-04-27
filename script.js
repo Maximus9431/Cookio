@@ -303,4 +303,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Отображаем товары в магазине
   displayShopItems();
+
+  const body = document.body;
+
+  // Функция для создания пламени
+  function createFlame(x, y) {
+    const flame = document.createElement("div");
+    flame.className = "flame";
+    flame.style.left = `${x}px`;
+    flame.style.top = `${y}px`;
+
+    body.appendChild(flame);
+
+    // Удаляем пламя через 500 мс
+    setTimeout(() => {
+      flame.remove();
+    }, 500);
+  }
+
+  // Отслеживаем движение мыши
+  document.addEventListener("mousemove", (event) => {
+    createFlame(event.pageX, event.pageY);
+  });
 });
