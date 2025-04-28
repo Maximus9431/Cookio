@@ -434,3 +434,23 @@ h2 {
   height: 50px;
   object-fit: contain;
 }
+
+#shop-container {
+  display: flex;
+  align-items: center;
+}
+
+#scroll-left,
+#scroll-right {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#scroll-left:hover,
+#scroll-right:hover {
+  background-color: #45a049;
+}
