@@ -244,6 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const shopItemsContainer = document.getElementById('shop-items');
+  const inventoryItemsContainer = document.getElementById('inventory-items');
 
   // Список товаров
   const shopItems = [
@@ -254,7 +255,10 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 5, name: "🧣 Шарф", price: 40, currency: "money", image: "scarf.png" }
   ];
 
-  // Функция для отображения товаров
+  // Инициализация инвентаря
+  let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+
+  // Функция для отображения товаров в магазине
   function displayShopItems() {
     shopItemsContainer.innerHTML = ""; // Очищаем контейнер
     shopItems.forEach(item => {
@@ -289,10 +293,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (item.currency === "money" && money >= item.price) {
       money -= item.price;
       localStorage.setItem('money', money);
+      addToInventory(item);
       alert(`Вы купили ${item.name}!`);
     } else if (item.currency === "crystals" && crystals >= item.price) {
       crystals -= item.price;
       localStorage.setItem('crystals', crystals);
+      addToInventory(item);
       alert(`Вы купили ${item.name}!`);
     } else {
       alert("Недостаточно средств!");
@@ -301,8 +307,32 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCurrencyDisplay();
   }
 
-  // Отображаем товары в магазине
+  // Функция для добавления предмета в инвентарь
+  function addToInventory(item) {
+    inventory.push(item);
+    localStorage.setItem('inventory', JSON.stringify(inventory));
+    displayInventoryItems();
+  }
+
+  // Функция для отображения предметов в инвентаре
+  function displayInventoryItems() {
+    inventoryItemsContainer.innerHTML = ""; // Очищаем контейнер
+    inventory.forEach(item => {
+      const itemElement = document.createElement('div');
+      itemElement.className = 'inventory-item';
+      itemElement.innerHTML = `
+        <div class="inventory-item-header">
+          <img src="${item.image}" alt="${item.name}" class="inventory-item-icon" />
+          <h3>${item.name}</h3>
+        </div>
+      `;
+      inventoryItemsContainer.appendChild(itemElement);
+    });
+  }
+
+  // Инициализация
   displayShopItems();
+  displayInventoryItems();
 
   const body = document.body;
 
