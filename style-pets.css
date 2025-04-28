@@ -1,0 +1,26 @@
+#egg-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#egg {
+  width: 150px;
+  cursor: pointer;
+}
+
+#pet-image {
+  width: 150px;
+  display: none;
+}
+
+#pet-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+  display: none;
+}
+
+#hatch-text {
+  font-size: 16px;
+  color: #555;
+}

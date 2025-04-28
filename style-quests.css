@@ -1,0 +1,23 @@
+#quests {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#quest-result {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #555;
+}
+
+#generate-quest {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #c8e6c9;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#generate-quest:hover {
+  background-color: #a5d6a7;
+}

@@ -1,0 +1,23 @@
+#pvp {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#battle-result {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #333;
+}
+
+#create-battle {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ffeb3b;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#create-battle:hover {
+  background-color: #fdd835;
+}

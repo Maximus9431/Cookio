@@ -3,72 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pet</title>
+  <title>Pet Game - Home</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
   <div id="game-container">
-    <div class="tab-content" id="pet-tab" style="display: block;">
-      <div id="egg-container">
-        <p id="pet-name" style="display: none;">Имя питомца</p>
-        <h2 id="hatch-text">🐣 Нажми или проведи пальцем по яйцу, чтобы вылупить питомца</h2>
-        <img id="egg" src="egg_0.png" alt="Egg" />
-        <img id="pet-image" src="" alt="Pet" style="display: none;" />
-      </div>
-    </div>
-
-    <div class="tab-content" id="pvp" style="display: none;">
-      <h2>⚔️ PvP</h2>
-      <button id="create-battle">Создать сражение</button>
-      <div id="battle-result" style="margin-top: 20px;"></div>
-    </div>
-
-    <div class="tab-content" id="quests" style="display: none;">
-      <h2>📜 Quests</h2>
-      <button id="generate-quest">Получить квест</button>
-      <div id="quest-result" style="margin-top: 20px;"></div>
-    </div>
-
-    <div class="tab-content" id="shop" style="display: none;">
-      <h2>🛍️ Shop</h2>
-      <div id="shop-container">
-        <button id="scroll-left">⬅️</button>
-        <div id="shop-items">
-          <div class="shop-item">Предмет 1</div>
-          <div class="shop-item">Предмет 2</div>
-          <div class="shop-item">Предмет 3</div>
-          <div class="shop-item">Предмет 4</div>
-        </div>
-        <button id="scroll-right">➡️</button>
-      </div>
-    </div>
-
-    <div class="tab-content" id="inventory" style="display: none;">
-      <h2>💼 Inventory</h2>
-      <div id="inventory-items"></div>
-    </div>
-
-    <div class="tab-content" id="leaderboard" style="display: none;">
-      <h2>📊 Leaders</h2>
-      <div id="leaderboard-list"></div>
-    </div>
+    <h1>Добро пожаловать в игру!</h1>
+    <p>Выбери вкладку ниже:</p>
   </div>
-
-  <div id="currency-container">
-    <p id="money">💰 Money: 0</p>
-    <p id="crystals">💎 Crystals: 0</p>
-  </div>
-
   <div class="tabs">
-    <button data-tab="pet-tab">🐾 Pets</button>
-    <button data-tab="pvp">⚔️ PvP</button>
-    <button data-tab="quests">📜 Quests</button>
-    <button data-tab="shop">🛍️ Shop</button>
-    <button data-tab="inventory">💼 Inventory</button>
-    <button data-tab="leaderboard">📊 Leaders</button>
+    <a href="pets.html"><button>🐾 Pets</button></a>
+    <a href="pvp.html"><button>⚔️ PvP</button></a>
+    <a href="quests.html"><button>📜 Quests</button></a>
+    <a href="shop.html"><button>🛍️ Shop</button></a>
+    <a href="inventory.html"><button>💼 Inventory</button></a>
+    <a href="leaderboard.html"><button>📊 Leaders</button></a>
   </div>
-
-  <script src="script.js"></script>
 </body>
 </html>

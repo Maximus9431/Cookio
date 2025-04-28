@@ -1,0 +1,31 @@
+#inventory {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.inventory-item {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.inventory-item img {
+  width: 100px;
+  height: 100px;
+}
+
+.inventory-item button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #d1c4e9;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.inventory-item button:hover {
+  background-color: #b39ddb;
+}
