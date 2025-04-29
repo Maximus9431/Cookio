@@ -1,3 +1,28 @@
+body {
+  background-image: url('images/pvp-background.jpg'); /* Укажите путь к вашему изображению */
+  background-size: cover; /* Масштабирование изображения, чтобы покрыть весь экран */
+  background-position: center; /* Центрирование изображения */
+  background-repeat: no-repeat; /* Отключение повторения изображения */
+  color: #fff; /* Цвет текста для контраста с фоном */
+}
+
+#game-container {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон для текста */
+  border-radius: 10px;
+  display: inline-block;
+  margin: 50px auto;
+}
+
+h1 {
+  color: #ff5722; /* Оранжевый цвет заголовка */
+}
+
+p {
+  font-size: 18px;
+}
+
 #pvp {
   text-align: center;
   margin-top: 20px;

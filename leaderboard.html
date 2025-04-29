@@ -4,20 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leaderboard</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-leaderboard.css">
 </head>
 <body>
   <div id="game-container">
     <h1>📊 Лидерборд</h1>
     <p>Топ лучших игроков!</p>
+    <div id="leaderboard">
+      <div id="leaderboard-list">
+        <div class="leaderboard-item">
+          <span class="rank">1</span>
+          <span class="name">Игрок 1</span>
+          <span class="score">1500 очков</span>
+        </div>
+        <div class="leaderboard-item">
+          <span class="rank">2</span>
+          <span class="name">Игрок 2</span>
+          <span class="score">1200 очков</span>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="tabs">
-    <a href="pets.html"><button>🐾 Pets</button></a>
-    <a href="pvp.html"><button>⚔️ PvP</button></a>
-    <a href="quests.html"><button>📜 Quests</button></a>
-    <a href="shop.html"><button>🛍️ Shop</button></a>
-    <a href="inventory.html"><button>💼 Inventory</button></a>
-    <a href="leaderboard.html"><button>📊 Leaders</button></a>
+    <button onclick="location.href='pets.html'">🐾 Pets</button>
+    <button onclick="location.href='pvp.html'">⚔️ PvP</button>
+    <button onclick="location.href='quests.html'">📜 Quests</button>
+    <button onclick="location.href='shop.html'">🛍️ Shop</button>
+    <button onclick="location.href='inventory.html'">💼 Inventory</button>
+    <button onclick="location.href='leaderboard.html'">📊 Leaders</button>
   </div>
 </body>
 </html>
