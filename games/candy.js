@@ -90,3 +90,8 @@ function endGame(message) {
   startButton.style.display = 'block';
   document.querySelectorAll('.falling-item').forEach((item) => item.remove());
 }
+
+// Добавляем обработчик события для кнопки "Домой"
+homeButton.addEventListener('click', () => {
+  location.href = 'game.html'; // Перенаправление на страницу game.html
+});

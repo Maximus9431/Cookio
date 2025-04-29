@@ -163,6 +163,13 @@ h1 {
   background-image: url('../images/dodge-background.jpg'); /* Укажите путь к изображению */
 }
 
+/* Уникальный фон для игры "Doodle Jump" */
+.game-item-jump {
+  background-image: url('../images/jump-background.jpg'); /* Укажите путь к изображению */
+  background-size: cover; /* Масштабирование изображения */
+  background-position: center; /* Центрирование изображения */
+}
+
 .game-item h2 {
   font-size: 24px;
   margin-bottom: 10px;
