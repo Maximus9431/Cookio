@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#game-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-image: url('../images/game-background.jpg'); /* Укажите путь к вашему изображению */
+  background-size: cover; /* Масштабирование изображения, чтобы покрыть весь экран */
+  background-position: center; /* Центрирование изображения */
+  background-repeat: no-repeat; /* Отключение повторения изображения */
+}
+
+#score-board {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+#game-area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#player {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: auto;
+}
+
+.falling-item {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  animation: fall 5s linear infinite;
+}
+
+.candy {
+  background-image: url('../images/coin.png'); /* Путь к изображению монеты */
+  background-size: cover; /* Масштабирование изображения */
+  background-position: center; /* Центрирование изображения */
+  width: 50px;
+  height: 50px;
+}
+
+.dynamite {
+  background-image: url('../images/bomb.png'); /* Путь к изображению бомбы */
+  background-size: cover; /* Масштабирование изображения */
+  background-position: center; /* Центрирование изображения */
+  width: 50px;
+  height: 50px;
+}
+
+@keyframes fall {
+  from {
+    top: -50px;
+  }
+  to {
+    top: 100%;
+  }
+}
+
+#start-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#start-button:hover {
+  background-color: #ff9900;
+}
+
+#home-button {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#home-button:hover {
+  background-color: #ff9900;
+}

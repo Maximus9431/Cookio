@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Начальное окно -->
+  <div id="welcome-screen">
+    <div id="welcome-container">
+      <h1>Добро пожаловать в Pet Game!</h1>
+      <p>В этой игре вы сможете вырастить своего питомца, участвовать в PvP-сражениях, выполнять квесты и многое другое!</p>
+      <button id="start-game-button">Начать игру</button>
+    </div>
+  </div>
+
+  <!-- Вкладка Pets -->
+  <div id="pets-screen" style="display: none;">
+    <div id="dark-overlay"></div>
+    <div id="egg-container">
+      <div id="egg-message-container">
+        <h2 id="egg-message">Поздравляем, у тебя выпало яйцо!</h2>
+      </div>
+      <img id="egg" src="eggs/egg_0.png" alt="Egg">
+      <img id="pet-image" src="" alt="Pet" style="display: none;">
+      <p id="pet-rarity" style="display: none;"></p>
+    </div>
+
+    <!-- Кнопка со стрелкой -->
+    <div id="expandable-menu">
+      <button id="expand-button">⬆</button>
+      <div id="menu-buttons" style="display: none;">
+        <button class="menu-item">Питомцы</button>
+        <button class="menu-item">Магазин</button>
+        <button class="menu-item">Донат</button>
+        <button class="menu-item" onclick="location.href='games/game.html'">Игры</button>
+        <button class="menu-item">Топ</button>
+        <button class="menu-item">Пвп</button>
+        <button class="menu-item">Квесты</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
