@@ -2,12 +2,16 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #f0f8ff;
+  background-image: url('../images/games-background.jpg'); /* Фон для вкладки */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
-  overflow: hidden;
 }
 
 #game-container {
@@ -100,18 +104,86 @@ body {
 
 #home-button {
   position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 20px;
+  left: 20px;
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: 16px;
   background-color: #ffcc00;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  z-index: 10;
+  color: #000;
+  transition: background-color 0.3s ease;
 }
 
 #home-button:hover {
+  background-color: #ff9900;
+}
+
+#games-container {
+  text-align: center;
+  width: 80%;
+  max-width: 800px;
+  background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.game-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Общие стили для всех квадратиков */
+.game-item {
+  background-size: cover; /* Масштабирование изображения */
+  background-position: center; /* Центрирование изображения */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  color: #fff; /* Цвет текста для контраста */
+}
+
+/* Уникальный фон для игры "Сбор конфет" */
+.game-item-candy {
+  background-image: url('../images/candy-background.jpg'); /* Укажите путь к изображению */
+}
+
+/* Уникальный фон для игры "Уклонение" */
+.game-item-dodge {
+  background-image: url('../images/dodge-background.jpg'); /* Укажите путь к изображению */
+}
+
+.game-item h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.game-item p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.game-item button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #000;
+  transition: background-color 0.3s ease;
+}
+
+.game-item button:hover {
   background-color: #ff9900;
 }

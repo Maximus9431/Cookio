@@ -3,19 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Игра: Сбор конфет</title>
+  <title>Игры</title>
   <link rel="stylesheet" href="game.css">
 </head>
 <body>
-  <div id="game-container">
-    <div id="score-board">
-      <p>Очки: <span id="score">0</span></p>
+  <div id="games-container">
+    <!-- Кнопка "Домой" -->
+    <button id="home-button" onclick="location.href='../index.html'">Домой</button>
+
+    <h1>Игры</h1>
+    <div class="game-list">
+      <!-- Игра 1 -->
+      <div class="game-item game-item-candy">
+        <h2>Сбор конфет</h2>
+        <p>Собирайте конфеты с питомцем, избегая бомб. Наберите 5000 очков, чтобы выиграть!</p>
+        <button onclick="location.href='candy.html'">Играть</button>
+      </div>
+
+      <!-- Игра 2 -->
+      <div class="game-item game-item-dodge">
+        <h2>Уклонение</h2>
+        <p>Управляйте питомцем и уклоняйтесь от падающих препятствий. Продержитесь как можно дольше!</p>
+        <button onclick="location.href='dodge.html'">Играть</button>
+      </div>
     </div>
-    <div id="game-area">
-      <img id="player" src="../pets/common_pet.png" alt="Player">
-    </div>
-    <button id="start-button">Начать игру</button>
-    <button id="home-button" style="display: none;">Домой</button>
   </div>
   <script src="game.js"></script>
 </body>
