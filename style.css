@@ -26,18 +26,29 @@ body {
   border-radius: 10px;
 }
 
-#start-game-button {
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #ffcc00;
+/* Общие стили для кнопок */
+button {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  padding: 12px 20px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Кнопка "Начать игру" */
+#start-game-button {
+  background: linear-gradient(45deg, #ffcc00, #ff9900);
   color: #000;
 }
 
 #start-game-button:hover {
-  background-color: #ff9900;
+  background: linear-gradient(45deg, #ff9900, #ffcc00);
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Вкладка Pets */
@@ -111,7 +122,6 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный черный фон */
   text-align: center;
   padding: 10px 0;
   z-index: 10;
@@ -119,14 +129,14 @@ body {
 
 /* Кнопка со стрелкой */
 #expand-button {
-  background-color: #ffcc00;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  color: #000;
-  transition: transform 0.3s ease;
+  background: linear-gradient(45deg, #4caf50, #2e7d32);
+  color: #fff;
+}
+
+#expand-button:hover {
+  background: linear-gradient(45deg, #2e7d32, #4caf50);
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Выпадающее меню */
@@ -138,24 +148,35 @@ body {
 }
 
 .menu-item {
-  background-color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  margin: 5px 0;
-  cursor: pointer;
-  width: 80%; /* Кнопки занимают 80% ширины */
+  background: linear-gradient(45deg, #2196f3, #1976d2);
+  color: #fff;
+  width: 80%;
   max-width: 300px;
-  color: #000;
-  transition: background-color 0.3s ease;
+  margin: 5px 0;
+  text-align: center;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
 }
 
 .menu-item:hover {
-  background-color: #ffcc00;
+  background: linear-gradient(45deg, #1976d2, #2196f3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .hidden {
   opacity: 0;
   transition: opacity 0.5s ease;
+}
+
+/* Кнопка "Домой" */
+#home-button {
+  background: linear-gradient(45deg, #ff5722, #e64a19);
+  color: #fff;
+}
+
+#home-button:hover {
+  background: linear-gradient(45deg, #e64a19, #ff5722);
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }

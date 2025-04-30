@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Донат</title>
+  <link rel="stylesheet" href="donate.css">
+</head>
+<body>
+  <div id="donat-container">
+    <button id="home-button" onclick="location.href='../index.html'">Домой</button>
+    <h1>Донат</h1>
+    <p>Ваши звезды: <span id="stars">0</span></p>
+    <div id="donat-items">
+      <!-- Пример предметов -->
+      <div class="donat-item">
+        <h2>Зелье здоровья</h2>
+        <p>Восстанавливает здоровье питомца.</p>
+        <p>Цена: 10 ⭐</p>
+        <button class="buy-button" data-price="10">Купить</button>
+      </div>
+      <div class="donat-item">
+        <h2>Редкий питомец</h2>
+        <p>Получите случайного редкого питомца.</p>
+        <p>Цена: 50 ⭐</p>
+        <button class="buy-button" data-price="50">Купить</button>
+      </div>
+    </div>
+  </div>
+  <script src="donate.js"></script>
+</body>
+</html>

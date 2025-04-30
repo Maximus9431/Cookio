@@ -87,3 +87,44 @@ h1 {
 #home-button:hover {
   background-color: #ff9900;
 }
+
+/* Общие стили для кнопок */
+button {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Кнопка "Домой" */
+#home-button {
+  background: linear-gradient(45deg, #ff5722, #e64a19);
+  color: #fff;
+}
+
+#home-button:hover {
+  background: linear-gradient(45deg, #e64a19, #ff5722);
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Кнопки "Купить" для товаров */
+.shop-item button {
+  background: linear-gradient(45deg, #4caf50, #388e3c);
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.shop-item button:hover {
+  background: linear-gradient(45deg, #388e3c, #4caf50);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}

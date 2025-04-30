@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-image: url('../images/inventory-background.jpg'); /* Укажите путь к вашему изображению */
+  background-image: url('../images/donate-background.jpg'); /* Укажите путь к вашему изображению */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -14,7 +14,7 @@ body {
   height: 100vh;
 }
 
-#inventory-container {
+#donat-container {
   text-align: center;
   width: 80%;
   max-width: 800px;
@@ -29,82 +29,65 @@ h1 {
   margin-bottom: 20px;
 }
 
-#inventory-items {
+#donat-items {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
 }
 
-.inventory-item {
+.donat-item {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 10px;
-  width: 150px;
+  width: 200px;
   text-align: center;
   color: #000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Общие стили для кнопок */
-button {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  font-weight: bold;
+.donat-item h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.donat-item p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.buy-button {
+  background: linear-gradient(45deg, #ffcc00, #ff9900);
+  color: #000;
   border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
+  border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.buy-button:hover {
+  background: linear-gradient(45deg, #ff9900, #ffcc00);
+  transform: scale(1.05);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Кнопка "Домой" */
 #home-button {
   position: absolute;
   top: 20px;
   left: 20px;
   background: linear-gradient(45deg, #ff5722, #e64a19);
   color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 #home-button:hover {
   background: linear-gradient(45deg, #e64a19, #ff5722);
   transform: scale(1.05);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Кнопки "Удалить" для предметов */
-.inventory-item button {
-  background: linear-gradient(45deg, #f44336, #d32f2f);
-  color: #fff;
-  width: 100%;
-  text-align: center;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
-}
-
-.inventory-item button:hover {
-  background: linear-gradient(45deg, #d32f2f, #f44336);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.delete-button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  font-size: 14px;
-  background-color: #ff4d4d;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.delete-button:hover {
-  background-color: #ff1a1a;
 }

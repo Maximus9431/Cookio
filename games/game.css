@@ -102,22 +102,25 @@ body {
   background-color: #ff9900;
 }
 
+/* Кнопка "Домой" */
 #home-button {
   position: absolute;
   top: 20px;
   left: 20px;
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #ffcc00;
+  background: linear-gradient(45deg, #ff5722, #e64a19);
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  color: #000;
+  color: #fff;
   transition: background-color 0.3s ease;
 }
 
 #home-button:hover {
-  background-color: #ff9900;
+  background: linear-gradient(45deg, #e64a19, #ff5722);
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
 
 #games-container {
@@ -180,17 +183,31 @@ h1 {
   margin-bottom: 20px;
 }
 
+/* Кнопки "Играть" для каждой игры */
 .game-item button {
+  background: linear-gradient(45deg, #2196f3, #1976d2);
+  color: #fff;
+  width: 100%;
+  text-align: center;
   padding: 10px 20px;
-  font-size: 16px;
-  background-color: #ffcc00;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #000;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .game-item button:hover {
-  background-color: #ff9900;
+  background: linear-gradient(45deg, #1976d2, #2196f3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Общие стили для кнопок */
+button {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }

@@ -1,41 +1,72 @@
-// Получаем контейнер для предметов
 const inventoryItemsContainer = document.getElementById('inventory-items');
+const donatItemsContainer = document.getElementById('donat-items');
 
 // Загружаем предметы из localStorage
 function loadInventory() {
   const items = JSON.parse(localStorage.getItem('inventory')) || [];
+  const donatItems = JSON.parse(localStorage.getItem('donatInventory')) || [];
+
   inventoryItemsContainer.innerHTML = ''; // Очищаем контейнер
+  donatItemsContainer.innerHTML = ''; // Очищаем контейнер для донатных предметов
 
   if (items.length === 0) {
     inventoryItemsContainer.innerHTML = '<p>Ваш инвентарь пуст.</p>';
-    return;
+  } else {
+    items.forEach((item, index) => {
+      const itemElement = document.createElement('div');
+      itemElement.classList.add('inventory-item');
+      itemElement.innerHTML = `
+        <h3>${item.name}</h3>
+        <p>${item.description}</p>
+        <button class="delete-button" data-index="${index}">Удалить</button>
+      `;
+      inventoryItemsContainer.appendChild(itemElement);
+    });
   }
 
-  items.forEach((item, index) => {
-    const itemElement = document.createElement('div');
-    itemElement.classList.add('inventory-item');
-    itemElement.innerHTML = `
-      <h3>${item.name}</h3>
-      <p>${item.description}</p>
-      <button class="delete-button" data-index="${index}">Удалить</button>
-    `;
-    inventoryItemsContainer.appendChild(itemElement);
-  });
+  if (donatItems.length === 0) {
+    donatItemsContainer.innerHTML = '<p>У вас нет донатных предметов.</p>';
+  } else {
+    donatItems.forEach((item, index) => {
+      const itemElement = document.createElement('div');
+      itemElement.classList.add('inventory-item');
+      itemElement.innerHTML = `
+        <h3>${item.name}</h3>
+        <p>${item.description}</p>
+        <button class="delete-button" data-index="${index}" data-type="donat">Удалить</button>
+      `;
+      donatItemsContainer.appendChild(itemElement);
+    });
+  }
 
   // Добавляем обработчики событий для кнопок "Удалить"
   document.querySelectorAll('.delete-button').forEach((button) => {
     button.addEventListener('click', (event) => {
       const index = event.target.getAttribute('data-index');
-      deleteItem(index);
+      const type = event.target.getAttribute('data-type');
+
+      if (type === 'donat') {
+        deleteDonatItem(index);
+      } else {
+        deleteItem(index);
+      }
     });
   });
 }
 
-// Удаление предмета из localStorage
+// Удаление обычного предмета
 function deleteItem(index) {
   const items = JSON.parse(localStorage.getItem('inventory')) || [];
   items.splice(index, 1); // Удаляем элемент по индексу
   localStorage.setItem('inventory', JSON.stringify(items)); // Сохраняем обновленный инвентарь
+  loadInventory(); // Обновляем отображение
+}
+
+// Удаление донатного предмета
+function deleteDonatItem(index) {
+  const donatItems = JSON.parse(localStorage.getItem('donatInventory')) || [];
+  donatItems.splice(index, 1); // Удаляем элемент по индексу
+  localStorage.setItem('donatInventory', JSON.stringify(donatItems)); // Сохраняем обновленный инвентарь
   loadInventory(); // Обновляем отображение
 }
 
