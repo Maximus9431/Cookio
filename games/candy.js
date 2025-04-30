@@ -7,6 +7,7 @@ const homeButton = document.getElementById('home-button');
 let score = 0;
 let gameInterval;
 let isGameRunning = false;
+let isDragging = false;
 
 // Начать игру
 startButton.addEventListener('click', () => {
@@ -29,6 +30,38 @@ document.addEventListener('mousemove', (e) => {
   x = Math.max(0, Math.min(x, gameAreaRect.width - playerWidth));
   player.style.left = `${x}px`;
 });
+
+// Начало перетаскивания
+player.addEventListener('touchstart', (event) => {
+  isDragging = true;
+  movePlayer(event.touches[0]);
+});
+
+// Перемещение игрока
+document.addEventListener('touchmove', (event) => {
+  if (isDragging) {
+    movePlayer(event.touches[0]);
+  }
+});
+
+// Завершение перетаскивания
+document.addEventListener('touchend', () => {
+  isDragging = false;
+});
+
+// Функция для перемещения игрока
+function movePlayer(touch) {
+  const rect = gameArea.getBoundingClientRect();
+  const playerWidth = player.offsetWidth;
+  const playerHeight = player.offsetHeight;
+
+  // Ограничиваем движение игрока в пределах игрового поля
+  const newX = Math.min(Math.max(touch.clientX - rect.left - playerWidth / 2, 0), rect.width - playerWidth);
+  const newY = Math.min(Math.max(touch.clientY - rect.top - playerHeight / 2, 0), rect.height - playerHeight);
+
+  player.style.left = `${newX}px`;
+  player.style.top = `${newY}px`;
+}
 
 // Генерация падающих объектов
 function createFallingItem(type) {
