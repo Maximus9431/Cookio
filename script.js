@@ -38,7 +38,7 @@ egg.addEventListener('click', () => {
     setTimeout(() => {
       eggMessage.style.display = 'none';
       document.getElementById('egg-message-container').style.display = 'none'; // Скрываем рамку
-    }, 500); // Убираем элемент через 0.5 секунды
+    }, 100); // Убираем элемент через 0.5 секунды
 
     // Генерация питомца
     const petData = generatePet();
