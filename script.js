@@ -10,11 +10,16 @@ const egg = document.getElementById('egg');
 const petImage = document.getElementById('pet-image');
 const petRarity = document.getElementById('pet-rarity');
 const eggMessage = document.getElementById('egg-message');
+const eggCrackSound = document.getElementById('egg-crack-sound');
 
 let clicks = 0;
 
 egg.addEventListener('click', () => {
   clicks++;
+
+  // Воспроизводим звук треска яйца
+  eggCrackSound.currentTime = 0; // Сбрасываем звук на начало
+  eggCrackSound.play();
 
   // Меняем изображение яйца при каждом клике
   if (clicks === 1) {

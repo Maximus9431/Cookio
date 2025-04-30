@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ПвП</title>
+  <link rel="stylesheet" href="pvp.css">
+</head>
+<body>
+  <button id="home-button" onclick="location.href='../index.html'">Домой</button>
+  <div id="pvp-container">
+    <h1>ПвП: Соревнование</h1>
+    <div id="game-area">
+      <div id="player1" class="player" style="background-color: blue;"></div>
+      <div id="player2" class="player" style="background-color: red;"></div>
+    </div>
+    <div id="score-board">
+      <p>Игрок 1: <span id="score1">0</span></p>
+      <p>Игрок 2: <span id="score2">0</span></p>
+    </div>
+    <button id="start-button">Начать игру</button>
+  </div>
+  <script src="pvp.js"></script>
+</body>
+</html>
