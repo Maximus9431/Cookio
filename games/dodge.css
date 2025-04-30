@@ -20,15 +20,21 @@ body {
   overflow: hidden;
 }
 
+/* Счётчик времени */
 #score-board {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный чёрный фон */
   color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  z-index: 10;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Убедитесь, что счётчик отображается поверх других элементов */
 }
 
 #game-area {
@@ -65,6 +71,7 @@ body {
   }
 }
 
+/* Кнопка "Начать игру" */
 #start-button {
   position: absolute;
   bottom: 20px;
@@ -72,13 +79,43 @@ body {
   transform: translateX(-50%);
   padding: 10px 20px;
   font-size: 18px;
-  background-color: #ffcc00;
+  font-weight: bold;
+  background: linear-gradient(45deg, #2196f3, #1976d2); /* Цвет кнопки "Играть" */
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
 
 #start-button:hover {
-  background-color: #ff9900;
+  background: linear-gradient(45deg, #1976d2, #2196f3); /* Цвет при наведении */
+  transform: translate(-50%, -5px); /* Поднимаем кнопку вверх */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Увеличиваем тень */
+}
+
+/* Кнопка "Домой" */
+#home-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(45deg, #ff5722, #e64a19);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Убедитесь, что кнопка отображается поверх других элементов */
+}
+
+#home-button:hover {
+  background: linear-gradient(45deg, #e64a19, #ff5722);
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
