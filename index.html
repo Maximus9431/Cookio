@@ -7,43 +7,42 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Начальное окно -->
-  <div id="welcome-screen">
-    <div id="welcome-container">
-      <h1>Добро пожаловать в Pet Game!</h1>
-      <p>В этой игре вы сможете вырастить своего питомца, участвовать в PvP-сражениях, выполнять квесты и многое другое!</p>
+  <div id="app-container">
+    <div id="header">
+      <button id="close-button">Закрыть</button>
+      <button id="minimize-button">⬇</button>
+      <button id="menu-button">⋮</button>
+    </div>
+    <div id="content">
+      <h1>Добро пожаловать в игру!</h1>
+      <p>Нажмите кнопку ниже, чтобы начать.</p>
       <button id="start-game-button">Начать игру</button>
     </div>
   </div>
 
-  <!-- Вкладка Pets -->
-  <div id="pets-screen" style="display: none;">
-    <div id="dark-overlay"></div>
-    <div id="egg-container">
-      <div id="egg-message-container">
-        <h2 id="egg-message">Поздравляем, у тебя выпало яйцо!</h2>
-      </div>
-      <img id="egg" src="eggs/egg_0.png" alt="Egg">
-      <img id="pet-image" src="" alt="Pet" style="display: none;">
-      <p id="pet-rarity" style="display: none;"></p>
-    </div>
+  <script>
+    const tg = window.Telegram.WebApp;
 
-    <!-- Кнопка со стрелкой -->
-    <div id="expandable-menu">
-      <button id="expand-button">⬆</button>
-      <div id="menu-buttons" style="display: none;">
-        <button class="menu-item" onclick="location.href='games/game.html'">Игры</button>
-        <button class="menu-item" onclick="location.href='pvp/pvp.html'">Пвп</button>
-        <button class="menu-item" onclick="location.href='shop/shop.html'">Магазин</button>
-        <button class="menu-item" onclick="location.href='inventory/inventory.html'">Инвентарь</button>
-        <button class="menu-item" onclick="location.href='donate/donate.html'">Эксклюзив</button>
-        <button class="menu-item" onclick="location.href='top/top.html'">Топ</button>
-      </div>
-    </div>
-  </div>
+    // Кнопка "Закрыть"
+    const closeButton = document.getElementById('close-button');
+    closeButton.addEventListener('click', () => {
+      tg.close(); // Закрыть Web App
+    });
 
-  <audio id="egg-crack-sound" src="sounds/egg-crack.mp3"></audio>
+    // Кнопка "Свернуть"
+    const minimizeButton = document.getElementById('minimize-button');
+    minimizeButton.addEventListener('click', () => {
+      tg.BackButton.show(); // Показываем встроенную кнопку "Назад"
+      tg.BackButton.onClick(() => {
+        tg.close(); // Закрыть Web App
+      });
+    });
 
-  <script src="script.js"></script>
+    // Кнопка "Меню"
+    const menuButton = document.getElementById('menu-button');
+    menuButton.addEventListener('click', () => {
+      alert('Меню открыто!'); // Здесь можно добавить логику для меню
+    });
+  </script>
 </body>
 </html>
