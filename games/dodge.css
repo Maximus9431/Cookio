@@ -57,9 +57,15 @@ body {
   position: absolute;
   width: 50px;
   height: 50px;
-  background-color: #ff0000; /* Красный цвет препятствия */
-  border-radius: 5px;
+  background-image: url('../images/bomb.png'); /* Укажите путь к изображению бомбы */
+  background-size: cover;
+  background-position: center;
   animation: fall 5s linear infinite;
+  z-index: 10;
+
+  /* Уменьшение хитбокса */
+  transform: scale(0.8); /* Уменьшает хитбокс до 80% от размера */
+  transform-origin: center; /* Центрирует уменьшение */
 }
 
 @keyframes fall {

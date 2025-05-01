@@ -35,7 +35,7 @@ document.addEventListener('keydown', (e) => {
   player.style.left = `${x}px`;
 });
 
-// Генерация препятствий
+// Генерация препятствий (бомб)
 function createObstacle() {
   const obstacle = document.createElement('div');
   obstacle.classList.add('obstacle');
@@ -54,7 +54,7 @@ function createObstacle() {
       obstacleRect.left < playerRect.right &&
       obstacleRect.right > playerRect.left
     ) {
-      endGame('Вы проиграли! Вы столкнулись с препятствием.');
+      endGame('Вы проиграли! Вы столкнулись с бомбой.');
       obstacle.remove();
       clearInterval(fallInterval);
     }
@@ -73,9 +73,14 @@ function startGame() {
   gameInterval = setInterval(() => {
     time++;
     timeBoard.textContent = time;
+
+    // Проверяем, достиг ли игрок 60 секунд
+    if (time >= 60) {
+      endGame('Поздравляем! Вы выиграли!');
+    }
   }, 1000);
 
-  // Генерация препятствий
+  // Генерация препятствий (бомб)
   obstacleInterval = setInterval(() => {
     createObstacle();
   }, 800); // Препятствия появляются каждые 800 мс

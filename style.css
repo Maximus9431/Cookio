@@ -7,7 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh; /* Высота на весь экран */
-  background-image: url('images/background.jpg'); /* Укажите путь к вашему изображению */
+  background-image: url('images/background.png'); /* Укажите путь к вашему изображению */
   background-size: cover; /* Масштабирование изображения, чтобы покрыть весь экран */
   background-position: center; /* Центрирование изображения */
   background-repeat: no-repeat; /* Отключение повторения изображения */

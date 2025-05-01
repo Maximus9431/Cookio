@@ -23,11 +23,19 @@ startButton.addEventListener('click', () => {
 
 // Движение игрока
 document.addEventListener('keydown', (e) => {
+  const gameAreaRect = gameArea.getBoundingClientRect();
+  const playerWidth = player.offsetWidth;
+  let x = parseInt(player.style.left || gameAreaRect.width / 2);
+
   if (e.code === 'ArrowLeft') {
-    player.style.left = `${parseInt(player.style.left || 50) - 10}px`;
+    x -= 20; // Движение влево
   } else if (e.code === 'ArrowRight') {
-    player.style.left = `${parseInt(player.style.left || 50) + 10}px`;
+    x += 20; // Движение вправо
   }
+
+  // Ограничиваем движение игрока в пределах игрового поля
+  x = Math.max(0, Math.min(x, gameAreaRect.width - playerWidth));
+  player.style.left = `${x}px`;
 });
 
 // Создание платформы
@@ -61,7 +69,8 @@ function startGame() {
 // Игровой цикл
 function gameLoop() {
   playerVelocity -= gravity;
-  player.style.bottom = `${parseInt(player.style.bottom || 50) + playerVelocity}px`;
+  const playerBottom = parseInt(player.style.bottom || 50) + playerVelocity;
+  player.style.bottom = `${playerBottom}px`;
 
   // Проверка столкновения с платформами
   platforms.forEach((platform) => {
@@ -94,10 +103,11 @@ function gameLoop() {
 
   // Двигаем платформы вниз
   platforms.forEach((platform) => {
-    platform.style.bottom = `${parseInt(platform.style.bottom) - 2}px`;
+    const platformBottom = parseInt(platform.style.bottom) - 2;
+    platform.style.bottom = `${platformBottom}px`;
 
     // Удаляем платформы, которые вышли за пределы экрана
-    if (parseInt(platform.style.bottom) < 0) {
+    if (platformBottom < 0) {
       platform.remove();
       platforms.shift();
       createPlatform(Math.random() * (gameArea.offsetWidth - 100), 600);
