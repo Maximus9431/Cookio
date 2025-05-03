@@ -1,8 +1,23 @@
+@font-face {
+  font-family: 'Arkhangelsk';
+  src: url('fonts/Arkhangelsk-Regular.ttf') format('truetype'); /* Укажите путь к файлу шрифта */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Rockletter Simple';
+  src: url('fonts/Rockletter-Simple.ttf') format('truetype'); /* Укажите путь к файлу шрифта */
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Общие стили */
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Rockletter Simple', monospace; /* Используем шрифт Rockletter Simple */
+  font-weight: bold; /* Жирный текст */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,6 +27,12 @@ body {
   background-position: center; /* Центрирование изображения */
   background-repeat: no-repeat; /* Отключение повторения изображения */
   color: #fff; /* Цвет текста для контраста с фоном */
+}
+
+/* Переопределение для всех текстовых элементов */
+h1, h2, h3, p, button, span {
+  font-family: 'Rockletter Simple', monospace; /* Используем шрифт Rockletter Simple */
+  font-weight: bold; /* Жирный текст */
 }
 
 /* Начальное окно */
@@ -92,8 +113,10 @@ button {
 
 #pet-rarity {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: bold; /* Жирный текст */
   margin-top: 10px;
+  color: #000; /* Черный цвет текста */
+  font-family: 'Courier New', Courier, monospace; /* Шрифт monospace */
 }
 
 /* Контейнер для сообщения */

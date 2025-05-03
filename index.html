@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pet Game</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Начальное окно -->
@@ -18,15 +19,14 @@
 
   <!-- Вкладка Pets -->
   <div id="pets-screen" style="display: none;">
-    <div id="dark-overlay"></div>
-    <div id="egg-container">
-      <div id="egg-message-container">
-        <h2 id="egg-message">Поздравляем, у тебя выпало яйцо!</h2>
-      </div>
-      <img id="egg" src="eggs/egg_0.png" alt="Egg">
-      <img id="pet-image" src="" alt="Pet" style="display: none;">
-      <p id="pet-rarity" style="display: none;"></p>
+    <!-- Удалите или закомментируйте этот блок -->
+    <div id="dark-overlay" style="display: none;"></div>
+    <div id="egg-message-container" style="display: none;">
+      <h2 id="egg-message">Поздравляем, у тебя выпало яйцо!</h2>
     </div>
+    <img id="egg" src="eggs/egg_0.png" alt="Egg">
+    <img id="pet-image" src="" alt="Pet" style="display: none;">
+    <p id="pet-rarity" style="display: none;"></p>
 
     <!-- Кнопка со стрелкой -->
     <div id="expandable-menu">
