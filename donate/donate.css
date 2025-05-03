@@ -91,3 +91,21 @@ h1 {
   transform: scale(1.05);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
+
+#stars-display {
+  background-color: #ae18d3;
+  color: #333;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px auto 20px;
+  width: fit-content;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#stars-display span {
+  color: #ff5722;
+  font-size: 20px;
+}

@@ -87,3 +87,13 @@ expandButton.addEventListener('click', () => {
     expandButton.textContent = '⬆'; // Меняем стрелку на вверх
   }
 });
+
+// Пример выбивания питомца
+const newPet = {
+  name: "Котик",
+  rarity: "Обычный",
+  image: "pets/common_pet.png",
+};
+
+// Добавляем питомца в localStorage
+addPet(newPet);
