@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,38 +7,13 @@
   <link rel="stylesheet" href="shop.css">
 </head>
 <body>
-  <div id="shop-container">
-    <button id="home-button" onclick="location.href='../index.html'">Домой</button>
-    <h1>Магазин</h1>
-    <div class="shop-items">
-      <!-- Пробные предметы -->
-      <div class="shop-item">
-        <h2>Зелье здоровья</h2>
-        <p>Восстанавливает 50% здоровья питомца.</p>
-        <button class="buy-button">Купить за 100 монет</button>
-      </div>
-      <div class="shop-item">
-        <h2>Зелье энергии</h2>
-        <p>Увеличивает энергию питомца на 30%.</p>
-        <button class="buy-button">Купить за 150 монет</button>
-      </div>
-      <div class="shop-item">
-        <h2>Редкий питомец</h2>
-        <p>Получите случайного редкого питомца.</p>
-        <button class="buy-button">Купить за 500 монет</button>
-      </div>
-      <div class="shop-item">
-        <h2>Сундук с сокровищами</h2>
-        <p>Содержит случайные бонусы и предметы.</p>
-        <button class="buy-button">Купить за 300 монет</button>
-      </div>
-      <div class="shop-item">
-        <h2>Магнит для конфет</h2>
-        <p>Притягивает конфеты в радиусе 100px.</p>
-        <p>Цена: 500 очков</p>
-        <button class="buy-button" data-item="magnet" data-price="500">Купить</button>
-      </div>
-    </div>
+  <button id="home-button" onclick="location.href='../index.html'">Домой</button>
+  <div class="shop-header">
+    <h1>SHOP</h1>
+    <div class="timer">⏰ 19:00:00</div>
+  </div>
+  <div class="shelf-container" id="shop-items">
+    <!-- Предметы добавляются через JS -->
   </div>
   <script src="shop.js"></script>
 </body>

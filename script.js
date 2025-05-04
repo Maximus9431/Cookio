@@ -23,9 +23,9 @@ egg.addEventListener('click', () => {
 
   // Меняем изображение яйца при каждом клике
   if (clicks === 1) {
-    egg.src = 'eggs/egg_1.png';
+    egg.src = 'eggs/egg_1.jpeg';
   } else if (clicks === 2) {
-    egg.src = 'eggs/egg_2.png';
+    egg.src = 'eggs/egg_2.jpeg';
   } else if (clicks === 3) {
     // Яйцо разбито, показываем питомца
     egg.style.display = 'none';

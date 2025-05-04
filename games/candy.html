@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Сбор конфет</title>
   <link rel="stylesheet" href="candy.css" />
 </head>
 <body>
-  <button id="home-button" onclick="location.href='game.html'">Домой</button>
   <div id="game-container">
-    <div id="score-board">
-      <p>Очки: <span id="score">0</span></p>
-    </div>
+    <button id="home-button" onclick="location.href='game.html'">Домой</button>
+    <div id="score-board">Очки: <span id="score">0</span></div>
     <div id="game-area">
       <img id="player" src="../pets/common_pet.png" alt="Player" />
     </div>
-    <button id="start-button">Начать игру</button>
+    <button id="start-button">▶ Начать игру</button>
   </div>
 
-  <!-- Добавлены звуки -->
   <audio id="coin-sound" src="../sounds/moneta.mp3"></audio>
   <audio id="bomb-sound" src="../sounds/bomb.mp3"></audio>
 

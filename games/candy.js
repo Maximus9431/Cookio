@@ -3,8 +3,6 @@ const gameArea = document.getElementById('game-area');
 const scoreBoard = document.getElementById('score');
 const startButton = document.getElementById('start-button');
 const homeButton = document.getElementById('home-button');
-
-// ✅ Правильные ID
 const coinSound = document.getElementById('coin-sound');
 const bombSound = document.getElementById('bomb-sound');
 
@@ -16,31 +14,28 @@ let isDragging = false;
 startButton.addEventListener('click', () => {
   if (isGameRunning) return;
   isGameRunning = true;
-  startButton.style.display = 'none';
-  homeButton.style.display = 'none';
   score = 0;
   scoreBoard.textContent = score;
+  startButton.style.display = 'none';
+  homeButton.style.display = 'none';
   startGame();
 });
 
 document.addEventListener('mousemove', (e) => {
-  const gameAreaRect = gameArea.getBoundingClientRect();
+  const areaRect = gameArea.getBoundingClientRect();
   const playerWidth = player.offsetWidth;
-  let x = e.clientX - gameAreaRect.left - playerWidth / 2;
-
-  x = Math.max(0, Math.min(x, gameAreaRect.width - playerWidth));
+  let x = e.clientX - areaRect.left - playerWidth / 2;
+  x = Math.max(0, Math.min(x, areaRect.width - playerWidth));
   player.style.left = `${x}px`;
 });
 
-player.addEventListener('touchstart', (event) => {
+player.addEventListener('touchstart', (e) => {
   isDragging = true;
-  movePlayer(event.touches[0]);
+  movePlayer(e.touches[0]);
 });
 
-document.addEventListener('touchmove', (event) => {
-  if (isDragging) {
-    movePlayer(event.touches[0]);
-  }
+document.addEventListener('touchmove', (e) => {
+  if (isDragging) movePlayer(e.touches[0]);
 });
 
 document.addEventListener('touchend', () => {
@@ -49,21 +44,23 @@ document.addEventListener('touchend', () => {
 
 function movePlayer(touch) {
   const rect = gameArea.getBoundingClientRect();
-  const playerWidth = player.offsetWidth;
-  const playerHeight = player.offsetHeight;
+  const w = player.offsetWidth;
+  const h = player.offsetHeight;
 
-  const newX = Math.min(Math.max(touch.clientX - rect.left - playerWidth / 2, 0), rect.width - playerWidth);
-  const newY = Math.min(Math.max(touch.clientY - rect.top - playerHeight / 2, 0), rect.height - playerHeight);
+  let x = touch.clientX - rect.left - w / 2;
+  let y = touch.clientY - rect.top - h / 2;
 
-  player.style.left = `${newX}px`;
-  player.style.top = `${newY}px`;
+  x = Math.max(0, Math.min(x, rect.width - w));
+  y = Math.max(0, Math.min(y, rect.height - h));
+
+  player.style.left = `${x}px`;
+  player.style.top = `${y}px`;
 }
 
 function createFallingItem(type) {
   const item = document.createElement('div');
   item.classList.add('falling-item', type);
   item.style.left = `${Math.random() * 90}%`;
-
   gameArea.appendChild(item);
 
   const fallInterval = setInterval(() => {
@@ -77,28 +74,21 @@ function createFallingItem(type) {
     ) {
       if (type === 'candy') {
         score += 100;
-
-        // ✅ Звук монеты
+        scoreBoard.textContent = score;
         if (coinSound) {
           coinSound.currentTime = 0;
-          coinSound.play().catch(e => console.warn('Ошибка воспроизведения звука:', e));
+          coinSound.play().catch(console.warn);
         }
-
-      } else if (type === 'dynamite') {
-
-        // 💣 Звук бомбы
+      } else {
         if (bombSound) {
           bombSound.currentTime = 0;
-          bombSound.play().catch(e => console.warn('Ошибка воспроизведения звука:', e));
+          bombSound.play().catch(console.warn);
         }
-
-        endGame('Вы проиграли! Вы попали на бомбу.');
+        endGame('💣 Вы проиграли!');
       }
 
-      scoreBoard.textContent = score;
-
       if (score >= 5000) {
-        endGame('Вы выиграли!');
+        endGame('🎉 Победа!');
       }
 
       item.remove();
@@ -114,20 +104,16 @@ function createFallingItem(type) {
 
 function startGame() {
   gameInterval = setInterval(() => {
-    const type = Math.random() < 0.6 ? 'candy' : 'dynamite';
+    const type = Math.random() < 0.7 ? 'candy' : 'dynamite';
     createFallingItem(type);
-  }, 800);
+  }, 700);
 }
 
 function endGame(message) {
   clearInterval(gameInterval);
   isGameRunning = false;
+  document.querySelectorAll('.falling-item').forEach(el => el.remove());
   alert(message);
-  homeButton.style.display = 'block';
   startButton.style.display = 'block';
-  document.querySelectorAll('.falling-item').forEach((item) => item.remove());
+  homeButton.style.display = 'block';
 }
-
-homeButton.addEventListener('click', () => {
-  location.href = 'game.html';
-});
