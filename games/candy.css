@@ -129,3 +129,27 @@ body {
   transform: scale(1.05);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
+
+/* (Твой оригинальный CSS остаётся без изменений выше) */
+
+@media (max-width: 600px) {
+  #player {
+    width: 20vw;
+  }
+
+  .falling-item {
+    width: 12vw;
+    height: 12vw;
+  }
+
+  #score-board {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  #start-button,
+  #home-button {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+}
