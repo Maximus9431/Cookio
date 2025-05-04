@@ -4,12 +4,15 @@ const scoreBoard = document.getElementById('score');
 const startButton = document.getElementById('start-button');
 const homeButton = document.getElementById('home-button');
 
+// ✅ Правильные ID
+const coinSound = document.getElementById('coin-sound');
+const bombSound = document.getElementById('bomb-sound');
+
 let score = 0;
 let gameInterval;
 let isGameRunning = false;
 let isDragging = false;
 
-// Начать игру
 startButton.addEventListener('click', () => {
   if (isGameRunning) return;
   isGameRunning = true;
@@ -20,42 +23,35 @@ startButton.addEventListener('click', () => {
   startGame();
 });
 
-// Движение игрока
 document.addEventListener('mousemove', (e) => {
   const gameAreaRect = gameArea.getBoundingClientRect();
   const playerWidth = player.offsetWidth;
   let x = e.clientX - gameAreaRect.left - playerWidth / 2;
 
-  // Ограничиваем движение игрока в пределах игрового поля
   x = Math.max(0, Math.min(x, gameAreaRect.width - playerWidth));
   player.style.left = `${x}px`;
 });
 
-// Начало перетаскивания
 player.addEventListener('touchstart', (event) => {
   isDragging = true;
   movePlayer(event.touches[0]);
 });
 
-// Перемещение игрока
 document.addEventListener('touchmove', (event) => {
   if (isDragging) {
     movePlayer(event.touches[0]);
   }
 });
 
-// Завершение перетаскивания
 document.addEventListener('touchend', () => {
   isDragging = false;
 });
 
-// Функция для перемещения игрока
 function movePlayer(touch) {
   const rect = gameArea.getBoundingClientRect();
   const playerWidth = player.offsetWidth;
   const playerHeight = player.offsetHeight;
 
-  // Ограничиваем движение игрока в пределах игрового поля
   const newX = Math.min(Math.max(touch.clientX - rect.left - playerWidth / 2, 0), rect.width - playerWidth);
   const newY = Math.min(Math.max(touch.clientY - rect.top - playerHeight / 2, 0), rect.height - playerHeight);
 
@@ -63,7 +59,6 @@ function movePlayer(touch) {
   player.style.top = `${newY}px`;
 }
 
-// Генерация падающих объектов
 function createFallingItem(type) {
   const item = document.createElement('div');
   item.classList.add('falling-item', type);
@@ -71,12 +66,10 @@ function createFallingItem(type) {
 
   gameArea.appendChild(item);
 
-  // Анимация падения
   const fallInterval = setInterval(() => {
     const itemRect = item.getBoundingClientRect();
     const playerRect = player.getBoundingClientRect();
 
-    // Проверка столкновения с игроком
     if (
       itemRect.bottom >= playerRect.top &&
       itemRect.left < playerRect.right &&
@@ -84,12 +77,26 @@ function createFallingItem(type) {
     ) {
       if (type === 'candy') {
         score += 100;
+
+        // ✅ Звук монеты
+        if (coinSound) {
+          coinSound.currentTime = 0;
+          coinSound.play().catch(e => console.warn('Ошибка воспроизведения звука:', e));
+        }
+
       } else if (type === 'dynamite') {
+
+        // 💣 Звук бомбы
+        if (bombSound) {
+          bombSound.currentTime = 0;
+          bombSound.play().catch(e => console.warn('Ошибка воспроизведения звука:', e));
+        }
+
         endGame('Вы проиграли! Вы попали на бомбу.');
       }
+
       scoreBoard.textContent = score;
 
-      // Проверка на победу
       if (score >= 5000) {
         endGame('Вы выиграли!');
       }
@@ -98,7 +105,6 @@ function createFallingItem(type) {
       clearInterval(fallInterval);
     }
 
-    // Удаление объекта, если он вышел за пределы экрана
     if (itemRect.top > window.innerHeight) {
       item.remove();
       clearInterval(fallInterval);
@@ -106,15 +112,13 @@ function createFallingItem(type) {
   }, 50);
 }
 
-// Запуск игры
 function startGame() {
   gameInterval = setInterval(() => {
-    const type = Math.random() < 0.6 ? 'candy' : 'dynamite'; // 60% конфеты, 40% бомбы
+    const type = Math.random() < 0.6 ? 'candy' : 'dynamite';
     createFallingItem(type);
   }, 800);
 }
 
-// Завершение игры
 function endGame(message) {
   clearInterval(gameInterval);
   isGameRunning = false;
@@ -124,7 +128,6 @@ function endGame(message) {
   document.querySelectorAll('.falling-item').forEach((item) => item.remove());
 }
 
-// Добавляем обработчик события для кнопки "Домой"
 homeButton.addEventListener('click', () => {
-  location.href = 'game.html'; // Перенаправление на страницу game.html
+  location.href = 'game.html';
 });
