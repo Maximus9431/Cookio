@@ -1,4 +1,5 @@
 const topTableBody = document.querySelector('#top-table tbody');
+const topContainer = document.getElementById('top-container');
 
 // Пример данных игроков
 const players = [
@@ -26,5 +27,15 @@ function renderTopPlayers() {
     });
 }
 
+// Добавляем класс "visible" для плавного появления контейнера
+function showTopContainer() {
+  setTimeout(() => {
+    topContainer.classList.add('visible');
+  }, 200); // Задержка для эффекта
+}
+
 // Загружаем таблицу при загрузке страницы
-renderTopPlayers();
+document.addEventListener('DOMContentLoaded', () => {
+  renderTopPlayers();
+  showTopContainer();
+});
