@@ -8,26 +8,20 @@
 </head>
 <body>
   <div id="games-container">
-    <!-- Кнопка "Домой" -->
-    <button id="home-button" onclick="location.href='../index.html'">Домой</button>
-
     <h1>Игры</h1>
     <div class="game-list">
-      <!-- Игра 1 -->
       <div class="game-item game-item-candy">
         <h2>Собирание</h2>
         <p>Собирайте конфеты с питомцем, избегая бомб. Наберите 5000 очков, чтобы выиграть!</p>
         <button onclick="location.href='candy.html'">Играть</button>
       </div>
 
-      <!-- Игра 2 -->
       <div class="game-item game-item-dodge">
         <h2>Уклонение</h2>
         <p>Управляйте питомцем и уклоняйтесь от падающих препятствий. Продержитесь как можно дольше!</p>
         <button onclick="location.href='dodge.html'">Играть</button>
       </div>
 
-      <!-- Игра 3 -->
       <div class="game-item game-item-jump">
         <h2>Прыжки</h2>
         <p>Управляйте питомцем и прыгайте вверх по платформам. Продержитесь как можно дольше!</p>
@@ -35,6 +29,21 @@
       </div>
     </div>
   </div>
+
+  <div id="expandable-menu">
+    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">⬆</button>
+    <div id="menu-buttons">
+      <button class="menu-item" onclick="location.href='../pet/pet.html'">🐾 Питомцы</button>
+      <button class="menu-item" onclick="location.href='game.html'">🎮 Игры</button>
+      <button class="menu-item" onclick="location.href='../pvp/pvp.html'">⚔️ Пвп</button>
+      <button class="menu-item" onclick="location.href='../shop/shop.html'">🛒 Магазин</button>
+      <button class="menu-item" onclick="location.href='../inventory/inventory.html'">🎒 Инвентарь</button>
+      <button class="menu-item" onclick="location.href='../donate/donate.html'">💎 Эксклюзив</button>
+      <button class="menu-item" onclick="location.href='../top/top.html'">🏆 Топ</button>
+      <button class="menu-item" onclick="location.href='../index.html'">🏠 Домой</button>
+    </div>
+  </div>
+
   <script src="game.js"></script>
 </body>
 </html>

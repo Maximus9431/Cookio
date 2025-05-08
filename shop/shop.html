@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="shop.css">
 </head>
 <body>
-  <button id="home-button" onclick="location.href='../index.html'">Домой</button>
   <div class="shop-header">
     <h1>SHOP</h1>
     <div class="timer">⏰ 19:00:00</div>
@@ -15,6 +14,22 @@
   <div class="shelf-container" id="shop-items">
     <!-- Предметы добавляются через JS -->
   </div>
+
+<!-- Меню -->
+<div id="expandable-menu">
+  <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">⬆</button>
+  <div id="menu-buttons">
+    <button class="menu-item" onclick="location.href='../pet/pet.html'">🐾 Питомцы</button>
+    <button class="menu-item" onclick="location.href='../games/game.html'">🎮 Игры</button>
+    <button class="menu-item" onclick="location.href='../pvp/pvp.html'">⚔️ Пвп</button>
+    <button class="menu-item" onclick="location.href='shop.html'">🛒 Магазин</button>
+    <button class="menu-item" onclick="location.href='../inventory/inventory.html'">🎒 Инвентарь</button>
+    <button class="menu-item" onclick="location.href='../donate/donate.html'">💎 Эксклюзив</button>
+    <button class="menu-item" onclick="location.href='../top/top.html'">🏆 Топ</button>
+    <button class="menu-item" onclick="location.href='../index.html'">🏠 Домой</button>
+  </div>
+</div>
+
   <script src="shop.js"></script>
 </body>
 </html>

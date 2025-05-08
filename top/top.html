@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="top.css">
 </head>
 <body>
-  <button id="home-button" onclick="location.href='../index.html'">Домой</button>
   <div id="top-container">
     <h1>Топ игроков</h1>
     <table id="top-table">
@@ -23,6 +22,22 @@
       </tbody>
     </table>
   </div>
+
+  <!-- Меню -->
+  <div id="expandable-menu">
+    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">⬆</button>
+    <div id="menu-buttons">
+      <button class="menu-item" onclick="location.href='../pet/pet.html'">🐾 Питомцы</button>
+      <button class="menu-item" onclick="location.href='../games/game.html'">🎮 Игры</button>
+      <button class="menu-item" onclick="location.href='../pvp/pvp.html'">⚔️ Пвп</button>
+      <button class="menu-item" onclick="location.href='../shop/shop.html'">🛒 Магазин</button>
+      <button class="menu-item" onclick="location.href='../inventory/inventory.html'">🎒 Инвентарь</button>
+      <button class="menu-item" onclick="location.href='../donate/donate.html'">💎 Эксклюзив</button>
+      <button class="menu-item" onclick="location.href='top.html'">🏆 Топ</button>
+      <button class="menu-item" onclick="location.href='../index.html'">🏠 Домой</button>
+    </div>
+  </div>
+
   <script src="top.js"></script>
 </body>
 </html>

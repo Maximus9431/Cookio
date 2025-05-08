@@ -102,3 +102,44 @@ function endGame(message) {
   // Удаляем все падающие объекты
   document.querySelectorAll('.falling-item').forEach((item) => item.remove());
 }
+
+const expandButton = document.getElementById('expand-button');
+const menuButtons = document.getElementById('menu-buttons');
+
+expandButton.addEventListener('click', () => {
+  const isVisible = menuButtons.classList.toggle('show');
+  expandButton.setAttribute('aria-expanded', isVisible ? 'true' : 'false');
+  expandButton.style.transform = isVisible
+    ? 'scale(1.1) rotate(180deg)'
+    : 'scale(1) rotate(0deg)';
+});
+
+// Закрытие при клике вне меню
+document.addEventListener('click', (e) => {
+  // Заменяем classList.contains
+  if (!e.target.closest('#expandable-menu') && 
+      (' ' + menuButtons.className + ' ').indexOf(' show ') > -1) { 
+    menuButtons.classList.remove('show');
+    expandButton.setAttribute('aria-expanded', 'false');
+    expandButton.style.transform = 'scale(1) rotate(0deg)';
+  }
+});
+
+// Клавиатурный доступ
+expandButton.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    expandButton.click();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const expandButton = document.getElementById('expand-button');
+  const menuButtons = document.getElementById('menu-buttons');
+
+  expandButton.addEventListener('click', () => {
+    const expanded = expandButton.getAttribute('aria-expanded') === 'true';
+    expandButton.setAttribute('aria-expanded', !expanded);
+    menuButtons.classList.toggle('show');
+  });
+});

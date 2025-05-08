@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,43 +8,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Начальное окно -->
-  <div id="welcome-screen">
-    <div id="welcome-container">
-      <h1>Добро пожаловать в Pet Game!</h1>
-      <p>В этой игре вы сможете вырастить своего питомца, участвовать в PvP-сражениях, выполнять квесты и многое другое!</p>
-      <button id="start-game-button">Начать игру</button>
-    </div>
-  </div>
-
-  <!-- Вкладка Pets -->
-  <div id="pets-screen" style="display: none;">
-    <!-- Удалите или закомментируйте этот блок -->
-    <div id="dark-overlay" style="display: none;"></div>
-    <div id="egg-message-container" style="display: none;">
+  <!-- Экран с питомцем -->
+  <div id="pets-screen">
+    <div id="dark-overlay"></div>
+    <div id="egg-message-container">
       <h2 id="egg-message">Поздравляем, у тебя выпало яйцо!</h2>
     </div>
     <img id="egg" src="eggs/egg_0.jpeg" alt="Egg">
-    <img id="pet-image" src="" alt="Pet" style="display: none;">
-    <p id="pet-rarity" style="display: none;"></p>
+    <img id="pet-image" src="" alt="Pet">
+    <p id="pet-rarity"></p>
+  </div>
 
-    <!-- Кнопка со стрелкой -->
-    <div id="expandable-menu">
-      <button id="expand-button">⬆</button>
-      <div id="menu-buttons" style="display: none;">
-        <button class="menu-item" onclick="location.href='pet/pet.html'">Питомцы</button>
-        <button class="menu-item" onclick="location.href='games/game.html'">Игры</button>
-        <button class="menu-item" onclick="location.href='pvp/pvp.html'">Пвп</button>
-        <button class="menu-item" onclick="location.href='shop/shop.html'">Магазин</button>
-        <button class="menu-item" onclick="location.href='inventory/inventory.html'">Инвентарь</button>
-        <button class="menu-item" onclick="location.href='donate/donate.html'">Эксклюзив</button>
-        <button class="menu-item" onclick="location.href='top/top.html'">Топ</button>
-      </div>
+  <!-- Меню -->
+  <div id="expandable-menu">
+    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">⬆</button>
+    <div id="menu-buttons">
+      <button class="menu-item" onclick="location.href='pet/pet.html'">🐾 Питомцы</button>
+      <button class="menu-item" onclick="location.href='games/game.html'">🎮 Игры</button>
+      <button class="menu-item" onclick="location.href='pvp/pvp.html'">⚔️ Пвп</button>
+      <button class="menu-item" onclick="location.href='shop/shop.html'">🛒 Магазин</button>
+      <button class="menu-item" onclick="location.href='inventory/inventory.html'">🎒 Инвентарь</button>
+      <button class="menu-item" onclick="location.href='donate/donate.html'">💎 Эксклюзив</button>
+      <button class="menu-item" onclick="location.href='top/top.html'">🏆 Топ</button>
     </div>
   </div>
 
   <audio id="egg-crack-sound" src="sounds/egg-crack.mp3"></audio>
-
   <script src="script.js"></script>
 </body>
 </html>

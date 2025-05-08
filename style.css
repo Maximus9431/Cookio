@@ -1,110 +1,53 @@
 @font-face {
   font-family: 'Arkhangelsk';
-  src: url('fonts/Arkhangelsk-Regular.ttf') format('truetype'); /* Укажите путь к файлу шрифта */
-  font-weight: normal;
-  font-style: normal;
+  src: url('fonts/Arkhangelsk-Regular.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Rockletter Simple';
-  src: url('fonts/Rockletter-Simple.ttf') format('truetype'); /* Укажите путь к файлу шрифта */
-  font-weight: normal;
-  font-style: normal;
+  src: url('fonts/Rockletter-Simple.ttf') format('truetype');
 }
 
-/* Общие стили */
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Rockletter Simple', monospace; /* Используем шрифт Rockletter Simple */
-  font-weight: bold; /* Жирный текст */
+  font-family: 'Rockletter Simple', monospace;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Высота на весь экран */
-  background-image: url('images/background.png'); /* Укажите путь к вашему изображению */
-  background-size: cover; /* Масштабирование изображения, чтобы покрыть весь экран */
-  background-position: center; /* Центрирование изображения */
-  background-repeat: no-repeat; /* Отключение повторения изображения */
-  color: #fff; /* Цвет текста для контраста с фоном */
-}
-
-/* Переопределение для всех текстовых элементов */
-h1, h2, h3, p, button, span {
-  font-family: 'Rockletter Simple', monospace; /* Используем шрифт Rockletter Simple */
-  font-weight: bold; /* Жирный текст */
-}
-
-/* Начальное окно */
-#welcome-screen {
-  text-align: center;
-}
-
-#welcome-container {
-  background-color: rgba(0, 0, 0, 0.7);
+  height: 100vh;
+  background-image: url('images/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #fff;
-  padding: 20px;
-  border-radius: 10px;
 }
 
-/* Общие стили для кнопок */
-button {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+.hidden {
+  display: none !important;
 }
 
-/* Кнопка "Начать игру" */
-#start-game-button {
-  background: linear-gradient(45deg, #ffcc00, #ff9900);
-  color: #000;
-}
-
-#start-game-button:hover {
-  background: linear-gradient(45deg, #ff9900, #ffcc00);
-  transform: scale(1.05);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Вкладка Pets */
 #pets-screen {
   text-align: center;
 }
 
-/* Затемняющий слой */
 #dark-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-  z-index: 1; /* Расположить поверх фона */
-  display: none; /* Скрыто по умолчанию */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
-/* Контейнер для яйца и питомца */
-#egg-container {
-  position: relative;
-  z-index: 2; /* Расположить поверх затемняющего слоя */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Высота на весь экран */
-}
-
-/* Стили для яйца и питомца */
 #egg, #pet-image {
-  width: 200px; /* Размер яйца и питомца */
-  height: auto; /* Сохраняем пропорции */
+  width: 300px;
+  height: auto;
   cursor: pointer;
+  position: relative;
+  z-index: 100;
 }
 
 #pet-image {
@@ -113,136 +56,132 @@ button {
 
 #pet-rarity {
   font-size: 18px;
-  font-weight: bold; /* Жирный текст */
   margin-top: 10px;
-  color: #000; /* Черный цвет текста */
-  font-family: 'Courier New', Courier, monospace; /* Шрифт monospace */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  font-family: 'Courier New', Courier, monospace;
+  display: none;
 }
 
-/* Контейнер для сообщения */
 #egg-message-container {
-  background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
-  color: #fff; /* Белый текст */
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 20px;
-  border-radius: 10px; /* Скругленные углы */
-  margin-bottom: 20px;
-  text-align: center;
+  border-radius: 10px;
+  margin: 0 auto 20px auto;
   width: 80%;
   max-width: 500px;
-  margin: 0 auto 20px auto; /* Центрирование */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  position: relative;
 }
 
-#egg-message {
-  font-size: 24px;
-  margin: 0;
-  /* Убедитесь, что здесь нет filter: blur() */
-}
-
-/* Контейнер для кнопки со стрелкой */
 #expandable-menu {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  padding: 10px 0;
-  z-index: 10;
-}
-
-/* Кнопка со стрелкой */
-#expand-button {
-  background: linear-gradient(45deg, #4caf50, #2e7d32);
-  color: #fff;
-}
-
-#expand-button:hover {
-  background: linear-gradient(45deg, #2e7d32, #4caf50);
-  transform: scale(1.05);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Выпадающее меню */
-#menu-buttons {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  gap: 15px;
+}
+
+#expand-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #8535cf;
+  border: 3px solid #fff;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#expand-button:hover {
+  transform: scale(1.1) rotate(180deg);
+  box-shadow: 0 12px 25px rgba(133, 53, 207, 0.4);
+}
+
+#expand-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96f2d7);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#expand-button:hover::before {
+  opacity: 1;
+  animation: rotateGradient 3s linear infinite;
+}
+
+@keyframes rotateGradient {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#menu-buttons {
+  position: absolute;
+  bottom: calc(100% + 15px);
+  opacity: 0;
+  transform: translateY(10px);
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease;
+}
+
+#menu-buttons.show {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
 }
 
 .menu-item {
-  width: 220px;
-  height: 50px;
-  border: none;
-  outline: none;
-  color: #fff;
-  background: #e5ff00;
-  cursor: pointer;
+  width: 200px;
+  padding: 15px 25px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: white;
+  font-size: 18px;
+  text-align: left;
   position: relative;
-  z-index: 0;
-  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
 }
 
-.menu-item:before {
-  content: '';
-  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-  position: absolute;
-  top: -2px;
-  left:-2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing 20s linear infinite;
-  opacity: 0;
-  transition: opacity .3s ease-in-out;
-  border-radius: 15px;
-}
-
-.menu-item:active {
-  color: #000
-}
-
-.menu-item:active:after {
-  background: transparent;
-}
-
-.menu-item:hover:before {
-  opacity: 1;
-}
-/* Цвет кнопок */
-.menu-item:after {
-  z-index: -1;
+.menu-item::before {
   content: '';
   position: absolute;
+  top: 0;
+  left: -100%;
   width: 100%;
   height: 100%;
-  background: #000000;
-  left: 0;
-  top: 0;
-  border-radius: 15px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
 }
 
-@keyframes glowing {
-  0% { background-position: 0 0; }
-  50% { background-position: 400% 0; }
-  100% { background-position: 0 0; }
+.menu-item:hover {
+  transform: translateX(10px);
+  background: rgba(133, 53, 207, 0.3);
+  box-shadow: 0 4px 15px rgba(133, 53, 207, 0.4);
 }
 
-.hidden {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-/* Кнопка "Домой" */
-#home-button {
-  background: linear-gradient(45deg, #ff5722, #e64a19);
-  color: #fff;
-}
-
-#home-button:hover {
-  background: linear-gradient(45deg, #e64a19, #ff5722);
-  transform: scale(1.05);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+.menu-item:hover::before {
+  left: 100%;
 }

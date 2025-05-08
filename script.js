@@ -1,46 +1,26 @@
-document.getElementById('start-game-button').addEventListener('click', () => {
-  // Скрыть начальное окно
-  document.getElementById('welcome-screen').style.display = 'none';
-
-  // Показать экран Pets
-  document.getElementById('pets-screen').style.display = 'block';
-});
-
 const egg = document.getElementById('egg');
 const petImage = document.getElementById('pet-image');
 const petRarity = document.getElementById('pet-rarity');
 const eggMessage = document.getElementById('egg-message');
+const eggMessageContainer = document.getElementById('egg-message-container');
+const darkOverlay = document.getElementById('dark-overlay');
 const eggCrackSound = document.getElementById('egg-crack-sound');
-
 let clicks = 0;
 
 egg.addEventListener('click', () => {
   clicks++;
-
-  // Воспроизводим звук треска яйца
-  eggCrackSound.currentTime = 0; // Сбрасываем звук на начало
+  eggCrackSound.currentTime = 0;
   eggCrackSound.play();
 
-  // Меняем изображение яйца при каждом клике
   if (clicks === 1) {
     egg.src = 'eggs/egg_1.jpeg';
   } else if (clicks === 2) {
     egg.src = 'eggs/egg_2.jpeg';
   } else if (clicks === 3) {
-    // Яйцо разбито, показываем питомца
-    egg.style.display = 'none';
+    egg.classList.add('hidden');
+    darkOverlay.classList.add('hidden');
+    eggMessageContainer.classList.add('hidden');
 
-    // Убираем затемняющий слой
-    document.getElementById('dark-overlay').style.display = 'none';
-
-    // Скрываем сообщение с анимацией
-    eggMessage.classList.add('hidden');
-    setTimeout(() => {
-      eggMessage.style.display = 'none';
-      document.getElementById('egg-message-container').style.display = 'none'; // Скрываем рамку
-    }, 100); // Убираем элемент через 0.5 секунды
-
-    // Генерация питомца
     const petData = generatePet();
     petImage.src = `pets/${petData.image}`;
     petImage.style.display = 'block';
@@ -49,51 +29,50 @@ egg.addEventListener('click', () => {
   }
 });
 
-// Функция для генерации питомца
 function generatePet() {
   const rarityChances = [
     { rarity: 'Легендарный', chance: 0.8, image: 'legendary_pet.png' },
     { rarity: 'Эпический', chance: 7.2, image: 'epic_pet.png' },
     { rarity: 'Сверхредкий', chance: 15.8, image: 'super_rare_pet.png' },
     { rarity: 'Редкий', chance: 33.2, image: 'rare_pet.png' },
-    { rarity: 'Обычный', chance: 43, image: 'common_pet.png' },
+    { rarity: 'Обычный', chance: 44, image: 'common_pet.png' },
   ];
 
   const random = Math.random() * 100;
-  let cumulativeChance = 0;
+  let cumulative = 0;
 
   for (const rarity of rarityChances) {
-    cumulativeChance += rarity.chance;
-    if (random <= cumulativeChance) {
-      return rarity;
-    }
+    cumulative += rarity.chance;
+    if (random <= cumulative) return rarity;
   }
-
-  // Если ничего не выпало (маловероятно), возвращаем обычного питомца
   return rarityChances[rarityChances.length - 1];
 }
 
+// Меню
 const expandButton = document.getElementById('expand-button');
 const menuButtons = document.getElementById('menu-buttons');
 
 expandButton.addEventListener('click', () => {
-  if (menuButtons.style.display === 'none' || menuButtons.style.display === '') {
-    // Разворачиваем меню
-    menuButtons.style.display = 'flex';
-    expandButton.textContent = '⬇'; // Меняем стрелку на вниз
-  } else {
-    // Сворачиваем меню
-    menuButtons.style.display = 'none';
-    expandButton.textContent = '⬆'; // Меняем стрелку на вверх
+  const isVisible = menuButtons.classList.toggle('show');
+  expandButton.setAttribute('aria-expanded', isVisible ? 'true' : 'false');
+  expandButton.style.transform = isVisible 
+    ? 'scale(1.1) rotate(180deg)'
+    : 'scale(1) rotate(0deg)';
+});
+
+// Закрытие при клике вне меню
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#expandable-menu') && menuButtons.classList.contains('show')) {
+    menuButtons.classList.remove('show');
+    expandButton.setAttribute('aria-expanded', 'false');
+    expandButton.style.transform = 'scale(1) rotate(0deg)';
   }
 });
 
-// Пример выбивания питомца
-const newPet = {
-  name: "Котик",
-  rarity: "Обычный",
-  image: "pets/common_pet.png",
-};
-
-// Добавляем питомца в localStorage
-addPet(newPet);
+// Клавиатурный доступ
+expandButton.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    expandButton.click();
+  }
+});

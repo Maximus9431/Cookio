@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Мои Питомцы</title>
-  <link rel="stylesheet" href="pet.css">
+  <link rel="stylesheet" href="pet.css" />
 </head>
 <body>
   <header>
     <h1>Мои Питомцы</h1>
-    <button id="back-button" onclick="location.href='../index.html'">Назад</button>
   </header>
 
   <main>
-    <div id="pets-container">
-      <!-- Здесь будут отображаться питомцы -->
-    </div>
+    <div id="pets-container"></div>
   </main>
+
+  <div id="expandable-menu">
+    <button id="expand-button" role="button" aria-label="Открыть меню" aria-expanded="false">⬆</button>
+    <div id="menu-buttons">
+      <button class="menu-item" onclick="location.href='pet.html'">🐾 Питомцы</button>
+      <button class="menu-item" onclick="location.href='../games/game.html'">🎮 Игры</button>
+      <button class="menu-item" onclick="location.href='../pvp/pvp.html'">⚔️ Пвп</button>
+      <button class="menu-item" onclick="location.href='../shop/shop.html'">🛒 Магазин</button>
+      <button class="menu-item" onclick="location.href='../inventory/inventory.html'">🎒 Инвентарь</button>
+      <button class="menu-item" onclick="location.href='../donate/donate.html'">💎 Эксклюзив</button>
+      <button class="menu-item" onclick="location.href='../top/top.html'">🏆 Топ</button>
+      <button class="menu-item" onclick="location.href='../index.html'">🏠 Домой</button>
+    </div>
+  </div>
 
   <script src="pet.js"></script>
 </body>

@@ -13,7 +13,6 @@
   </div>
 
   <div id="donat-container">
-    <button id="home-button" onclick="location.href='../index.html'">Домой</button>
     <h1>Донат</h1>
 
     <div id="donat-items">
@@ -40,6 +39,22 @@
     </div>
     <button id="add-stars-button" style="display: none;" onclick="addStars(100)">Добавить 100 ⭐</button>
   </div>
+
+  <!-- Меню -->
+  <div id="expandable-menu">
+    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">⬆</button>
+    <div id="menu-buttons">
+      <button class="menu-item" onclick="location.href='../pet/pet.html'">🐾 Питомцы</button>
+      <button class="menu-item" onclick="location.href='../games/game.html'">🎮 Игры</button>
+      <button class="menu-item" onclick="location.href='../pvp/pvp.html'">⚔️ Пвп</button>
+      <button class="menu-item" onclick="location.href='../shop/shop.html'">🛒 Магазин</button>
+      <button class="menu-item" onclick="location.href='../inventory/inventory.html'">🎒 Инвентарь</button>
+      <button class="menu-item" onclick="location.href='donate.html'">💎 Эксклюзив</button>
+      <button class="menu-item" onclick="location.href='../top/top.html'">🏆 Топ</button>
+      <button class="menu-item" onclick="location.href='../index.html'">🏠 Домой</button>
+    </div>
+  </div>
+
   <script src="donate.js"></script>
 </body>
 </html>
