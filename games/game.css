@@ -91,27 +91,6 @@ body {
   background-color: #ff9900;
 }
 
-/* Кнопка "Домой" */
-#home-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background: linear-gradient(45deg, #ff5722, #e64a19);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #fff;
-  transition: background-color 0.3s ease;
-}
-
-#home-button:hover {
-  background: linear-gradient(45deg, #e64a19, #ff5722);
-  transform: scale(1.05);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-}
-
 #games-container {
   text-align: center;
   width: 80%;
@@ -265,17 +244,19 @@ button {
   opacity: 0;
   transform: translateY(10px);
   visibility: hidden;
-  transition:
+  transition: 
     opacity 0.3s ease,
     transform 0.3s ease,
     visibility 0.3s ease;
-    z-index: 1001;
+  z-index: 9999; /* Важное добавление */
+  pointer-events: none; /* Блокировка кликов */
 }
 
 #menu-buttons.show {
   opacity: 1;
   transform: translateY(0);
   visibility: visible;
+  pointer-events: auto; /* Разрешение кликов */
 }
 
 .menu-item {

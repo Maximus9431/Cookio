@@ -76,3 +76,13 @@ expandButton.addEventListener('keydown', (e) => {
     expandButton.click();
   }
 });
+
+const clickSound = document.getElementById('click-sound');
+const menuItems = document.querySelectorAll('.menu-item');
+
+menuItems.forEach(item => {
+  item.addEventListener('click', () => {
+    clickSound.currentTime = 0;
+    clickSound.play();
+  });
+});
