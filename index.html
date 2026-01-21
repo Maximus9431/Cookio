@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🐾 Pet Game - Одностраничное приложение</title>
     <style>
         /* ========== ОБЩИЕ СТИЛИ ========== */
@@ -26,6 +26,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -34,15 +35,69 @@
             color: var(--light);
             min-height: 100vh;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* ========== СТРУКТУРА SPA ========== */
         #app-container {
             display: flex;
             min-height: 100vh;
+            flex-direction: column;
         }
 
-        /* Боковая навигация */
+        /* Мобильная навигация */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(20, 20, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 2px solid rgba(133, 53, 207, 0.3);
+            z-index: 1000;
+            padding: 10px 5px;
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 5px;
+            border-radius: 15px;
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 70px;
+        }
+
+        .mobile-nav-item.active {
+            background: rgba(133, 53, 207, 0.4);
+            color: var(--light);
+            transform: translateY(-5px);
+        }
+
+        .mobile-nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .mobile-nav-item span {
+            font-size: 0.65rem;
+            font-weight: bold;
+        }
+
+        /* Боковая навигация для десктопа */
         #sidebar {
             width: 80px;
             background: rgba(20, 20, 35, 0.95);
@@ -104,6 +159,7 @@
             padding: 20px;
             overflow-y: auto;
             max-width: calc(100vw - 80px);
+            padding-bottom: 80px; /* Для мобильной навигации */
         }
 
         /* Страницы */
@@ -173,6 +229,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            min-height: 50px;
         }
 
         .btn-primary {
@@ -241,6 +298,7 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(10px);
+            padding: 20px;
         }
 
         .modal.show {
@@ -251,11 +309,13 @@
         .modal-content {
             background: rgba(30, 30, 46, 0.95);
             border-radius: 25px;
-            width: 90%;
+            width: 100%;
             max-width: 500px;
             border: 2px solid rgba(133, 53, 207, 0.3);
             overflow: hidden;
             animation: slideUp 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes slideUp {
@@ -290,6 +350,8 @@
             padding: 20px 40px;
             border-bottom: 2px solid rgba(133, 53, 207, 0.3);
             position: relative;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .top-bar::before {
@@ -306,6 +368,8 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            flex: 1;
+            min-width: 250px;
         }
 
         .player-avatar {
@@ -315,6 +379,7 @@
             border: 3px solid var(--primary);
             overflow: hidden;
             box-shadow: 0 0 20px rgba(133, 53, 207, 0.5);
+            flex-shrink: 0;
         }
 
         .player-avatar img {
@@ -330,6 +395,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            word-break: break-word;
         }
 
         .level-display {
@@ -353,20 +419,24 @@
 
         .game-resources {
             display: flex;
-            gap: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            flex: 1;
         }
 
         .resource {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 25px;
+            padding: 12px 20px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            min-width: 140px;
         }
 
         .resource:hover {
@@ -375,7 +445,7 @@
         }
 
         .resource i {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
 
         .gold { color: var(--secondary); }
@@ -420,6 +490,8 @@
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .level-bar, .mood-indicator {
@@ -429,6 +501,7 @@
             border-radius: 15px;
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         .level-fill {
@@ -476,6 +549,8 @@
             align-items: center;
             gap: 12px;
             justify-content: center;
+            min-height: 50px;
+            width: 100%;
         }
 
         .action-btn:hover, .interaction-btn:hover {
@@ -922,45 +997,72 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 25px;
             }
+            
+            .center-area {
+                order: 1;
+            }
+            
+            .left-panel {
+                order: 2;
+            }
+            
+            .right-panel {
+                order: 3;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .games-grid, .shop-grid, .inventory-grid, .donate-grid, .pets-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .resource {
+                min-width: 120px;
+                padding: 10px 15px;
+            }
         }
 
         @media (max-width: 768px) {
+            /* Скрываем боковую панель, показываем мобильную навигацию */
             #sidebar {
-                width: 60px;
+                display: none;
+            }
+            
+            .mobile-nav {
+                display: block;
             }
             
             #main-content {
-                margin-left: 60px;
-                padding: 10px;
-            }
-            
-            .nav-item {
-                width: 50px;
-                height: 50px;
-                margin: 10px 0;
-            }
-            
-            .nav-item i {
-                font-size: 1.2rem;
-            }
-            
-            .nav-item span {
-                font-size: 0.6rem;
+                margin-left: 0;
+                padding: 15px;
+                padding-bottom: 90px;
+                max-width: 100vw;
             }
             
             .top-bar {
-                flex-direction: column;
-                gap: 20px;
                 padding: 15px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+            
+            .player-info {
+                min-width: auto;
             }
             
             .game-resources {
-                flex-wrap: wrap;
                 justify-content: center;
+            }
+            
+            .resource {
+                min-width: 100px;
+                padding: 8px 12px;
+                font-size: 1rem;
             }
             
             .pet-container {
                 padding: 15px;
+                gap: 20px;
             }
             
             .egg-container, .pet-display {
@@ -968,50 +1070,172 @@
                 height: 300px;
             }
             
+            .left-panel, .right-panel {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
             .games-grid, .shop-grid, .inventory-grid, .donate-grid, .pets-grid {
                 grid-template-columns: 1fr;
             }
             
-            .left-panel, .right-panel {
-                grid-template-columns: 1fr;
+            .notification {
+                top: 15px;
+                right: 15px;
+                left: 15px;
+                min-width: auto;
+                max-width: 100%;
+            }
+            
+            .level-bar, .mood-indicator {
+                width: 120px;
             }
         }
 
-        @media (max-width: 480px) {
-            #sidebar {
-                width: 50px;
+        @media (max-width: 576px) {
+            .top-bar {
+                padding: 12px;
             }
             
-            #main-content {
-                margin-left: 50px;
+            .player-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
             }
             
-            .nav-item {
-                width: 40px;
-                height: 40px;
-                margin: 8px 0;
+            .player-stats h2 {
+                font-size: 1.5rem;
             }
             
-            .nav-item i {
-                font-size: 1rem;
-                margin-bottom: 2px;
+            .pet-container {
+                padding: 12px;
+                gap: 15px;
             }
             
-            .nav-item span {
-                font-size: 0.5rem;
+            .card {
+                padding: 20px;
             }
             
             .egg-container, .pet-display {
                 width: 250px;
                 height: 250px;
             }
+            
+            .btn {
+                padding: 12px 20px;
+                min-height: 45px;
+            }
+            
+            .action-btn, .interaction-btn {
+                padding: 12px;
+                min-height: 45px;
+            }
+            
+            .level-bar, .mood-indicator {
+                width: 100px;
+                height: 20px;
+            }
+            
+            .stat {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .game-resources {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .resource {
+                min-width: auto;
+                justify-content: center;
+            }
+            
+            .mobile-nav-item {
+                padding: 6px 4px;
+            }
+            
+            .mobile-nav-item i {
+                font-size: 1.1rem;
+            }
+            
+            .mobile-nav-item span {
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .egg-container, .pet-display {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .player-avatar {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .egg-message-container {
+                padding: 20px;
+            }
+            
+            .pet-actions, .pet-interaction {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .top-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .mobile-nav-item {
+                max-width: 60px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .egg-container, .pet-display {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .resource {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .resource i {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Класс для скрытия элементов */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Улучшение для мобильных форм */
+        input, select, textarea {
+            font-size: 16px; /* Предотвращает масштабирование в iOS */
+        }
+
+        /* Улучшение для мобильного скролла */
+        .modal-content {
+            -webkit-overflow-scrolling: touch;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div id="app-container">
-        <!-- Боковая навигация -->
+        <!-- Боковая навигация для десктопа -->
         <nav id="sidebar">
             <div class="nav-item active" data-page="home">
                 <i class="fas fa-home"></i>
@@ -1042,6 +1266,40 @@
                 <span>Топ</span>
             </div>
         </nav>
+
+        <!-- Мобильная навигация -->
+        <div class="mobile-nav">
+            <div class="mobile-nav-items">
+                <div class="mobile-nav-item active" data-page="home">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </div>
+                <div class="mobile-nav-item" data-page="pets">
+                    <i class="fas fa-paw"></i>
+                    <span>Питомцы</span>
+                </div>
+                <div class="mobile-nav-item" data-page="games">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Игры</span>
+                </div>
+                <div class="mobile-nav-item" data-page="shop">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Магазин</span>
+                </div>
+                <div class="mobile-nav-item" data-page="inventory">
+                    <i class="fas fa-backpack"></i>
+                    <span>Инвентарь</span>
+                </div>
+                <div class="mobile-nav-item" data-page="donate">
+                    <i class="fas fa-gem"></i>
+                    <span>Донат</span>
+                </div>
+                <div class="mobile-nav-item" data-page="top">
+                    <i class="fas fa-trophy"></i>
+                    <span>Топ</span>
+                </div>
+            </div>
+        </div>
 
         <!-- Основной контент -->
         <main id="main-content">
@@ -1429,19 +1687,21 @@
                     </div>
                     
                     <div class="pet-container">
-                        <table class="top-table">
-                            <thead>
-                                <tr>
-                                    <th>Позиция</th>
-                                    <th>Игрок</th>
-                                    <th>Уровень</th>
-                                    <th>Очки</th>
-                                </tr>
-                            </thead>
-                            <tbody id="top-table-body">
-                                <!-- Топ игроков будет загружен через JS -->
-                            </tbody>
-                        </table>
+                        <div class="table-container">
+                            <table class="top-table">
+                                <thead>
+                                    <tr>
+                                        <th>Позиция</th>
+                                        <th>Игрок</th>
+                                        <th>Уровень</th>
+                                        <th>Очки</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="top-table-body">
+                                    <!-- Топ игроков будет загружен через JS -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1530,6 +1790,9 @@
                 this.initHomePage();
                 this.updateUserStats();
                 this.showNotification('🐾 Добро пожаловать в Pet Game!', 'success');
+                
+                // Инициализация мобильной навигации
+                this.setupMobileNavigation();
             },
 
             // ========== СИСТЕМА НАВИГАЦИИ ==========
@@ -1542,6 +1805,28 @@
                         
                         navItems.forEach(nav => nav.classList.remove('active'));
                         item.classList.add('active');
+                    });
+                });
+            },
+
+            setupMobileNavigation: function() {
+                const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+                mobileNavItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const page = item.getAttribute('data-page');
+                        this.showPage(page);
+                        
+                        mobileNavItems.forEach(nav => nav.classList.remove('active'));
+                        item.classList.add('active');
+                        
+                        // Также обновляем десктопную навигацию
+                        const desktopNavItems = document.querySelectorAll('.nav-item');
+                        desktopNavItems.forEach(nav => {
+                            nav.classList.remove('active');
+                            if (nav.getAttribute('data-page') === page) {
+                                nav.classList.add('active');
+                            }
+                        });
                     });
                 });
             },
@@ -1560,6 +1845,9 @@
                     
                     // Инициализировать страницу
                     this.initPage(pageName);
+                    
+                    // Прокрутить наверх
+                    document.getElementById('main-content').scrollTop = 0;
                 }
             },
 
@@ -2466,12 +2754,12 @@
                 particlesContainer.id = 'particles';
                 document.body.appendChild(particlesContainer);
                 
-                const particleCount = 30;
+                const particleCount = window.innerWidth < 768 ? 15 : 30;
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
                     
-                    const size = Math.random() * 15 + 5;
+                    const size = Math.random() * 10 + 5;
                     const posX = Math.random() * 100;
                     const posY = Math.random() * 100;
                     const duration = Math.random() * 20 + 10;
