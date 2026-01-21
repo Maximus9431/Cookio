@@ -1,55 +1,424 @@
-const topTableBody = document.querySelector('#top-table tbody');
-const topContainer = document.getElementById('top-container');
+// top.js - Улучшенная версия
+
+let currentPlayers = [];
+let currentLeaderboard = 'global';
+let currentPage = 1;
+const playersPerPage = 10;
 
 // Пример данных игроков
-const players = [
-  { name: 'Игрок1', score: 1500 },
-  { name: 'Игрок2', score: 1200 },
-  { name: 'Игрок3', score: 1000 },
-  { name: 'Игрок4', score: 800 },
-  { name: 'Игрок5', score: 600 },
+const samplePlayers = [
+  { id: 1, name: "Champion", score: 5210, wins: 245, level: 45, avatar: "https://i.pravatar.cc/60?img=10", clan: "Pro Team", region: "europe", change: "up", changeAmount: 45 },
+  { id: 2, name: "ProPlayer", score: 4850, wins: 210, level: 42, avatar: "https://i.pravatar.cc/60?img=5", clan: "Elite", region: "asia", change: "down", changeAmount: 12 },
+  { id: 3, name: "Master", score: 4620, wins: 198, level: 40, avatar: "https://i.pravatar.cc/60?img=8", clan: "Masters", region: "america", change: "up", changeAmount: 28 },
+  { id: 4, name: "Destroyer", score: 4380, wins: 185, level: 38, avatar: "https://i.pravatar.cc/60?img=2", clan: "Destroyers", region: "europe", change: "up", changeAmount: 35 },
+  { id: 5, name: "Sniper", score: 4150, wins: 175, level: 37, avatar: "https://i.pravatar.cc/60?img=3", clan: "Snipers", region: "asia", change: "stable", changeAmount: 0 },
+  { id: 6, name: "Tank", score: 3980, wins: 168, level: 36, avatar: "https://i.pravatar.cc/60?img=4", clan: "Tanks", region: "america", change: "up", changeAmount: 15 },
+  { id: 7, name: "Healer", score: 3820, wins: 155, level: 35, avatar: "https://i.pravatar.cc/60?img=6", clan: "Healers", region: "europe", change: "down", changeAmount: 8 },
+  { id: 8, name: "Ninja", score: 3650, wins: 148, level: 34, avatar: "https://i.pravatar.cc/60?img=7", clan: "Ninjas", region: "asia", change: "up", changeAmount: 22 },
+  { id: 9, name: "Wizard", score: 3520, wins: 142, level: 33, avatar: "https://i.pravatar.cc/60?img=9", clan: "Wizards", region: "america", change: "stable", changeAmount: 0 },
+  { id: 10, name: "Hunter", score: 3380, wins: 135, level: 32, avatar: "https://i.pravatar.cc/60?img=11", clan: "Hunters", region: "europe", change: "up", changeAmount: 18 },
+  { id: 11, name: "Assassin", score: 3250, wins: 130, level: 31, avatar: "https://i.pravatar.cc/60?img=12", clan: "Assassins", region: "asia", change: "down", changeAmount: 5 },
+  { id: 12, name: "Knight", score: 3120, wins: 125, level: 30, avatar: "https://i.pravatar.cc/60?img=13", clan: "Knights", region: "america", change: "up", changeAmount: 30 },
+  { id: 13, name: "Archer", score: 2980, wins: 120, level: 29, avatar: "https://i.pravatar.cc/60?img=14", clan: "Archers", region: "europe", change: "stable", changeAmount: 0 },
+  { id: 14, name: "Mage", score: 2850, wins: 115, level: 28, avatar: "https://i.pravatar.cc/60?img=15", clan: "Mages", region: "asia", change: "up", changeAmount: 25 },
+  { id: 15, name: "Warrior", score: 2720, wins: 110, level: 27, avatar: "https://i.pravatar.cc/60?img=16", clan: "Warriors", region: "america", change: "down", changeAmount: 10 },
+  { id: 16, name: "Berserker", score: 2600, wins: 105, level: 26, avatar: "https://i.pravatar.cc/60?img=17", clan: "Berserkers", region: "europe", change: "up", changeAmount: 20 },
+  { id: 17, name: "Paladin", score: 2480, wins: 100, level: 25, avatar: "https://i.pravatar.cc/60?img=18", clan: "Paladins", region: "asia", change: "stable", changeAmount: 0 },
+  { id: 18, name: "Rogue", score: 2360, wins: 95, level: 24, avatar: "https://i.pravatar.cc/60?img=19", clan: "Rogues", region: "america", change: "up", changeAmount: 15 },
+  { id: 19, name: "Shaman", score: 2250, wins: 90, level: 23, avatar: "https://i.pravatar.cc/60?img=20", clan: "Shamans", region: "europe", change: "down", changeAmount: 8 },
+  { id: 20, name: "Druid", score: 2150, wins: 85, level: 22, avatar: "https://i.pravatar.cc/60?img=21", clan: "Druids", region: "asia", change: "up", changeAmount: 12 },
+  // Добавляем текущего пользователя
+  { id: 47, name: "Игрок_123", score: 2845, wins: 120, level: 12, avatar: "https://i.pravatar.cc/60?img=3", clan: "Новички", region: "europe", change: "up", changeAmount: 32, isCurrentUser: true }
 ];
 
-// Функция для отображения игроков
-function renderTopPlayers() {
-  topTableBody.innerHTML = ''; // Очищаем таблицу
+// Инициализация
+function initLeaderboard() {
+  currentPlayers = [...samplePlayers];
+  renderLeaderboard();
+  createParticles();
+  updateStats();
+  setupEventListeners();
+  showNotification("🏆 Топ игроков загружен! Обновляется каждые 5 минут", "info");
+}
 
-  players
-    .sort((a, b) => b.score - a.score) // Сортируем по очкам
-    .forEach((player, index) => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${player.name}</td>
-        <td>${player.score}</td>
-      `;
-      topTableBody.appendChild(row);
+// Отрисовка лидерборда
+function renderLeaderboard() {
+  const leaderboardBody = document.getElementById('leaderboard-body');
+  leaderboardBody.innerHTML = '';
+  
+  // Фильтрация и сортировка
+  let filteredPlayers = filterPlayers(currentPlayers);
+  filteredPlayers.sort((a, b) => b.score - a.score);
+  
+  // Пейджинация
+  const startIndex = (currentPage - 1) * playersPerPage;
+  const endIndex = startIndex + playersPerPage;
+  const playersToShow = filteredPlayers.slice(startIndex, endIndex);
+  
+  if (playersToShow.length === 0) {
+    leaderboardBody.innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-users-slash fa-3x"></i>
+        <h3>Нет игроков</h3>
+        <p>Попробуйте изменить фильтры или поиск</p>
+      </div>
+    `;
+    return;
+  }
+  
+  playersToShow.forEach((player, index) => {
+    const globalRank = filteredPlayers.findIndex(p => p.id === player.id) + 1;
+    const row = document.createElement('div');
+    row.className = `player-row ${player.isCurrentUser ? 'current-user' : ''} rank-${globalRank <= 3 ? globalRank : ''}`;
+    
+    // Определяем иконку изменения ранга
+    let changeIcon = '';
+    let changeClass = '';
+    if (player.change === 'up') {
+      changeIcon = '<i class="fas fa-arrow-up"></i>';
+      changeClass = 'up';
+    } else if (player.change === 'down') {
+      changeIcon = '<i class="fas fa-arrow-down"></i>';
+      changeClass = 'down';
+    }
+    
+    row.innerHTML = `
+      <div class="rank-number">${globalRank}</div>
+      <div class="player-info">
+        <div class="player-avatar">
+          <img src="${player.avatar}" alt="${player.name}">
+        </div>
+        <div class="player-details">
+          <div class="player-name">${player.name} ${player.isCurrentUser ? '<i class="fas fa-user"></i>' : ''}</div>
+          <div class="player-clan">
+            <i class="fas fa-users"></i> ${player.clan}
+          </div>
+          ${player.change !== 'stable' ? `
+            <div class="rank-change ${changeClass}">
+              ${changeIcon} ${player.changeAmount}
+            </div>
+          ` : ''}
+        </div>
+      </div>
+      <div class="player-score">${player.score.toLocaleString()}</div>
+      <div class="player-wins">${player.wins}</div>
+      <div class="player-level">${player.level}</div>
+      <div class="player-actions">
+        <button class="action-btn view-profile" data-id="${player.id}">
+          <i class="fas fa-eye"></i> Профиль
+        </button>
+        ${!player.isCurrentUser ? `
+          <button class="action-btn add-friend" data-id="${player.id}">
+            <i class="fas fa-user-plus"></i> Друг
+          </button>
+        ` : ''}
+      </div>
+    `;
+    
+    leaderboardBody.appendChild(row);
+  });
+  
+  // Обработчики для кнопок
+  setupPlayerButtons();
+  updatePagination(filteredPlayers.length);
+}
+
+// Фильтрация игроков
+function filterPlayers(players) {
+  const searchTerm = document.getElementById('search-player').value.toLowerCase();
+  const regionFilter = document.getElementById('filter-region').value;
+  
+  return players.filter(player => {
+    // Поиск по имени
+    if (searchTerm && !player.name.toLowerCase().includes(searchTerm)) {
+      return false;
+    }
+    
+    // Фильтр по региону
+    if (regionFilter !== 'all' && player.region !== regionFilter) {
+      return false;
+    }
+    
+    // Фильтр по типу лидерборда
+    if (currentLeaderboard === 'friends' && !player.isFriend) {
+      return false;
+    }
+    
+    if (currentLeaderboard === 'clan' && player.clan !== 'Новички') {
+      return false;
+    }
+    
+    return true;
+  });
+}
+
+// Обновление статистики
+function updateStats() {
+  const totalPlayers = currentPlayers.length;
+  const averageScore = Math.round(currentPlayers.reduce((sum, p) => sum + p.score, 0) / totalPlayers);
+  
+  document.getElementById('total-players').textContent = totalPlayers.toLocaleString();
+  document.getElementById('average-score').textContent = averageScore.toLocaleString();
+  
+  // Обновляем время
+  const now = new Date();
+  document.getElementById('update-time').textContent = now.toLocaleTimeString('ru-RU', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  
+  // Обновляем ранг пользователя
+  const sortedPlayers = [...currentPlayers].sort((a, b) => b.score - a.score);
+  const userIndex = sortedPlayers.findIndex(p => p.isCurrentUser);
+  if (userIndex !== -1) {
+    document.getElementById('user-rank').textContent = userIndex + 1;
+  }
+}
+
+// Создание частиц для фона
+function createParticles() {
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = 50;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Случайные свойства
+    const size = Math.random() * 10 + 5;
+    const posX = Math.random() * 100;
+    const posY = Math.random() * 100;
+    const duration = Math.random() * 20 + 10;
+    const delay = Math.random() * 5;
+    
+    particle.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${Math.random() > 0.5 ? 'rgba(133, 53, 207, 0.3)' : 'rgba(255, 204, 0, 0.2)'};
+      border-radius: 50%;
+      left: ${posX}%;
+      top: ${posY}%;
+      animation: float ${duration}s ease-in-out ${delay}s infinite alternate;
+    `;
+    
+    particlesContainer.appendChild(particle);
+  }
+  
+  // Добавляем стили для анимации
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-100px) rotate(360deg); }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// Обработчики событий
+function setupEventListeners() {
+  // Вкладки
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentLeaderboard = tab.dataset.leaderboard;
+      currentPage = 1;
+      renderLeaderboard();
     });
+  });
+  
+  // Поиск
+  document.getElementById('search-player').addEventListener('input', () => {
+    currentPage = 1;
+    renderLeaderboard();
+  });
+  
+  // Фильтр по региону
+  document.getElementById('filter-region').addEventListener('change', () => {
+    currentPage = 1;
+    renderLeaderboard();
+  });
+  
+  // Кнопки пейджинации
+  document.querySelector('.prev').addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderLeaderboard();
+    }
+  });
+  
+  document.querySelector('.next').addEventListener('click', () => {
+    const totalPages = Math.ceil(filterPlayers(currentPlayers).length / playersPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderLeaderboard();
+    }
+  });
+  
+  // Модальное окно
+  document.querySelector('.close-modal').addEventListener('click', closeModal);
+  document.getElementById('player-modal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('player-modal')) {
+      closeModal();
+    }
+  });
 }
 
-// Добавляем класс "visible" для плавного появления контейнера
-function showTopContainer() {
+// Обработчики для кнопок игроков
+function setupPlayerButtons() {
+  document.querySelectorAll('.view-profile').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const playerId = parseInt(e.currentTarget.dataset.id);
+      showPlayerProfile(playerId);
+    });
+  });
+  
+  document.querySelectorAll('.add-friend').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const playerId = parseInt(e.currentTarget.dataset.id);
+      addFriend(playerId);
+    });
+  });
+}
+
+// Показать профиль игрока
+function showPlayerProfile(playerId) {
+  const player = currentPlayers.find(p => p.id === playerId);
+  if (!player) return;
+  
+  document.getElementById('modal-player-name').textContent = player.name;
+  document.getElementById('modal-player-avatar').src = player.avatar;
+  document.getElementById('modal-player-score').textContent = player.score.toLocaleString();
+  document.getElementById('modal-player-wins').textContent = player.wins;
+  document.getElementById('modal-player-level').textContent = player.level;
+  document.getElementById('modal-player-days').textContent = Math.floor(Math.random() * 365) + 30;
+  
+  // Установка ранга
+  const sortedPlayers = [...currentPlayers].sort((a, b) => b.score - a.score);
+  const rank = sortedPlayers.findIndex(p => p.id === playerId) + 1;
+  document.getElementById('modal-player-rank').textContent = `Ранг #${rank}`;
+  
+  document.getElementById('player-modal').classList.add('show');
+}
+
+// Добавить в друзья
+function addFriend(playerId) {
+  const player = currentPlayers.find(p => p.id === playerId);
+  if (!player) return;
+  
+  showNotification(`Запрос дружбы отправлен игроку ${player.name}`, "success");
+  
+  // Симуляция ответа
   setTimeout(() => {
-    topContainer.classList.add('visible');
-  }, 200); // Задержка для эффекта
+    if (Math.random() > 0.3) {
+      showNotification(`${player.name} принял(а) ваш запрос в друзья!`, "success");
+    } else {
+      showNotification(`${player.name} отклонил(а) ваш запрос в друзья`, "warning");
+    }
+  }, 2000);
 }
 
-// Загружаем таблицу при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-  renderTopPlayers();
-  showTopContainer();
-});
+// Обновление пейджинации
+function updatePagination(totalPlayers) {
+  const totalPages = Math.ceil(totalPlayers / playersPerPage);
+  const pageNumbers = document.querySelector('.page-numbers');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  
+  // Обновляем кнопки
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = currentPage === totalPages;
+  
+  // Обновляем номера страниц
+  let pagesHTML = '';
+  const maxVisiblePages = 5;
+  
+  if (totalPages <= maxVisiblePages) {
+    for (let i = 1; i <= totalPages; i++) {
+      pagesHTML += `<span class="page-number ${i === currentPage ? 'active' : ''}">${i}</span>`;
+    }
+  } else {
+    // Сложная логика для многостраничности
+    let start = Math.max(1, currentPage - 2);
+    let end = Math.min(totalPages, start + maxVisiblePages - 1);
+    
+    if (end - start < maxVisiblePages - 1) {
+      start = Math.max(1, end - maxVisiblePages + 1);
+    }
+    
+    if (start > 1) {
+      pagesHTML += `<span class="page-number">1</span>`;
+      if (start > 2) pagesHTML += `<span class="page-dots">...</span>`;
+    }
+    
+    for (let i = start; i <= end; i++) {
+      pagesHTML += `<span class="page-number ${i === currentPage ? 'active' : ''}">${i}</span>`;
+    }
+    
+    if (end < totalPages) {
+      if (end < totalPages - 1) pagesHTML += `<span class="page-dots">...</span>`;
+      pagesHTML += `<span class="page-number">${totalPages}</span>`;
+    }
+  }
+  
+  pageNumbers.innerHTML = pagesHTML;
+  
+  // Обработчики для номеров страниц
+  document.querySelectorAll('.page-number').forEach((page, index) => {
+    page.addEventListener('click', () => {
+      const pageNum = parseInt(page.textContent);
+      if (!isNaN(pageNum)) {
+        currentPage = pageNum;
+        renderLeaderboard();
+      }
+    });
+  });
+}
+
+// Показать уведомление
+function showNotification(message, type = 'info') {
+  const notification = document.getElementById('notification');
+  const text = document.getElementById('notification-text');
+  
+  // Устанавливаем цвет в зависимости от типа
+  let borderColor = '#1E90FF'; // info по умолчанию
+  if (type === 'success') borderColor = '#00cc88';
+  if (type === 'warning') borderColor = '#ffaa00';
+  if (type === 'error') borderColor = '#ff4757';
+  
+  notification.style.borderLeftColor = borderColor;
+  text.textContent = message;
+  
+  // Меняем иконку в зависимости от типа
+  const icon = notification.querySelector('i');
+  if (type === 'success') icon.className = 'fas fa-check-circle';
+  if (type === 'warning') icon.className = 'fas fa-exclamation-triangle';
+  if (type === 'error') icon.className = 'fas fa-times-circle';
+  if (type === 'info') icon.className = 'fas fa-info-circle';
+  
+  notification.classList.add('show');
+  
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, 3000);
+}
+
+// Закрыть модальное окно
+function closeModal() {
+  document.getElementById('player-modal').classList.remove('show');
+}
 
 // Меню
 const expandButton = document.getElementById('expand-button');
 const menuButtons = document.getElementById('menu-buttons');
 
-expandButton.addEventListener('click', () => {
+expandButton.addEventListener('click', (e) => {
+  e.stopPropagation();
   const isVisible = menuButtons.classList.toggle('show');
   expandButton.setAttribute('aria-expanded', isVisible ? 'true' : 'false');
-  expandButton.style.transform = isVisible 
-    ? 'scale(1.1) rotate(180deg)'
-    : 'scale(1) rotate(0deg)';
+  expandButton.style.transform = isVisible ? 'rotate(180deg) scale(1.1)' : 'rotate(0) scale(1)';
 });
 
 // Закрытие при клике вне меню
@@ -57,7 +426,7 @@ document.addEventListener('click', (e) => {
   if (!e.target.closest('#expandable-menu') && menuButtons.classList.contains('show')) {
     menuButtons.classList.remove('show');
     expandButton.setAttribute('aria-expanded', 'false');
-    expandButton.style.transform = 'scale(1) rotate(0deg)';
+    expandButton.style.transform = 'rotate(0) scale(1)';
   }
 });
 
@@ -67,4 +436,41 @@ expandButton.addEventListener('keydown', (e) => {
     e.preventDefault();
     expandButton.click();
   }
+});
+
+// Автоматическое обновление
+setInterval(() => {
+  // Случайное изменение очков у некоторых игроков
+  currentPlayers.forEach(player => {
+    if (!player.isCurrentUser && Math.random() > 0.7) {
+      const change = Math.floor(Math.random() * 50) - 10;
+      player.score = Math.max(0, player.score + change);
+      
+      if (change > 0) {
+        player.change = 'up';
+        player.changeAmount = change;
+      } else if (change < 0) {
+        player.change = 'down';
+        player.changeAmount = Math.abs(change);
+      } else {
+        player.change = 'stable';
+      }
+    }
+  });
+  
+  // Обновляем только если текущая страница активна
+  if (!document.hidden) {
+    renderLeaderboard();
+    updateStats();
+    showNotification("📊 Рейтинг обновлен", "info");
+  }
+}, 30000); // Каждые 30 секунд
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', () => {
+  initLeaderboard();
+  
+  // Добавляем анимацию заголовку
+  const title = document.querySelector('.title-section h1');
+  title.style.animation = 'glow 2s ease-in-out infinite alternate';
 });

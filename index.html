@@ -3,38 +3,329 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pet Game</title>
+  <title>🐾 Pet Game - Brawl Stars Style</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- Экран с питомцем -->
-  <div id="pets-screen">
-    <div id="dark-overlay"></div>
-    <div id="egg-message-container">
-      <h2 id="egg-message">Поздравляем, у тебя выпало яйцо!</h2>
+  <!-- Анимированный фон -->
+  <div class="particles-container" id="particles"></div>
+  
+  <!-- Основной контейнер -->
+  <div class="main-container">
+    <!-- Верхняя панель -->
+    <div class="top-bar">
+      <div class="player-info">
+        <div class="player-avatar">
+          <img src="https://i.pravatar.cc/50?img=1" alt="Аватар">
+        </div>
+        <div class="player-stats">
+          <h2>Игрок_123</h2>
+          <div class="level-display">
+            <i class="fas fa-shield-alt"></i>
+            Уровень <span class="level">12</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="game-resources">
+        <div class="resource gold">
+          <i class="fas fa-coins"></i>
+          <span id="gold-amount">2,540</span>
+        </div>
+        <div class="resource gems">
+          <i class="fas fa-gem"></i>
+          <span id="gems-amount">45</span>
+        </div>
+        <div class="resource energy">
+          <i class="fas fa-bolt"></i>
+          <span id="energy-amount">120</span>/150
+        </div>
+      </div>
     </div>
-    <img id="egg" src="eggs/egg_0.jpeg" alt="Egg">
-    <img id="pet-image" src="" alt="Pet">
-    <p id="pet-rarity"></p>
+
+    <!-- Основное содержание -->
+    <div class="pet-container">
+      <!-- Левая панель -->
+      <div class="left-panel">
+        <div class="pet-card">
+          <h3><i class="fas fa-paw"></i> Мой питомец</h3>
+          <div class="pet-stats">
+            <div class="stat">
+              <span>Имя:</span>
+              <strong id="pet-name">Неизвестно</strong>
+            </div>
+            <div class="stat">
+              <span>Уровень:</span>
+              <div class="level-bar">
+                <div class="level-fill" id="level-fill"></div>
+                <span class="level-text" id="pet-level">1</span>
+              </div>
+            </div>
+            <div class="stat">
+              <span>Опыт:</span>
+              <strong id="pet-exp">0</strong>/100
+            </div>
+            <div class="stat">
+              <span>Сила:</span>
+              <strong id="pet-power">0</strong>
+            </div>
+            <div class="stat">
+              <span>Настроение:</span>
+              <div class="mood-indicator">
+                <div class="mood-fill" id="mood-fill"></div>
+                <span class="mood-text" id="mood-text">😊</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pet-actions">
+            <button class="action-btn" id="feed-btn">
+              <i class="fas fa-apple-alt"></i> Покормить
+            </button>
+            <button class="action-btn" id="play-btn">
+              <i class="fas fa-gamepad"></i> Поиграть
+            </button>
+            <button class="action-btn" id="train-btn">
+              <i class="fas fa-dumbbell"></i> Тренировать
+            </button>
+          </div>
+        </div>
+        
+        <div class="inventory-preview">
+          <h4><i class="fas fa-box-open"></i> Инвентарь</h4>
+          <div class="inventory-items">
+            <div class="inventory-item">
+              <i class="fas fa-egg"></i>
+              <span>Яйца: <strong id="egg-count">3</strong></span>
+            </div>
+            <div class="inventory-item">
+              <i class="fas fa-pizza-slice"></i>
+              <span>Еда: <strong id="food-count">12</strong></span>
+            </div>
+            <div class="inventory-item">
+              <i class="fas fa-gem"></i>
+              <span>Предметы: <strong id="item-count">7</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Центральная область с яйцом/питомцем -->
+      <div class="center-area">
+        <div class="egg-stage" id="egg-stage">
+          <div class="egg-message-container">
+            <h2><i class="fas fa-gift"></i> Новое яйцо!</h2>
+            <p class="egg-message">Кликни на яйцо 3 раза, чтобы вылупился питомец!</p>
+            <div class="clicks-counter">
+              <i class="fas fa-mouse-pointer"></i>
+              Кликов: <span id="click-counter">0</span>/3
+            </div>
+          </div>
+          
+          <div class="egg-container" id="egg-container">
+            <img id="egg" src="eggs/egg_0.jpeg" alt="Яйцо" class="egg-image">
+            <div class="crack-overlay" id="crack-overlay"></div>
+            <div class="egg-glow"></div>
+          </div>
+          
+          <div class="egg-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="pet-stage hidden" id="pet-stage">
+          <div class="pet-display">
+            <div class="pet-rarity-badge" id="pet-rarity-badge">Обычный</div>
+            <img id="pet-image" src="" alt="Питомец" class="pet-image">
+            <div class="pet-effects">
+              <div class="effect glow"></div>
+              <div class="effect pulse"></div>
+            </div>
+          </div>
+          
+          <div class="pet-info">
+            <h3 id="pet-display-name">Имя питомца</h3>
+            <div class="pet-stats-display">
+              <div class="pet-stat">
+                <i class="fas fa-heart"></i>
+                <span>Здоровье: <strong id="pet-health">100</strong></span>
+              </div>
+              <div class="pet-stat">
+                <i class="fas fa-bolt"></i>
+                <span>Энергия: <strong id="pet-energy">50</strong></span>
+              </div>
+              <div class="pet-stat">
+                <i class="fas fa-star"></i>
+                <span>Счастье: <strong id="pet-happiness">75</strong></span>
+              </div>
+            </div>
+            
+            <div class="pet-interaction">
+              <button class="interaction-btn" id="pet-interact-btn">
+                <i class="fas fa-hand-pointer"></i> Погладить
+              </button>
+              <button class="interaction-btn" id="rename-btn">
+                <i class="fas fa-edit"></i> Переименовать
+              </button>
+              <button class="interaction-btn" id="share-btn">
+                <i class="fas fa-share-alt"></i> Поделиться
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Правая панель -->
+      <div class="right-panel">
+        <div class="achievements">
+          <h3><i class="fas fa-trophy"></i> Достижения</h3>
+          <div class="achievement-list">
+            <div class="achievement unlocked">
+              <i class="fas fa-check-circle"></i>
+              <span>Первый питомец</span>
+            </div>
+            <div class="achievement locked">
+              <i class="fas fa-lock"></i>
+              <span>10 уровней</span>
+            </div>
+            <div class="achievement locked">
+              <i class="fas fa-lock"></i>
+              <span>Коллекционер</span>
+            </div>
+            <div class="achievement locked">
+              <i class="fas fa-lock"></i>
+              <span>Мастер питомцев</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="daily-reward">
+          <h3><i class="fas fa-calendar-day"></i> Ежедневная награда</h3>
+          <div class="reward-calendar">
+            <div class="reward-day today">
+              <span>День 1</span>
+              <i class="fas fa-gift"></i>
+            </div>
+            <div class="reward-day">
+              <span>День 2</span>
+              <i class="fas fa-gem"></i>
+            </div>
+            <div class="reward-day">
+              <span>День 3</span>
+              <i class="fas fa-coins"></i>
+            </div>
+          </div>
+          <button class="claim-btn" id="claim-reward">
+            <i class="fas fa-gift"></i> Получить награду
+          </button>
+        </div>
+        
+        <div class="friends-online">
+          <h3><i class="fas fa-users"></i> Друзья онлайн (3)</h3>
+          <div class="friends-list">
+            <div class="friend">
+              <img src="https://i.pravatar.cc/30?img=2" alt="Друг">
+              <span>PlayerOne</span>
+            </div>
+            <div class="friend">
+              <img src="https://i.pravatar.cc/30?img=3" alt="Друг">
+              <span>GameMaster</span>
+            </div>
+            <div class="friend">
+              <img src="https://i.pravatar.cc/30?img=4" alt="Друг">
+              <span>PetLover</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div id="notification" class="notification">
+      <div class="notification-content">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text"></span>
+      </div>
+    </div>
   </div>
 
-  <!-- Меню -->
-  <div id="expandable-menu">
-    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">⬆</button>
-    <div id="menu-buttons">
-      <button class="menu-item" onclick="location.href='pet/pet.html'">🐾 Питомцы</button>
-      <button class="menu-item" onclick="location.href='games/game.html'">🎮 Игры</button>
-      <button class="menu-item" onclick="location.href='pvp/pvp.html'">⚔️ Пвп</button>
-      <button class="menu-item" onclick="location.href='shop/shop.html'">🛒 Магазин</button>
-      <button class="menu-item" onclick="location.href='inventory/inventory.html'">🎒 Инвентарь</button>
-      <button class="menu-item" onclick="location.href='donate/donate.html'">💎 Эксклюзив</button>
-      <button class="menu-item" onclick="location.href='top/top.html'">🏆 Топ</button>
+  <!-- Меню навигации -->
+  <nav class="bottom-nav">
+    <div class="nav-container">
+      <a href="pet/pet.html" class="nav-item">
+        <i class="fas fa-paw"></i>
+        <span>Питомцы</span>
+      </a>
+      <a href="games/game.html" class="nav-item">
+        <i class="fas fa-gamepad"></i>
+        <span>Игры</span>
+      </a>
+      <a href="pvp/pvp.html" class="nav-item">
+        <i class="fas fa-crosshairs"></i>
+        <span>PvP</span>
+      </a>
+      <a href="shop/shop.html" class="nav-item">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Магазин</span>
+      </a>
+      <a href="inventory/inventory.html" class="nav-item">
+        <i class="fas fa-backpack"></i>
+        <span>Инвентарь</span>
+      </a>
+      <a href="top/top.html" class="nav-item">
+        <i class="fas fa-crown"></i>
+        <span>Топ</span>
+      </a>
+      <a href="index.html" class="nav-item active">
+        <i class="fas fa-home"></i>
+        <span>Главная</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Модальное окно имени -->
+  <div id="name-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-edit"></i> Дайте имя питомцу</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="pet-preview">
+          <img id="modal-pet-image" src="" alt="Питомец">
+          <div class="pet-rarity" id="modal-pet-rarity">Обычный</div>
+        </div>
+        <div class="name-input">
+          <input type="text" id="pet-name-input" placeholder="Введите имя питомца" maxlength="20">
+          <p class="name-hint">Максимум 20 символов</p>
+        </div>
+        <div class="suggestions">
+          <p>Или выберите предложенное:</p>
+          <div class="suggestion-list">
+            <button class="suggestion-btn" data-name="Спарки">Спарки</button>
+            <button class="suggestion-btn" data-name="Луна">Луна</button>
+            <button class="suggestion-btn" data-name="Тор">Тор</button>
+            <button class="suggestion-btn" data-name="Зоя">Зоя</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary close-modal">Отмена</button>
+        <button class="btn-primary" id="save-name">Сохранить имя</button>
+      </div>
     </div>
   </div>
 
+  <!-- Аудио элементы -->
   <audio id="egg-crack-sound" src="sounds/egg-crack.mp3"></audio>
   <audio id="click-sound" src="sounds/click.mp3"></audio>
+  <audio id="pet-sound" src="sounds/pet-happy.mp3"></audio>
+  <audio id="level-up-sound" src="sounds/level-up.mp3"></audio>
+  <audio id="achievement-sound" src="sounds/achievement.mp3"></audio>
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,38 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Инвентарь</title>
+  <title>🎒 Инвентарь Brawl Stars</title>
   <link rel="stylesheet" href="inventory.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-  <div id="inventory-container">
-    <h1>Инвентарь</h1>
-    <h2>Обычные предметы</h2>
-    <div id="inventory-items">
-      <!-- Здесь будут отображаться обычные предметы -->
+  <!-- Верхняя панель -->
+  <div class="top-bar">
+    <div class="player-info">
+      <div class="player-avatar">
+        <img src="https://i.pravatar.cc/50?img=3" alt="Аватар" id="player-avatar">
+      </div>
+      <div class="player-stats">
+        <h2 id="player-name">Игрок_123</h2>
+        <div class="level-display">
+          <i class="fas fa-shield-alt"></i>
+          <span>Уровень <strong id="player-level">12</strong></span>
+        </div>
+      </div>
     </div>
-    <h2>Донатные предметы</h2>
-    <div id="donat-items">
-      <!-- Здесь будут отображаться донатные предметы -->
+    
+    <div class="resources">
+      <div class="resource gold">
+        <i class="fas fa-coins"></i>
+        <span id="gold-amount">2,540</span>
+      </div>
+      <div class="resource gems">
+        <i class="fas fa-gem"></i>
+        <span id="gems-amount">45</span>
+      </div>
+      <div class="resource trophies">
+        <i class="fas fa-trophy"></i>
+        <span id="trophies-amount">3,280</span>
+      </div>
     </div>
   </div>
 
-<!-- Меню -->
-<div id="expandable-menu">
-  <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">⬆</button>
-  <div id="menu-buttons">
-    <button class="menu-item" onclick="location.href='../pet/pet.html'">🐾 Питомцы</button>
-    <button class="menu-item" onclick="location.href='../games/game.html'">🎮 Игры</button>
-    <button class="menu-item" onclick="location.href='../pvp/pvp.html'">⚔️ Пвп</button>
-    <button class="menu-item" onclick="location.href='../shop/shop.html'">🛒 Магазин</button>
-    <button class="menu-item" onclick="location.href='inventory.html'">🎒 Инвентарь</button>
-    <button class="menu-item" onclick="location.href='../donate/donate.html'">💎 Эксклюзив</button>
-    <button class="menu-item" onclick="location.href='../top/top.html'">🏆 Топ</button>
-    <button class="menu-item" onclick="location.href='../index.html'">🏠 Домой</button>
+  <!-- Основной контейнер -->
+  <div class="inventory-container">
+    <div class="inventory-header">
+      <h1><i class="fas fa-backpack"></i> Мой Инвентарь</h1>
+      <div class="stats-summary">
+        <div class="stat-item">
+          <i class="fas fa-box-open"></i>
+          <span>Всего предметов: <strong id="total-items">0</strong></span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-star"></i>
+          <span>Редкость: <strong id="rarity-score">0</strong></span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-clock"></i>
+          <span>Последнее обновление: <strong>Сегодня</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Вкладки -->
+    <div class="tabs">
+      <button class="tab active" data-tab="all">
+        <i class="fas fa-layer-group"></i> Все предметы
+      </button>
+      <button class="tab" data-tab="common">
+        <i class="fas fa-circle"></i> Обычные
+      </button>
+      <button class="tab" data-tab="rare">
+        <i class="fas fa-circle" style="color: #1E90FF"></i> Редкие
+      </button>
+      <button class="tab" data-tab="epic">
+        <i class="fas fa-circle" style="color: #9B30FF"></i> Эпические
+      </button>
+      <button class="tab" data-tab="legendary">
+        <i class="fas fa-circle" style="color: #FFD700"></i> Легендарные
+      </button>
+      <button class="tab" data-tab="donat">
+        <i class="fas fa-crown"></i> Донатные
+      </button>
+    </div>
+
+    <!-- Фильтры и поиск -->
+    <div class="filters">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search-items" placeholder="Поиск предметов...">
+      </div>
+      <div class="sort-options">
+        <select id="sort-by">
+          <option value="newest">Сначала новые</option>
+          <option value="oldest">Сначала старые</option>
+          <option value="price-high">Цена по убыванию</option>
+          <option value="price-low">Цена по возрастанию</option>
+          <option value="rarity">По редкости</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Сетка предметов -->
+    <div class="inventory-grid" id="inventory-grid">
+      <!-- Здесь будут отображаться предметы -->
+      <div class="empty-state" id="empty-state">
+        <i class="fas fa-box-open fa-3x"></i>
+        <h3>Инвентарь пуст</h3>
+        <p>Купите предметы в магазине или получите их в награду!</p>
+        <button class="btn-primary" onclick="location.href='../shop/shop.html'">
+          <i class="fas fa-shopping-cart"></i> Перейти в магазин
+        </button>
+      </div>
+    </div>
+
+    <!-- Статистика -->
+    <div class="inventory-stats">
+      <div class="stat-card">
+        <h3><i class="fas fa-chart-bar"></i> Статистика</h3>
+        <div class="stat-content">
+          <div class="stat-row">
+            <span>Обычные предметы:</span>
+            <span id="common-count">0</span>
+          </div>
+          <div class="stat-row">
+            <span>Редкие предметы:</span>
+            <span id="rare-count">0</span>
+          </div>
+          <div class="stat-row">
+            <span>Эпические предметы:</span>
+            <span id="epic-count">0</span>
+          </div>
+          <div class="stat-row">
+            <span>Легендарные предметы:</span>
+            <span id="legendary-count">0</span>
+          </div>
+          <div class="stat-row">
+            <span>Донатные предметы:</span>
+            <span id="donat-count">0</span>
+          </div>
+          <div class="stat-row total">
+            <span>Общая стоимость:</span>
+            <span id="total-value">0 <i class="fas fa-coins"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- Плавающее меню -->
+  <div id="expandable-menu">
+    <div id="menu-buttons">
+      <button class="menu-item" onclick="location.href='../pet/pet.html'">
+        <i class="fas fa-paw"></i> Питомцы
+      </button>
+      <button class="menu-item" onclick="location.href='../games/game.html'">
+        <i class="fas fa-gamepad"></i> Игры
+      </button>
+      <button class="menu-item" onclick="location.href='../pvp/pvp.html'">
+        <i class="fas fa-crosshairs"></i> PvP
+      </button>
+      <button class="menu-item" onclick="location.href='../shop/shop.html'">
+        <i class="fas fa-shopping-cart"></i> Магазин
+      </button>
+      <button class="menu-item active" onclick="location.href='inventory.html'">
+        <i class="fas fa-backpack"></i> Инвентарь
+      </button>
+      <button class="menu-item" onclick="location.href='../top/top.html'">
+        <i class="fas fa-crown"></i> Топ
+      </button>
+      <button class="menu-item" onclick="location.href='../index.html'">
+        <i class="fas fa-home"></i> Домой
+      </button>
+    </div>
+    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Модальное окно -->
+  <div id="item-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-item-name"></h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-image">
+          <img id="modal-item-image" src="" alt="">
+        </div>
+        <div class="modal-info">
+          <div class="item-rarity" id="modal-item-rarity"></div>
+          <p id="modal-item-description"></p>
+          <div class="item-price">
+            <i class="fas fa-coins"></i>
+            <span id="modal-item-price">0</span> золота
+          </div>
+          <div class="item-date">
+            <i class="fas fa-calendar"></i>
+            Получено: <span id="modal-item-date">сегодня</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="use-item">
+          <i class="fas fa-play-circle"></i> Использовать
+        </button>
+        <button class="btn-danger" id="sell-item">
+          <i class="fas fa-coins"></i> Продать
+        </button>
+        <button class="btn-danger" id="delete-item">
+          <i class="fas fa-trash"></i> Удалить
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Уведомление -->
+  <div id="notification" class="notification">
+    <div class="notification-content">
+      <i class="fas fa-check-circle"></i>
+      <span id="notification-text"></span>
+    </div>
+  </div>
 
   <script src="inventory.js"></script>
 </body>

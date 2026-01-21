@@ -1,46 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Игры</title>
+  <title>🎮 Игровая Коллекция</title>
   <link rel="stylesheet" href="game.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div id="games-container">
-    <h1>Игры</h1>
-    <div class="game-list">
-      <div class="game-item game-item-candy">
-        <h2>Собирание</h2>
-        <p>Собирайте конфеты с питомцем, избегая бомб. Наберите 5000 очков, чтобы выиграть!</p>
-        <button onclick="location.href='candy.html'">Играть</button>
-      </div>
+  <!-- Анимированные частицы на фоне -->
+  <div class="particles" id="particles"></div>
 
-      <div class="game-item game-item-dodge">
-        <h2>Уклонение</h2>
-        <p>Управляйте питомцем и уклоняйтесь от падающих препятствий. Продержитесь как можно дольше!</p>
-        <button onclick="location.href='dodge.html'">Играть</button>
-      </div>
+  <!-- Заголовок страницы -->
+  <header class="page-header">
+    <h1>🎮 Игровая Коллекция</h1>
+    <p>Выберите игру для запуска. Каждая игра предлагает уникальные испытания и награды для ваших питомцев!</p>
+  </header>
 
-      <div class="game-item game-item-jump">
-        <h2>Прыжки</h2>
-        <p>Управляйте питомцем и прыгайте вверх по платформам. Продержитесь как можно дольше!</p>
-        <button onclick="location.href='jump.html'">Играть</button>
-      </div>
+  <!-- Основной контент -->
+  <main id="games-container">
+    <div class="games-grid" id="games-grid">
+      <!-- Игры будут добавляться через JavaScript -->
     </div>
-  </div>
+  </main>
 
-  <!-- Меню -->
+  <!-- Футер -->
+  <footer class="games-footer">
+    <p>🎯 Общее количество игр: <span id="total-games">0</span></p>
+    <p>🏆 Ваш лучший результат: <span id="total-score">0</span> очков</p>
+    <p>⏱️ Всего сыграно: <span id="total-time">0</span> часов</p>
+  </footer>
+
+  <!-- Навигационное меню -->
   <div id="expandable-menu">
-    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">⬆</button>
+    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">
+      <i class="fas fa-gamepad"></i>
+    </button>
     <div id="menu-buttons">
-      <button class="menu-item" onclick="location.href='pet/pet.html'">🐾 Питомцы</button>
-      <button class="menu-item" onclick="location.href='games/game.html'">🎮 Игры</button>
-      <button class="menu-item" onclick="location.href='pvp/pvp.html'">⚔️ Пвп</button>
-      <button class="menu-item" onclick="location.href='shop/shop.html'">🛒 Магазин</button>
-      <button class="menu-item" onclick="location.href='inventory/inventory.html'">🎒 Инвентарь</button>
-      <button class="menu-item" onclick="location.href='donate/donate.html'">💎 Эксклюзив</button>
-      <button class="menu-item" onclick="location.href='top/top.html'">🏆 Топ</button>
+      <button class="menu-item" onclick="location.href='../pet/pet.html'">
+        <i class="fas fa-paw"></i> Питомцы
+      </button>
+      <button class="menu-item" onclick="location.href='game.html'">
+        <i class="fas fa-gamepad"></i> Игры
+      </button>
+      <button class="menu-item" onclick="location.href='../pvp/pvp.html'">
+        <i class="fas fa-crosshairs"></i> PvP
+      </button>
+      <button class="menu-item" onclick="location.href='../shop/shop.html'">
+        <i class="fas fa-shopping-cart"></i> Магазин
+      </button>
+      <button class="menu-item" onclick="location.href='../inventory/inventory.html'">
+        <i class="fas fa-backpack"></i> Инвентарь
+      </button>
+      <button class="menu-item" onclick="location.href='../top/top.html'">
+        <i class="fas fa-trophy"></i> Топ игроков
+      </button>
+      <button class="menu-item" onclick="location.href='../index.html'">
+        <i class="fas fa-home"></i> Главная
+      </button>
     </div>
   </div>
 
