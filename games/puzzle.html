@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🧩 Пазл с Питомцами - Игра</title>
+  <link rel="stylesheet" href="puzzle.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧩</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Декоративные элементы фона -->
+  <div class="background-elements"></div>
+
+  <div id="game-container">
+    <!-- Экран выбора -->
+    <div id="selection-screen" class="screen active">
+      <div class="screen-header">
+        <h1>🧩 Пазл с Питомцами</h1>
+        <p>Выберите изображение и сложность пазла</p>
+      </div>
+
+      <div class="selection-content">
+        <!-- Выбор изображения -->
+        <div class="selection-section">
+          <h2><i class="fas fa-images"></i> Выберите питомца</h2>
+          <div class="pets-grid" id="pets-grid">
+            <!-- Питомцы будут добавляться через JS -->
+          </div>
+        </div>
+
+        <!-- Выбор сложности -->
+        <div class="selection-section">
+          <h2><i class="fas fa-sliders-h"></i> Сложность пазла</h2>
+          <div class="difficulty-buttons">
+            <button class="difficulty-btn" data-difficulty="easy">
+              <div class="difficulty-icon">🟢</div>
+              <div class="difficulty-info">
+                <div class="difficulty-title">Легко</div>
+                <div class="difficulty-desc">3x3 части</div>
+              </div>
+            </button>
+            <button class="difficulty-btn" data-difficulty="medium">
+              <div class="difficulty-icon">🟡</div>
+              <div class="difficulty-info">
+                <div class="difficulty-title">Средне</div>
+                <div class="difficulty-desc">4x4 части</div>
+              </div>
+            </button>
+            <button class="difficulty-btn" data-difficulty="hard">
+              <div class="difficulty-icon">🔴</div>
+              <div class="difficulty-info">
+                <div class="difficulty-title">Сложно</div>
+                <div class="difficulty-desc">5x5 части</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Кнопка начала -->
+        <button id="start-puzzle-btn" class="start-button">
+          <i class="fas fa-play-circle"></i> Начать собирать пазл
+        </button>
+      </div>
+
+      <button id="home-button" class="home-button">
+        <i class="fas fa-home"></i> В меню игр
+      </button>
+    </div>
+
+    <!-- Экран игры -->
+    <div id="game-screen" class="screen">
+      <!-- Панель информации -->
+      <div class="game-info">
+        <div class="info-card">
+          <i class="fas fa-clock"></i>
+          <span id="timer">00:00</span>
+        </div>
+        <div class="info-card">
+          <i class="fas fa-exchange-alt"></i>
+          <span id="moves">0</span>
+        </div>
+        <div class="info-card">
+          <i class="fas fa-percentage"></i>
+          <span id="progress">0%</span>
+        </div>
+        <div class="info-card hints-card">
+          <i class="fas fa-lightbulb"></i>
+          <span id="hints">3</span>
+        </div>
+      </div>
+
+      <!-- Игровая область -->
+      <div class="game-area">
+        <!-- Контейнер пазла -->
+        <div class="puzzle-container">
+          <div class="puzzle-grid" id="puzzle-grid">
+            <!-- Сетка пазла будет генерироваться через JS -->
+          </div>
+          <div class="puzzle-image-container">
+            <div class="original-image" id="original-image">
+              <!-- Исходное изображение -->
+            </div>
+            <div class="image-hint">
+              <i class="fas fa-eye"></i> Подсказка
+            </div>
+          </div>
+        </div>
+
+        <!-- Область с частями пазла -->
+        <div class="puzzle-pieces-area">
+          <h3><i class="fas fa-puzzle-piece"></i> Части пазла</h3>
+          <div class="pieces-container" id="pieces-container">
+            <!-- Части пазла будут добавляться через JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Панель управления -->
+      <div class="game-controls">
+        <button id="hint-button" class="control-button">
+          <i class="fas fa-lightbulb"></i> Подсказка
+        </button>
+        <button id="shuffle-button" class="control-button">
+          <i class="fas fa-random"></i> Перемешать
+        </button>
+        <button id="restart-button" class="control-button">
+          <i class="fas fa-redo"></i> Начать заново
+        </button>
+        <button id="back-to-menu-btn" class="control-button">
+          <i class="fas fa-home"></i> В меню
+        </button>
+      </div>
+    </div>
+
+    <!-- Экран завершения -->
+    <div id="completion-screen" class="screen">
+      <div class="completion-content">
+        <div class="confetti-container"></div>
+        
+        <div class="completion-header">
+          <h1>🎉 Пазл собран!</h1>
+          <p class="completion-subtitle">Вы собрали пазл с питомцем</p>
+        </div>
+
+        <div class="result-image" id="result-image">
+          <!-- Собранное изображение -->
+        </div>
+
+        <div class="result-stats">
+          <div class="stat-card">
+            <div class="stat-icon">⏱️</div>
+            <div class="stat-info">
+              <div class="stat-label">Время</div>
+              <div class="stat-value" id="final-time">00:00</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🔄</div>
+            <div class="stat-info">
+              <div class="stat-label">Ходы</div>
+              <div class="stat-value" id="final-moves">0</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💡</div>
+            <div class="stat-info">
+              <div class="stat-label">Подсказки</div>
+              <div class="stat-value" id="final-hints">0</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-info">
+              <div class="stat-label">Оценка</div>
+              <div class="stat-value" id="final-score">0/100</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="completion-buttons">
+          <button id="play-again-btn" class="completion-button">
+            <i class="fas fa-redo"></i> Собрать еще
+          </button>
+          <button id="new-puzzle-btn" class="completion-button">
+            <i class="fas fa-plus-circle"></i> Новый пазл
+          </button>
+          <button id="return-to-menu" class="completion-button">
+            <i class="fas fa-home"></i> В меню игр
+          </button>
+        </div>
+
+        <div class="share-section">
+          <p>Поделиться результатом:</p>
+          <div class="share-buttons">
+            <button class="share-btn">
+              <i class="fab fa-vk"></i>
+            </button>
+            <button class="share-btn">
+              <i class="fab fa-telegram"></i>
+            </button>
+            <button class="share-btn" id="copy-link">
+              <i class="fas fa-link"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно с подсказкой -->
+    <div id="hint-modal" class="modal">
+      <div class="modal-content">
+        <h3><i class="fas fa-lightbulb"></i> Подсказка</h3>
+        <p>Подсказка покажет исходное изображение на 5 секунд</p>
+        <div class="modal-buttons">
+          <button id="use-hint-btn" class="modal-button">
+            Использовать подсказку
+          </button>
+          <button id="cancel-hint-btn" class="modal-button cancel">
+            Отмена
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="puzzle.js"></script>
+</body>
+</html>

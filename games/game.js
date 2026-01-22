@@ -50,7 +50,7 @@ const gamesData = [
     score: 0,
     color1: "#00b09b",
     color2: "#96c93d",
-    link: "#"
+    link: "race.html"
   },
   {
     id: 5,
@@ -63,7 +63,7 @@ const gamesData = [
     score: 0,
     color1: "#ff8a00",
     color2: "#e52e71",
-    link: "#"
+    link: "puzzle.html"
   },
   {
     id: 6,
@@ -76,7 +76,7 @@ const gamesData = [
     score: 0,
     color1: "#667eea",
     color2: "#764ba2",
-    link: "#"
+    link: "arkanoid.html"
   }
 ];
 

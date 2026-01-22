@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🏎️ Гонки с Питомцем - Игра</title>
+  <link rel="stylesheet" href="race.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏎️</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Декоративные элементы фона -->
+  <div class="background-elements"></div>
+
+  <div id="game-container">
+    <!-- Панель информации -->
+    <div class="game-info">
+      <div id="score-board" class="info-card">
+        <span>🏆</span>
+        <span id="score">0</span>
+      </div>
+      
+      <div id="speed-display" class="info-card">
+        <span>⚡</span>
+        <span id="speed">0</span> км/ч
+      </div>
+      
+      <div id="lives-display" class="info-card">
+        <span>❤️</span>
+        <span id="lives"></span>
+      </div>
+      
+      <div id="lap-counter" class="info-card">
+        <span>🎯</span>
+        Круг <span id="current-lap">1</span>/3
+      </div>
+      
+      <div id="boost-counter" class="info-card">
+        <span>🚀</span>
+        <span id="boost">3</span>
+      </div>
+    </div>
+
+    <!-- Игровая область -->
+    <div id="game-area">
+      <!-- Дорога -->
+      <div id="road">
+        <!-- Разметка дороги -->
+        <div class="road-markings"></div>
+        <!-- Питомец-машина игрока -->
+        <div id="player-car">
+          <div class="car-body">
+            <div class="car-top"></div>
+            <div class="car-window"></div>
+            <div class="car-front"></div>
+            <div class="car-wheel front-left"></div>
+            <div class="car-wheel front-right"></div>
+            <div class="car-wheel rear-left"></div>
+            <div class="car-wheel rear-right"></div>
+            <div class="pet-face">🐶</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Эффект ускорения -->
+      <div id="boost-effect" class="boost-effect"></div>
+    </div>
+
+    <!-- Панель управления -->
+    <div class="game-controls">
+      <button id="start-button" class="control-button">
+        <span>▶️</span> Начать гонку
+      </button>
+      <button id="boost-button" class="control-button" disabled>
+        <span>🚀</span> Ускорение
+      </button>
+      <button id="home-button" class="control-button">
+        <span>🏠</span> В меню
+      </button>
+    </div>
+
+    <!-- Кнопки управления для мобильных -->
+    <div class="mobile-controls">
+      <div class="control-row">
+        <button id="left-btn" class="mobile-btn">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <button id="boost-btn-mobile" class="mobile-btn boost-btn">
+          <i class="fas fa-bolt"></i>
+        </button>
+        <button id="right-btn" class="mobile-btn">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Модальное окно конца игры -->
+    <div id="game-over-modal" class="game-over-modal">
+      <div class="modal-content">
+        <h2 id="result-title" class="modal-title"></h2>
+        <div class="result-stats">
+          <div class="stat">
+            <div class="stat-label">Финишное время</div>
+            <div class="stat-value" id="final-time">0:00</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Набрано очков</div>
+            <div class="stat-value" id="final-score">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Лучший круг</div>
+            <div class="stat-value" id="best-lap">0:00</div>
+          </div>
+        </div>
+        <div class="modal-buttons">
+          <button id="restart-button" class="modal-button">
+            <span>🔄</span> Гонять снова
+          </button>
+          <button id="back-to-menu" class="modal-button">
+            <span>🏠</span> В меню игр
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Экран обратного отсчета -->
+    <div id="countdown" class="countdown">
+      <div class="countdown-number">3</div>
+    </div>
+  </div>
+
+  <script src="race.js"></script>
+</body>
+</html>
