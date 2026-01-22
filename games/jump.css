@@ -1,0 +1,644 @@
+/* Стили для игры "Прыжки по Платформам" */
+:root {
+  --primary-gradient: linear-gradient(135deg, #1e3c72, #2a5298, #1e3c72);
+  --player-color: #FF9966;
+  --platform-color: #00b09b;
+  --platform-moving: #667eea;
+  --platform-breaking: #ff4757;
+  --bonus-color: #FFD700;
+  --ui-color: rgba(255, 255, 255, 0.95);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+  background: var(--primary-gradient);
+  background-size: 400% 400%;
+  animation: gradientBackground 15s ease infinite;
+  color: white;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Декоративные элементы фона */
+.background-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  animation: cloudFloat 60s infinite linear;
+}
+
+@keyframes cloudFloat {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(calc(100vw + 100px)); }
+}
+
+/* Контейнер игры */
+#game-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Панель информации */
+.game-info {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  z-index: 100;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 15px 25px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#score-board {
+  background: linear-gradient(135deg, #FF5E62, #FF9966);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#high-score-board {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#height-board {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Игровая область */
+#game-area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 
+    inset 0 0 50px rgba(255, 255, 255, 0.1),
+    inset 0 0 100px rgba(0, 0, 0, 0.2);
+}
+
+/* Игрок */
+#player {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  z-index: 10;
+  transition: transform 0.1s ease;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+}
+
+.player-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.player-body {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--player-color), #FF5E62);
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 -8px 15px rgba(0, 0, 0, 0.3),
+    inset 0 8px 15px rgba(255, 255, 255, 0.2),
+    0 8px 25px rgba(255, 153, 102, 0.4);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  animation: playerBounce 0.8s ease-in-out infinite;
+}
+
+@keyframes playerBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.player-face {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+}
+
+.player-wings {
+  position: absolute;
+  top: 10px;
+  width: 25px;
+  height: 35px;
+  background: linear-gradient(135deg, var(--player-color), #FF5E62);
+  border-radius: 50%;
+}
+
+.player-wings.left {
+  left: -15px;
+  transform: rotate(-20deg);
+}
+
+.player-wings.right {
+  right: -15px;
+  transform: rotate(20deg);
+}
+
+/* Платформы */
+.platform {
+  position: absolute;
+  border-radius: 15px;
+  z-index: 5;
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.3),
+    inset 0 2px 5px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.platform.normal {
+  background: linear-gradient(135deg, var(--platform-color), #96c93d);
+  height: 20px;
+}
+
+.platform.moving {
+  background: linear-gradient(135deg, var(--platform-moving), #764ba2);
+  height: 20px;
+  animation: movePlatform 3s infinite alternate ease-in-out;
+}
+
+@keyframes movePlatform {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100px); }
+}
+
+.platform.breaking {
+  background: linear-gradient(135deg, var(--platform-breaking), #ff6b6b);
+  height: 20px;
+  animation: breakPulse 1.5s infinite alternate;
+}
+
+@keyframes breakPulse {
+  0% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+.platform.spring {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  height: 25px;
+  animation: springGlow 1s infinite alternate;
+}
+
+@keyframes springGlow {
+  0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+  100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+}
+
+.platform.spring::after {
+  content: '🦘';
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 25px;
+}
+
+/* Бонусы */
+.bonus {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 6;
+  animation: bonusFloat 2s ease-in-out infinite;
+}
+
+@keyframes bonusFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.bonus.coin {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.bonus.rocket {
+  background: linear-gradient(135deg, #36D1DC, #5B86E5);
+  box-shadow: 0 0 15px rgba(54, 209, 220, 0.6);
+}
+
+.bonus.shield {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+  box-shadow: 0 0 15px rgba(0, 176, 155, 0.6);
+}
+
+/* Эффекты */
+.trail-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--player-color);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: trailFade 0.5s ease-out forwards;
+  z-index: 9;
+}
+
+@keyframes trailFade {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.spring-effect {
+  position: absolute;
+  width: 60px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
+  pointer-events: none;
+  animation: springBoost 0.5s ease-out;
+  z-index: 8;
+}
+
+@keyframes springBoost {
+  from {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.rocket-effect {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to top, rgba(54, 209, 220, 0.3), transparent);
+  pointer-events: none;
+  animation: rocketBoost 0.3s ease-out;
+  z-index: 7;
+}
+
+@keyframes rocketBoost {
+  from {
+    opacity: 1;
+    height: 50px;
+  }
+  to {
+    opacity: 0;
+    height: 200px;
+  }
+}
+
+/* Кнопки управления */
+.game-controls {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 100;
+}
+
+.control-button {
+  padding: 18px 35px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Comic Sans MS', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+#start-button {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+  color: white;
+}
+
+#start-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 176, 155, 0.4);
+}
+
+#home-button {
+  background: linear-gradient(135deg, #FF5E62, #FF9966);
+  color: white;
+}
+
+#home-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(255, 94, 98, 0.4);
+}
+
+.control-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: 0.5s;
+}
+
+.control-button:hover::before {
+  left: 100%;
+}
+
+/* Индикатор комбо */
+.combo-indicator {
+  position: absolute;
+  top: 120px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 15px 25px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.combo-icon {
+  font-size: 28px;
+  animation: comboSpin 1s infinite;
+}
+
+@keyframes comboSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Прогресс высоты */
+.height-bar {
+  position: absolute;
+  left: 30px;
+  bottom: 100px;
+  width: 20px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.height-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, #FF5E62, #FF9966);
+  border-radius: 10px;
+  transition: height 0.5s ease;
+}
+
+/* Управление для мобильных */
+.touch-controls {
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
+  display: none;
+  justify-content: space-around;
+  padding: 0 50px;
+  z-index: 100;
+}
+
+.touch-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: white;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* Модальное окно конца игры */
+.game-over-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  padding: 50px;
+  border-radius: 30px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-title {
+  font-size: 42px;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.final-score, .final-height {
+  font-size: 64px;
+  font-weight: bold;
+  color: #36D1DC;
+  margin: 15px 0;
+  text-shadow: 0 0 30px rgba(54, 209, 220, 0.8);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.modal-button {
+  padding: 18px 35px;
+  font-size: 18px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  font-family: 'Comic Sans MS', sans-serif;
+}
+
+#restart-button {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+  color: white;
+}
+
+#back-to-menu {
+  background: linear-gradient(135deg, #8E2DE2, #4A00E0);
+  color: white;
+}
+
+.modal-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .game-info {
+    padding: 0 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .info-card {
+    padding: 10px 15px;
+    font-size: 18px;
+  }
+  
+  .touch-controls {
+    display: flex;
+  }
+  
+  .game-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .control-button {
+    padding: 15px 25px;
+    font-size: 18px;
+  }
+  
+  .height-bar {
+    left: 15px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-info {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .info-card {
+    width: 90%;
+    justify-content: center;
+  }
+  
+  .touch-button {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+  }
+  
+  #player {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .player-body {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .player-face {
+    font-size: 25px;
+  }
+}

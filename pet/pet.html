@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐾 Коллекция Питомцев</title>
+  <link rel="stylesheet" href="pet.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Анимированные частицы на фоне -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Заголовок страницы -->
+  <header class="page-header">
+    <h1>🐾 Коллекция Питомцев</h1>
+    <p>Ваши верные спутники в играх! Каждый питомец имеет уникальные характеристики и способности.</p>
+  </header>
+
+  <!-- Основной контент -->
+  <main id="pets-container">
+    <div class="pets-grid" id="pets-grid">
+      <!-- Питомцы будут добавляться через JavaScript -->
+    </div>
+  </main>
+
+  <!-- Футер со статистикой -->
+  <footer class="pets-footer">
+    <p>🐕 Всего питомцев: <span id="total-pets">0</span></p>
+    <p>⭐ Средняя редкость: <span id="avg-rarity">-</span></p>
+    <p>📊 Общий уровень: <span id="total-level">0</span></p>
+  </footer>
+
+  <!-- Навигационное меню -->
+  <div id="expandable-menu">
+    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">
+      <i class="fas fa-paw"></i>
+    </button>
+    <div id="menu-buttons">
+      <button class="menu-item" onclick="location.href='pet.html'">
+        <i class="fas fa-paw"></i> Питомцы
+      </button>
+      <button class="menu-item" onclick="location.href='../games/game.html'">
+        <i class="fas fa-gamepad"></i> Игры
+      </button>
+      <button class="menu-item" onclick="location.href='../pvp/pvp.html'">
+        <i class="fas fa-crosshairs"></i> PvP
+      </button>
+      <button class="menu-item" onclick="location.href='../shop/shop.html'">
+        <i class="fas fa-shopping-cart"></i> Магазин
+      </button>
+      <button class="menu-item" onclick="location.href='../inventory/inventory.html'">
+        <i class="fas fa-box"></i> Инвентарь
+      </button>
+      <button class="menu-item" onclick="location.href='../top/top.html'">
+        <i class="fas fa-trophy"></i> Топ игроков
+      </button>
+      <button class="menu-item" onclick="location.href='../index.html'">
+        <i class="fas fa-home"></i> Главная
+      </button>
+    </div>
+  </div>
+
+  <script src="pet.js"></script>
+</body>
+</html>

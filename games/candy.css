@@ -1,0 +1,587 @@
+/* Стили для игры "Сбор конфет" */
+:root {
+  --primary-gradient: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  --player-color: #36D1DC;
+  --candy-color: #FF5E62;
+  --bomb-color: #8E2DE2;
+  --ui-color: rgba(255, 255, 255, 0.95);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+  background: var(--primary-gradient);
+  background-size: 400% 400%;
+  animation: gradientBackground 15s ease infinite;
+  color: white;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Декоративные элементы фона */
+.background-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-candy {
+  position: absolute;
+  font-size: 40px;
+  opacity: 0.1;
+  animation: float 20s infinite linear;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.1;
+  }
+  90% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Контейнер игры */
+#game-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Панель информации */
+.game-info {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  z-index: 100;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 15px 25px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#score-board {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#lives-display {
+  background: linear-gradient(135deg, #FF5E62, #FF9966);
+  font-size: 22px;
+}
+
+.heart {
+  color: #FF4757;
+  animation: heartbeat 1.5s infinite;
+  display: inline-block;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Игровая область */
+#game-area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 
+    inset 0 0 50px rgba(255, 255, 255, 0.1),
+    inset 0 0 100px rgba(0, 0, 0, 0.2);
+}
+
+/* Игрок (ведро) */
+#player {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 160px;
+  z-index: 10;
+  transition: transform 0.1s ease;
+}
+
+.bucket {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bucket-body {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(135deg, var(--player-color), #5B86E5);
+  border-radius: 50% 50% 10% 10%;
+  box-shadow: 
+    inset 0 -15px 20px rgba(0, 0, 0, 0.3),
+    inset 0 15px 20px rgba(255, 255, 255, 0.2),
+    0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 5px solid rgba(255, 255, 255, 0.3);
+}
+
+.bucket-handle {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 40px;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.bucket-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  background: inherit;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.bucket-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background: inherit;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.player-face {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Падающие объекты */
+.falling-item {
+  position: absolute;
+  top: -100px;
+  border-radius: 50%;
+  z-index: 5;
+  animation: spin 3s linear infinite;
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.3),
+    inset 0 2px 5px rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  transition: transform 0.3s ease;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.candy {
+  background: linear-gradient(135deg, var(--candy-color), #FF9966);
+  width: 70px;
+  height: 70px;
+  animation: candyGlow 2s infinite alternate;
+}
+
+@keyframes candyGlow {
+  0% { box-shadow: 0 0 10px rgba(255, 94, 98, 0.5); }
+  100% { box-shadow: 0 0 30px rgba(255, 94, 98, 0.8); }
+}
+
+.dynamite {
+  background: linear-gradient(135deg, var(--bomb-color), #4A00E0);
+  width: 80px;
+  height: 80px;
+  animation: bombPulse 1s infinite alternate;
+}
+
+@keyframes bombPulse {
+  0% { 
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(142, 45, 226, 0.5);
+  }
+  100% { 
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(142, 45, 226, 0.8);
+  }
+}
+
+.dynamite::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 25px;
+  background: linear-gradient(180deg, #ff0000, #ff6666);
+  border-radius: 3px;
+  animation: fuseBurn 0.5s infinite alternate;
+}
+
+@keyframes fuseBurn {
+  0% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+/* Кнопки управления */
+.game-controls {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 100;
+}
+
+.control-button {
+  padding: 18px 35px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Comic Sans MS', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+#start-button {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+  color: white;
+}
+
+#start-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 176, 155, 0.4);
+}
+
+#home-button {
+  background: linear-gradient(135deg, #FF5E62, #FF9966);
+  color: white;
+}
+
+#home-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(255, 94, 98, 0.4);
+}
+
+.control-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: 0.5s;
+}
+
+.control-button:hover::before {
+  left: 100%;
+}
+
+/* Эффект комбо */
+.combo-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 50;
+  transition: all 0.5s ease;
+}
+
+/* Эффекты частиц */
+.particle {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 1;
+  animation: particleFloat 1s ease-out forwards;
+}
+
+@keyframes particleFloat {
+  from {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(var(--tx, 0), var(--ty, -100px)) scale(0);
+  }
+}
+
+/* Модальное окно конца игры */
+.game-over-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  padding: 50px;
+  border-radius: 30px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-title {
+  font-size: 42px;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.final-score {
+  font-size: 64px;
+  font-weight: bold;
+  color: #36D1DC;
+  margin: 30px 0;
+  text-shadow: 0 0 30px rgba(54, 209, 220, 0.8);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.modal-button {
+  padding: 18px 35px;
+  font-size: 18px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  font-family: 'Comic Sans MS', sans-serif;
+}
+
+#restart-button {
+  background: linear-gradient(135deg, #00b09b, #96c93d);
+  color: white;
+}
+
+#back-to-menu {
+  background: linear-gradient(135deg, #8E2DE2, #4A00E0);
+  color: white;
+}
+
+.modal-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Счетчик бонусов */
+.bonus-counter {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 15px 25px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.bonus-icon {
+  font-size: 28px;
+  animation: spinSlow 3s linear infinite;
+}
+
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Панель прогресса */
+.progress-bar {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF5E62, #FF9966);
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  #player {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .game-info {
+    padding: 0 15px;
+  }
+  
+  .info-card {
+    padding: 10px 15px;
+    font-size: 18px;
+  }
+  
+  .game-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .control-button {
+    padding: 15px 25px;
+    font-size: 18px;
+  }
+  
+  .falling-item {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  #player {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .player-face {
+    font-size: 30px;
+  }
+  
+  .game-info {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .info-card {
+    width: 90%;
+    justify-content: center;
+  }
+}

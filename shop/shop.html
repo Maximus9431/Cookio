@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛒 Игровой Магазин</title>
+  <link rel="stylesheet" href="shop.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Верхняя панель с валютой -->
+  <div class="top-bar">
+    <div class="currency-display">
+      <div class="gold">
+        <i class="fas fa-coins"></i>
+        <span id="gold-amount">500</span>
+      </div>
+      <div class="gems">
+        <i class="fas fa-gem"></i>
+        <span id="gems-amount">25</span>
+      </div>
+      <div class="tickets">
+        <i class="fas fa-ticket-alt"></i>
+        <span id="tickets-amount">10</span>
+      </div>
+    </div>
+    <h1 class="shop-title">🛒 Игровой Магазин</h1>
+    <div class="player-info">
+      <div class="player-avatar">
+        <img src="https://i.pravatar.cc/40?img=1" alt="Аватар">
+        <span class="player-name">Игрок</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Категории товаров -->
+  <div class="categories-tabs">
+    <button class="category-tab active" data-category="all">
+      <i class="fas fa-boxes"></i> Все товары
+    </button>
+    <button class="category-tab" data-category="eggs">
+      <i class="fas fa-egg"></i> Яйца питомцев
+    </button>
+    <button class="category-tab" data-category="boosters">
+      <i class="fas fa-bolt"></i> Бустеры
+    </button>
+    <button class="category-tab" data-category="currency">
+      <i class="fas fa-money-bill-wave"></i> Валюта
+    </button>
+    <button class="category-tab" data-category="special">
+      <i class="fas fa-star"></i> Специальное
+    </button>
+  </div>
+
+  <!-- Основной контейнер магазина -->
+  <div class="shop-container">
+    <div class="shop-header">
+      <h2><i class="fas fa-shopping-bag"></i> Коллекционные предметы</h2>
+      <p class="shop-subtitle">Ежедневные предложения обновляются каждые 24 часа!</p>
+      <div class="daily-timer">
+        <i class="fas fa-clock"></i>
+        <span id="daily-timer">23:45:12</span> до обновления
+      </div>
+    </div>
+    
+    <div class="item-grid" id="item-grid">
+      <!-- Товары будут добавляться через JS -->
+    </div>
+
+    <!-- Ежедневные предложения -->
+    <div class="daily-offers">
+      <h3><i class="fas fa-fire"></i> Ежедневные предложения</h3>
+      <div class="offers-container" id="daily-offers">
+        <!-- Ежедневные предложения через JS -->
+      </div>
+    </div>
+
+    <!-- Статистика -->
+    <div class="stats-panel">
+      <div class="stat">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="total-items">0</span> куплено
+      </div>
+      <div class="stat">
+        <i class="fas fa-money-bill-wave"></i>
+        <span id="total-spent">0</span> золота потрачено
+      </div>
+      <div class="stat">
+        <i class="fas fa-trophy"></i>
+        Уровень магазина: <span id="shop-level">1</span>
+      </div>
+      <div class="stat">
+        <i class="fas fa-gift"></i>
+        <span id="daily-streak">1</span> дней подряд
+      </div>
+    </div>
+  </div>
+
+  <!-- Плавающее меню -->
+  <div id="expandable-menu">
+    <div id="menu-buttons">
+      <button class="menu-item" onclick="location.href='../pet/pet.html'">
+        <i class="fas fa-paw"></i> Питомцы
+      </button>
+      <button class="menu-item" onclick="location.href='../games/game.html'">
+        <i class="fas fa-gamepad"></i> Игры
+      </button>
+      <button class="menu-item" onclick="location.href='../pvp/pvp.html'">
+        <i class="fas fa-crosshairs"></i> PvP
+      </button>
+      <button class="menu-item active" onclick="location.href='shop.html'">
+        <i class="fas fa-shopping-cart"></i> Магазин
+      </button>
+      <button class="menu-item" onclick="location.href='../inventory/inventory.html'">
+        <i class="fas fa-box"></i> Инвентарь
+      </button>
+      <button class="menu-item" onclick="location.href='../top/top.html'">
+        <i class="fas fa-crown"></i> Топ игроков
+      </button>
+      <button class="menu-item" onclick="location.href='../index.html'">
+        <i class="fas fa-home"></i> Главная
+      </button>
+    </div>
+    <button id="expand-button" aria-label="Открыть меню" aria-expanded="false">
+      <i class="fas fa-shopping-cart"></i>
+    </button>
+  </div>
+
+  <!-- Уведомления -->
+  <div id="notification" class="notification">
+    <span id="notification-text"></span>
+  </div>
+
+  <!-- Модальное окно подтверждения покупки -->
+  <div id="purchase-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Подтверждение покупки</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-item-info">
+          <img id="modal-item-image" src="" alt="">
+          <div class="modal-item-details">
+            <h4 id="modal-item-name"></h4>
+            <p id="modal-item-description"></p>
+            <div class="modal-price">
+              <span id="modal-price-amount"></span>
+              <span id="modal-price-currency"></span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-wallet">
+          <p>Ваш баланс:</p>
+          <div class="wallet-balance">
+            <span><i class="fas fa-coins"></i> <span id="modal-gold-balance">500</span></span>
+            <span><i class="fas fa-gem"></i> <span id="modal-gems-balance">25</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn cancel-btn">Отмена</button>
+        <button class="modal-btn confirm-btn">Купить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="shop.js"></script>
+</body>
+</html>

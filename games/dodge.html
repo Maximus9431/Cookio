@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎯 Уклонение от Препятствий - Игра</title>
+  <link rel="stylesheet" href="dodge.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+</head>
+<body>
+  <!-- Декоративные элементы фона -->
+  <div class="background-elements"></div>
+
+  <div id="game-container">
+    <!-- Панель информации -->
+    <div class="game-info">
+      <div id="time-board" class="info-card">
+        <span>⏱️</span>
+        <span id="time">0</span>
+      </div>
+      
+      <div id="score-board" class="info-card">
+        <span>🏆</span>
+        <span id="score">0</span>
+      </div>
+      
+      <div id="lives-display" class="info-card">
+        <span>❤️</span>
+        <span id="lives"></span>
+      </div>
+    </div>
+
+    <!-- Счетчик комбо -->
+    <div class="combo-counter">
+      <span class="combo-icon">⚡</span>
+      <span id="combo-count">0</span>
+    </div>
+
+    <!-- Игровая область -->
+    <div id="game-area">
+      <!-- Игрок -->
+      <div id="player">
+        <div class="player-container">
+          <div class="player-ear left"></div>
+          <div class="player-body"></div>
+          <div class="player-ear right"></div>
+          <div class="player-face">😎</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Индикатор скорости -->
+    <div class="speed-indicator">
+      <span>🚀</span>
+      <div class="speed-bar">
+        <div class="speed-fill"></div>
+      </div>
+    </div>
+
+    <!-- Управление для мобильных -->
+    <div class="touch-controls">
+      <div class="touch-button left">⬅️</div>
+      <div class="touch-button right">➡️</div>
+    </div>
+
+    <!-- Кнопки управления -->
+    <div class="game-controls">
+      <button id="start-button" class="control-button">
+        <span>▶️</span> Начать игру
+      </button>
+      <button id="home-button" class="control-button" style="display: none;">
+        <span>🏠</span> В меню
+      </button>
+    </div>
+
+    <!-- Эффект замедления времени -->
+    <div id="slowmo-effect" class="slowmo-effect"></div>
+
+    <!-- Модальное окно конца игры -->
+    <div id="game-over-modal" class="game-over-modal">
+      <div class="modal-content">
+        <h2 id="result-title" class="modal-title"></h2>
+        <p>Вы продержались:</p>
+        <div class="final-time" id="final-time">0 сек</div>
+        <p>Набрано очков:</p>
+        <div class="final-score" id="final-score">0</div>
+        <div class="modal-buttons">
+          <button id="restart-button" class="modal-button">
+            <span>🔄</span> Играть снова
+          </button>
+          <button id="back-to-menu" class="modal-button">
+            <span>🏠</span> В меню игр
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dodge.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🦘 Прыжки по Платформам - Игра</title>
+  <link rel="stylesheet" href="jump.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦘</text></svg>">
+</head>
+<body>
+  <!-- Декоративные элементы фона -->
+  <div class="background-elements"></div>
+
+  <div id="game-container">
+    <!-- Панель информации -->
+    <div class="game-info">
+      <div id="score-board" class="info-card">
+        <span>🏆</span>
+        <span id="score">0</span>
+      </div>
+      
+      <div id="high-score-board" class="info-card">
+        <span>👑</span>
+        <span id="high-score">0</span>
+      </div>
+      
+      <div id="height-board" class="info-card">
+        <span>📏</span>
+        <span id="height">0</span>
+      </div>
+    </div>
+
+    <!-- Индикатор комбо -->
+    <div class="combo-indicator">
+      <span class="combo-icon">⚡</span>
+      <span id="combo-count">0</span>
+    </div>
+
+    <!-- Прогресс высоты -->
+    <div class="height-bar">
+      <div class="height-fill"></div>
+    </div>
+
+    <!-- Игровая область -->
+    <div id="game-area">
+      <!-- Игрок -->
+      <div id="player">
+        <div class="player-container">
+          <div class="player-wings left"></div>
+          <div class="player-body"></div>
+          <div class="player-wings right"></div>
+          <div class="player-face">😄</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Управление для мобильных -->
+    <div class="touch-controls">
+      <div class="touch-button left">⬅️</div>
+      <div class="touch-button jump">⬆️</div>
+      <div class="touch-button right">➡️</div>
+    </div>
+
+    <!-- Кнопки управления -->
+    <div class="game-controls">
+      <button id="start-button" class="control-button">
+        <span>▶️</span> Начать игру
+      </button>
+      <button id="home-button" class="control-button" style="display: none;">
+        <span>🏠</span> В меню
+      </button>
+    </div>
+
+    <!-- Модальное окно конца игры -->
+    <div id="game-over-modal" class="game-over-modal">
+      <div class="modal-content">
+        <h2 id="result-title" class="modal-title"></h2>
+        <p>Набрано очков:</p>
+        <div class="final-score" id="final-score">0</div>
+        <p>Максимальная высота:</p>
+        <div class="final-height" id="final-height">0</div>
+        <div class="modal-buttons">
+          <button id="restart-button" class="modal-button">
+            <span>🔄</span> Играть снова
+          </button>
+          <button id="back-to-menu" class="modal-button">
+            <span>🏠</span> В меню игр
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="jump.js"></script>
+</body>
+</html>
