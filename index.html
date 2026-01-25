@@ -45,7 +45,7 @@
           </div>
           
           <div class="egg-container" id="egg-container">
-            <div class="egg-container" id="egg-<img id="egg" src="eggs/egg_0.jpeg" alt="Яйцо" class="egg-image">
+            <img id="egg" src="eggs/egg_0.jpeg" alt="Яйцо" class="egg-image">
             <div class="crack-overlay" id="crack-overlay"></div>
             <div class="egg-glow"></div>
           </div>
@@ -177,6 +177,35 @@
   <audio id="click-sound" src="sounds/click.mp3"></audio>
   <audio id="pet-sound" src="sounds/pet-happy.mp3"></audio>
   <audio id="level-up-sound" src="sounds/level-up.mp3"></audio>
+
+  <!-- Секретная кнопка для входа в админку (скрыта по умолчанию) -->
+<div id="admin-access" style="position: fixed; bottom: 10px; left: 10px; opacity: 0.1; transition: opacity 0.3s; z-index: 9999;">
+  <button onclick="showAdminLogin()" style="background: transparent; border: none; color: white; font-size: 12px; cursor: pointer;">
+    <i class="fas fa-user-secret"></i>
+  </button>
+</div>
+
+<div id="admin-login-modal" class="modal">
+  <div class="modal-content" style="max-width: 400px;">
+    <div class="modal-header">
+      <h2><i class="fas fa-lock"></i> Вход для администратора</h2>
+      <button class="close-modal" onclick="closeAdminLogin()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="name-input" style="margin-bottom: 20px;">
+        <input type="password" id="admin-password-input" placeholder="Введите пароль администратора">
+        <p class="name-hint">Пароль по умолчанию: petgame2024admin</p>
+      </div>
+      <div style="text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+        <i class="fas fa-info-circle"></i> Для получения пароля обратитесь к разработчику
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeAdminLogin()">Отмена</button>
+      <button class="btn-primary" onclick="submitAdminLogin()">Войти</button>
+    </div>
+  </div>
+</div>
 
   <script src="script.js"></script>
 </body>

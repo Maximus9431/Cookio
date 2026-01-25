@@ -624,4 +624,112 @@ function setupEventListeners() {
   
   // Инициализация меню
   initMenu();
+
+  // Добавляем кнопку админки в меню, если пользователь авторизован
+  addAdminButtonToMenu();
+}
+
+// Админ-функции для главной страницы
+function showAdminLogin() {
+  const modal = document.getElementById('admin-login-modal');
+  modal.classList.add('show');
+  document.getElementById('admin-password-input').focus();
+}
+
+function closeAdminLogin() {
+  const modal = document.getElementById('admin-login-modal');
+  modal.classList.remove('show');
+}
+
+function submitAdminLogin() {
+  const password = document.getElementById('admin-password-input').value;
+  const correctPassword = 'petgame2024admin';
+  
+  if (password === correctPassword) {
+    localStorage.setItem('adminAuthenticated', 'true');
+    showNotification('✅ Режим администратора активирован!', 'success');
+    closeAdminLogin();
+    
+    // Добавляем кнопку админки в меню
+    addAdminButtonToMenu();
+    
+    setTimeout(() => {
+      if (confirm('Перейти в панель управления администратора?')) {
+        location.href = 'admin/admin.html';
+      }
+    }, 1000);
+  } else {
+    showNotification('❌ Неверный пароль!', 'error');
+    document.getElementById('admin-password-input').value = '';
+  }
+}
+
+// Показывать секретную кнопку при определенных условиях
+function setupAdminAccessButton() {
+  const adminAccess = document.getElementById('admin-access');
+  
+  // Показывать кнопку при двойном клике в углу или при нажатии секретной комбинации
+  document.addEventListener('click', (e) => {
+    // Если клик в левом нижнем углу (20x20 пикселей)
+    if (e.clientX < 50 && e.clientY > window.innerHeight - 50) {
+      adminAccess.style.opacity = '1';
+      setTimeout(() => {
+        adminAccess.style.opacity = '0.1';
+      }, 3000);
+    }
+  });
+  
+  // Секретная комбинация клавиш: Ctrl+Shift+A
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+      e.preventDefault();
+      showAdminLogin();
+    }
+  });
+}
+
+// Добавляем функцию addAdminButtonToMenu если она не определена
+if (typeof addAdminButtonToMenu === 'undefined') {
+  function addAdminButtonToMenu() {
+    if (!isAdminAuthenticated()) return;
+    
+    const menuButtons = document.getElementById('menu-buttons');
+    if (!menuButtons) return;
+    
+    // Проверяем, существует ли уже кнопка
+    if (document.querySelector('.menu-item-admin')) return;
+    
+    const adminButton = document.createElement('button');
+    adminButton.className = 'menu-item menu-item-admin';
+    adminButton.innerHTML = '<i class="fas fa-crown"></i> Админка';
+    adminButton.onclick = () => {
+      location.href = 'admin/admin.html';
+    };
+    
+    // Добавляем в начало меню
+    menuButtons.insertBefore(adminButton, menuButtons.firstChild);
+  }
+}
+
+// Проверка авторизации администратора
+function isAdminAuthenticated() {
+  return localStorage.getItem('adminAuthenticated') === 'true';
+}
+
+// Обновляем setupEventListeners в script.js
+// Находим эту функцию и добавляем вызов setupAdminAccessButton
+// Заменяем существующую функцию на эту:
+function setupEventListeners() {
+  // ... существующий код функции setupEventListeners ...
+  
+  // Инициализация меню
+  initMenu();
+  
+  // Настройка кнопки админ-доступа
+  setupAdminAccessButton();
+  
+  // Добавляем кнопку админки в меню, если пользователь авторизован
+  if (isAdminAuthenticated()) {
+    addAdminButtonToMenu();
+  }
 }
